@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 1
-  lastUpdatedAtString: 2020-01-21T15:00:19.449+01:00
-  initializedAtString: 2020-01-21T15:00:19.449+01:00
+  lastUpdatedAtString: 2020-01-21T15:25:51.360+01:00
+  initializedAtString: 2020-01-21T15:25:51.360+01:00
   currentGitRemote:
     name: origin
     url: https://github.com/nathan-rabet/ESU.git
@@ -24,14 +24,14 @@ MonoBehaviour:
     function: 0
     token: 
   currentGitBranch:
-    name: unity-setup
-    tracking: origin/unity-setup
+    name: master
+    tracking: origin/master
   currentConfigBranch:
-    name: unity-setup
+    name: master
     remote:
       name: origin
       url: https://github.com/nathan-rabet/ESU.git
-    trackingBranch: unity-setup
+    trackingBranch: master
   currentConfigRemote:
     name: origin
     url: https://github.com/nathan-rabet/ESU.git
