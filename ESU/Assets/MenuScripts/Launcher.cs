@@ -1,19 +1,37 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 namespace Com.DeltaPlane.ESU
 {
     public class Launcher : MonoBehaviourPunCallbacks
     {
+        #region setget
+
+        private string RoomName;
+        public void setget()
+        {
+            if (roomName_field != null)
+            {
+                RoomName = roomName_field.text;
+            }
+        }
+
+        #endregion
         #region Private Serializable Fields
 
         [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
         [SerializeField]
         private byte maxPlayersPerRoom = 6;
 
+        [Tooltip("The name of the new room.")]
+        [SerializeField]
+        private TMP_InputField roomName_field;
+        
+        
         #endregion
 
         #region Private Fields
@@ -58,7 +76,10 @@ namespace Com.DeltaPlane.ESU
         public void CreateRoom()
         {
             Debug.Log("Create a new room");
-            PhotonNetwork.CreateRoom(null, new RoomOptions());
+            setget();
+            RoomOptions newRoomOptions = new RoomOptions();
+            newRoomOptions.MaxPlayers = maxPlayersPerRoom;
+            PhotonNetwork.CreateRoom(RoomName, newRoomOptions);
         }
 
         #endregion
