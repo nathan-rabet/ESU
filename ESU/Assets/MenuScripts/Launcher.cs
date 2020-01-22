@@ -33,7 +33,7 @@ namespace Com.DeltaPlane.ESU
 
         void Start()
         {
-            Connect();
+            
         }
         #endregion
 
