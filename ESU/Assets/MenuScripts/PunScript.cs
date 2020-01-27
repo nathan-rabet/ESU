@@ -14,6 +14,7 @@ public class PunScript : MonoBehaviourPunCallbacks
         {
                 PhotonNetwork.ConnectUsingSettings();
         }
+<<<<<<< HEAD
 
         public override void OnConnectedToMaster()
         {
@@ -22,6 +23,10 @@ public class PunScript : MonoBehaviourPunCallbacks
 
 
         public override void OnJoinedLobby( )
+=======
+        
+        public void OnjoinedLobby()
+>>>>>>> multiplayer-create-join-a-room
         {
                 RoomOptions myRoomOption = new RoomOptions();
                 myRoomOption.MaxPlayers = 20;
@@ -33,6 +38,20 @@ public class PunScript : MonoBehaviourPunCallbacks
             PhotonNetwork.LeaveRoom();
         }
         public override void OnLeftRoom () 
+        {
+            SceneManager.LoadScene(0);
+        }
+
+        private void OnConnectedToMaster()
+        {
+            Debug.Log("Connected To the master");
+        }
+
+        public void LeaveTheRoom()
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+        void OnLeftRoom () 
         {
             SceneManager.LoadScene(0);
         }
