@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PunScript : MonoBehaviour
+public class PunScript : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
     public Text TxtInfosPun;
@@ -14,25 +14,25 @@ public class PunScript : MonoBehaviour
         {
                 PhotonNetwork.ConnectUsingSettings();
         }
-        
-        public void OnjoinedLobby()
+
+        public override void OnConnectedToMaster()
+        {
+            PhotonNetwork.JoinLobby (TypedLobby.Default);
+        }
+
+
+        public override void OnJoinedLobby( )
         {
                 RoomOptions myRoomOption = new RoomOptions();
                 myRoomOption.MaxPlayers = 20;
                 
                 PhotonNetwork.JoinOrCreateRoom ("OfficialRoom", myRoomOption, TypedLobby.Default);
         }
-
-        private void OnConnectedToMaster()
-        {
-            Debug.Log("Connected To the master");
-        }
-
         public void LeaveTheRoom()
         {
             PhotonNetwork.LeaveRoom();
         }
-        void OnLeftRoom () 
+        public override void OnLeftRoom () 
         {
             SceneManager.LoadScene(0);
         }
