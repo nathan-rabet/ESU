@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PhotonView;
+using Photon.Pun;
 
 public class PlayerMouvement : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class PlayerMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (view.isMine)
+        if (view.IsMine)
         {
             transform.Translate (Vector3.forward * Input.GetAxis ("Vertical") * speed * Time.deltaTime);
             transform.Rotate (Vector3.up * Input.GetAxis("Horizontal") * speed * 40 * Time.deltaTime);
