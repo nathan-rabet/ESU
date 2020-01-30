@@ -15,7 +15,14 @@ namespace ESU.Deltaplane {
 
             void Start()
             {
+                if (PhotonNetwork.NetworkClientState.ToString() == "ConnectedToMaster")
+                {
+                    PhotonNetwork.JoinLobby (TypedLobby.Default);
+                }
+                else
+                {
                     PhotonNetwork.ConnectUsingSettings();
+                }
             }
 
             public override void OnConnectedToMaster()
@@ -44,6 +51,7 @@ namespace ESU.Deltaplane {
             public override void OnLeftRoom () 
             {
                 SceneManager.LoadScene(0);
+                SceneManager.UnloadScene(1);
             }
         // Update is called once per frame
         void Update()
