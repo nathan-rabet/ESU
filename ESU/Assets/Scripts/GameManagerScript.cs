@@ -22,6 +22,7 @@ public class GameManagerScript : MonoBehaviour
     #region UI
         public GameObject teamMenuUI;
         public GameObject pauseMenuUI;
+        public GameObject connectionMenuUI;
         public GameObject infosMenuUI;
         private bool showInfos = false;
         public TMP_Text FPS;
@@ -35,8 +36,8 @@ public class GameManagerScript : MonoBehaviour
         DispDefPlayer.text = "Joueurs: 0";
         DispAttPlayer.text = "Joueurs: 0";
         
-
-        teamMenuUI.SetActive(true);
+        connectionMenuUI.SetActive(true);
+        teamMenuUI.SetActive(false);
         pauseMenuUI.SetActive(false);
         infosMenuUI.SetActive(false);
 
@@ -44,6 +45,11 @@ public class GameManagerScript : MonoBehaviour
         Cursor.visible = true;
     }
 
+    public void IsConnected ()
+    {
+        connectionMenuUI.SetActive(false);
+        teamMenuUI.SetActive(true);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -62,7 +68,7 @@ public class GameManagerScript : MonoBehaviour
         }
         if (showInfos)
         {
-            FPS.text = "FPS: " + ((int)(1.0f / Time.smoothDeltaTime)).ToString() + "\nPing: " + (PhotonNetwork.GetPing()).ToString();
+            FPS.text = "FPS: " + ((int)(1.0f / Time.smoothDeltaTime)).ToString() + "\nPing: " + (PhotonNetwork.GetPing()).ToString() + "\nClientState: " +PhotonNetwork.NetworkClientState.ToString();
         }
     }
 

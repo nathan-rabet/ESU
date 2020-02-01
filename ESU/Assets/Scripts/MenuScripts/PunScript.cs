@@ -5,14 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using Photon.Pun;
+using TMPro;
 
 namespace ESU.Deltaplane {
     public class PunScript : MonoBehaviourPunCallbacks
     {
-        public Text TxtInfosPun;
+        public GameObject gameManager;
         public Transform SpawnPoint;
         public GameObject PrefabPlayer;
         public Camera MainCamera;
+        public TMP_Text ClientState;
 
             void Start()
             {
@@ -24,11 +26,13 @@ namespace ESU.Deltaplane {
                 {
                     PhotonNetwork.ConnectUsingSettings();
                 }
+                ClientState.text = PhotonNetwork.NetworkClientState.ToString();
             }
 
             public override void OnConnectedToMaster()
             {
                 PhotonNetwork.JoinLobby (TypedLobby.Default);
+                ClientState.text = PhotonNetwork.NetworkClientState.ToString();
             }
 
 
@@ -38,17 +42,22 @@ namespace ESU.Deltaplane {
                     myRoomOption.MaxPlayers = 20;
                     
                     PhotonNetwork.JoinOrCreateRoom ("OfficialRoom", myRoomOption, TypedLobby.Default);
+                    ClientState.text = PhotonNetwork.NetworkClientState.ToString();
             }
 
             public override void OnJoinedRoom () 
             {
-                
+                ClientState.text = PhotonNetwork.NetworkClientState.ToString();
+                gameManager.GetComponent<GameManagerScript>().IsConnected();
             }
 
             public void SpawnPlayer()
             {
-                GameObject MyPlayer = PhotonNetwork.Instantiate(PrefabPlayer.name,SpawnPoint.position,Quaternion.identity,0) as GameObject;
-                MainCamera.GetComponent<TPSCamera>().lookAt = MyPlayer.transform;
+                if (PhotonNetwork.NetworkClientState.ToString() == "Joined")
+                {
+                    GameObject MyPlayer = PhotonNetwork.Instantiate(PrefabPlayer.name,SpawnPoint.position,Quaternion.identity,0) as GameObject;
+                    MainCamera.GetComponent<TPSCamera>().lookAt = MyPlayer.transform;
+                }
             }
 
             public void LeaveTheRoom()
@@ -63,7 +72,6 @@ namespace ESU.Deltaplane {
         // Update is called once per frame
         void Update()
         {
-            TxtInfosPun.text = PhotonNetwork.NetworkClientState.ToString();
         }
     }
 }
