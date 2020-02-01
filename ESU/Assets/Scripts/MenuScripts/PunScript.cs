@@ -12,6 +12,7 @@ namespace ESU.Deltaplane {
         public Text TxtInfosPun;
         public Transform SpawnPoint;
         public GameObject PrefabPlayer;
+        public Camera MainCamera;
 
             void Start()
             {
@@ -41,7 +42,8 @@ namespace ESU.Deltaplane {
 
             public override void OnJoinedRoom () 
             {
-                PhotonNetwork.Instantiate(PrefabPlayer.name,SpawnPoint.position,Quaternion.identity,0);
+                GameObject MyPlayer = PhotonNetwork.Instantiate(PrefabPlayer.name,SpawnPoint.position,Quaternion.identity,0) as GameObject;
+                MainCamera.GetComponent<TPSCamera>().lookAt = MyPlayer.transform;
             }
 
             public void LeaveTheRoom()
@@ -51,7 +53,7 @@ namespace ESU.Deltaplane {
             public override void OnLeftRoom () 
             {
                 SceneManager.LoadScene(0);
-                SceneManager.UnloadScene(1);
+                SceneManager.UnloadSceneAsync(1);
             }
         // Update is called once per frame
         void Update()

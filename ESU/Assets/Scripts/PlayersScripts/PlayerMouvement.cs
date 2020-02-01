@@ -5,21 +5,42 @@ using Photon.Pun;
 
 public class PlayerMouvement : MonoBehaviour
 {
-    public int speed = 5;
+    private Rigidbody MyRigidBody;
+
+
+    private int speed = 15;
+    private float jumpHight = 10.0f;
+    private bool canJump = true;
     PhotonView view;
 
     void Start()
     {
         view = GetComponent<PhotonView> ();
+        MyRigidBody = GetComponent <Rigidbody> ();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!canJump && MyRigidBody.velocity.y == 0) {
+            canJump = true;
+        }
+
         if (view.IsMine)
         {
-            transform.Translate (Vector3.forward * Input.GetAxis ("Vertical") * speed * Time.deltaTime);
-            transform.Rotate (Vector3.up * Input.GetAxis("Horizontal") * speed * 40 * Time.deltaTime);
+            
+
+            Vector3 dirVector = (Input.GetAxis("Horizontal") * MyRigidBody.transform.right + Input.GetAxis("Vertical") * MyRigidBody.transform.forward).normalized;
+            MyRigidBody.MovePosition (transform.position + dirVector * speed * Time.deltaTime);
+
+            Quaternion rotVector = Quaternion.Euler(0,Input.GetAxis("Mouse X") * 20,0);
+            MyRigidBody.MoveRotation (transform.rotation * rotVector);
+
+            if (canJump && Input.GetKeyDown("space"))
+            {
+                MyRigidBody.AddForce (transform.up * (int)Mathf.Sqrt(2.0f*jumpHight), ForceMode.VelocityChange);
+                canJump = false;
+            }
         }
     }
 }
