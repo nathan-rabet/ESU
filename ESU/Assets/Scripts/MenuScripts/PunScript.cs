@@ -69,6 +69,15 @@ namespace ESU.Deltaplane {
                 SceneManager.LoadScene(0);
                 SceneManager.UnloadSceneAsync(1);
             }
+
+            public override void OnPlayerEnteredRoom (Player newPlayer)
+            {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    gameManager.GetComponent<GameManagerScript>().SendToNewPlayer();
+                    Debug.Log("Appel de la fonction: SendToNewPlayer");
+                }
+            }
         // Update is called once per frame
         void Update()
         {
