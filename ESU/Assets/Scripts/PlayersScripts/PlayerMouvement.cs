@@ -8,7 +8,7 @@ public class PlayerMouvement : MonoBehaviour
     private Rigidbody MyRigidBody;
 
 
-    private int speed = 15;
+    private int speed = 50;
     private float jumpHight = 10.0f;
     private bool canJump = true;
     PhotonView view;

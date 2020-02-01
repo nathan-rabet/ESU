@@ -16,6 +16,9 @@ public class GameManagerScript : MonoBehaviour
 
         private string myTeam = null;
         private string myClass = null;
+
+        public GameObject teamMenuUI;
+        public GameObject PauseMenuUI;
         
     #endregion
 
@@ -27,6 +30,12 @@ public class GameManagerScript : MonoBehaviour
         DispDefPlayer.text = "Joueurs: 0";
         DispAttPlayer.text = "Joueurs: 0";
         
+
+        teamMenuUI.SetActive(true);
+        PauseMenuUI.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame
@@ -41,6 +50,10 @@ public class GameManagerScript : MonoBehaviour
             nbDefPlayer++;
             myTeam = "DEF";
             DispDefPlayer.text = "Joueurs: " + nbDefPlayer;
+
+            teamMenuUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
@@ -50,6 +63,10 @@ public class GameManagerScript : MonoBehaviour
             nbAttPlayer++;
             myTeam = "ATT";
             DispAttPlayer.text = "Joueurs: " + nbAttPlayer;
+
+            teamMenuUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }

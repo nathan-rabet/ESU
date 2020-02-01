@@ -42,6 +42,11 @@ namespace ESU.Deltaplane {
 
             public override void OnJoinedRoom () 
             {
+                
+            }
+
+            public void SpawnPlayer()
+            {
                 GameObject MyPlayer = PhotonNetwork.Instantiate(PrefabPlayer.name,SpawnPoint.position,Quaternion.identity,0) as GameObject;
                 MainCamera.GetComponent<TPSCamera>().lookAt = MyPlayer.transform;
             }

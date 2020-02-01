@@ -37,6 +37,7 @@ public class TPSCamera : MonoBehaviour
             sdf.text = lookAt.transform.eulerAngles.y.ToString();
             camTransform.position = lookAt.position + rotation * dir;
             
+            
             camTransform.LookAt(lookAt.position);
         }
 

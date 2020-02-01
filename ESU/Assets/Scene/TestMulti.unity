@@ -212,6 +212,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1236695118}
+        m_MethodName: SpawnPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &53562189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,6 +807,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1236695118}
+        m_MethodName: SpawnPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &790896864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,11 +976,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878708529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 457.4, y: 4.1, z: 218.3}
+  m_LocalPosition: {x: 457.4, y: 6, z: 218.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &941965173
 GameObject:
@@ -962,12 +995,12 @@ GameObject:
   - component: {fileID: 941965175}
   - component: {fileID: 941965174}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &941965174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,7 +1076,7 @@ RectTransform:
   - {fileID: 1975017745}
   - {fileID: 1367342768}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1060,6 +1093,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1027734949}
   - component: {fileID: 1027734948}
+  - component: {fileID: 1027734950}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1081,6 +1115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DispDefPlayer: {fileID: 1154164909}
   DispAttPlayer: {fileID: 2034893340}
+  teamMenuUI: {fileID: 1911970055}
+  PauseMenuUI: {fileID: 941965173}
 --- !u!4 &1027734949
 Transform:
   m_ObjectHideFlags: 0
@@ -1095,6 +1131,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1027734950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027734947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0ed96883d9271848a14aee534e62b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamMenuUI: {fileID: 1911970055}
+  PauseMenuUI: {fileID: 941965173}
 --- !u!1 &1154164907
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,7 +1513,7 @@ GameObject:
   - component: {fileID: 1911970057}
   - component: {fileID: 1911970056}
   m_Layer: 5
-  m_Name: MenuMulti
+  m_Name: TeamMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1542,7 +1592,7 @@ RectTransform:
   m_Children:
   - {fileID: 432546999}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1767,7 +1817,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2034893338
 GameObject:
