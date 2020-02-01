@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -16,10 +17,14 @@ public class GameManagerScript : MonoBehaviour
 
         private string myTeam = null;
         private string myClass = null;
-
-        public GameObject teamMenuUI;
-        public GameObject PauseMenuUI;
         
+    #endregion
+    #region UI
+        public GameObject teamMenuUI;
+        public GameObject pauseMenuUI;
+        public GameObject infosMenuUI;
+        private bool showInfos = false;
+        public TMP_Text FPS;
     #endregion
 
 
@@ -32,7 +37,8 @@ public class GameManagerScript : MonoBehaviour
         
 
         teamMenuUI.SetActive(true);
-        PauseMenuUI.SetActive(false);
+        pauseMenuUI.SetActive(false);
+        infosMenuUI.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -41,7 +47,23 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown("f3"))
+        {
+            if (showInfos)
+            {
+                infosMenuUI.SetActive(false);
+                showInfos = false;
+            }
+            else
+            {
+                infosMenuUI.SetActive(true);
+                showInfos = true;
+            }
+        }
+        if (showInfos)
+        {
+            FPS.text = "FPS: " + ((int)(1.0f / Time.smoothDeltaTime)).ToString() + "\nPing: " + (PhotonNetwork.GetPing()).ToString();
+        }
     }
 
     public void AddDefPlayer()

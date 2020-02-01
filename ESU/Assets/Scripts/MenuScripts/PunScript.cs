@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
 using Photon.Realtime;
+using Photon.Pun;
 
 namespace ESU.Deltaplane {
     public class PunScript : MonoBehaviourPunCallbacks
