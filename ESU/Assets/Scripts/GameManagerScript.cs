@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -15,8 +16,6 @@ public class GameManagerScript : MonoBehaviour
 
         public TMP_Text DispDefPlayer;
         public TMP_Text DispAttPlayer;
-
-        private string myTeam = null;
         private string myClass = null;
 
         public PhotonView view;
@@ -46,6 +45,12 @@ public class GameManagerScript : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        Hashtable hash = new Hashtable();
+        hash.Add("Team", "");
+        hash.Add("Kill", 0);
+        hash.Add("Death", 0);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
     public void IsConnected ()
@@ -74,36 +79,42 @@ public class GameManagerScript : MonoBehaviour
         if (showInfos)
         {
             FPS.text = "FPS: " + ((int)(1.0f / Time.smoothDeltaTime)).ToString() + "\nPing: " + (PhotonNetwork.GetPing()).ToString() + "\nClientState: " +PhotonNetwork.NetworkClientState.ToString()
-            + "\nAttPlayers: " + nbAttPlayer + "\nDefPlayers: " + nbDefPlayer + "\nMyTeam: " + myTeam;
+            + "\nAttPlayers: " + nbAttPlayer + "\nDefPlayers: " + nbDefPlayer + "\nMyTeam: " + PhotonNetwork.LocalPlayer.CustomProperties["Team"];
         }
     }
     #endregion
     #region PlayerGestion
     public void AddDefPlayer()
     {
-        if (nbDefPlayer<10 && myTeam==null) {
+        if (nbDefPlayer<10 && PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") {
             nbDefPlayer++;
             view.RPC ("NumberDef", RpcTarget.Others, nbDefPlayer);
-            myTeam = "DEF";
             DispDefPlayer.text = "Joueurs: " + nbDefPlayer;
 
             teamMenuUI.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            Hashtable hash = new Hashtable();
+            hash.Add("Team", "DEF");
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         }
     }
 
     public void AddAttPlayer()
     {
-        if (nbAttPlayer<10 && myTeam==null) {
+        if (nbAttPlayer<10 && PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") {
             nbAttPlayer++;
             view.RPC ("NumberAtt", RpcTarget.Others, nbAttPlayer);
-            myTeam = "ATT";
             DispAttPlayer.text = "Joueurs: " + nbAttPlayer;
 
             teamMenuUI.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            Hashtable hash = new Hashtable();
+            hash.Add("Team", "ATT");
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         }
     }
     #endregion
