@@ -67,7 +67,7 @@ namespace ESU.Deltaplane {
             public override void OnLeftRoom () 
             {
                 SceneManager.LoadScene(0);
-                SceneManager.UnloadSceneAsync(1);
+                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
             }
 
             public override void OnPlayerEnteredRoom (Player newPlayer)
