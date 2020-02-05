@@ -15,11 +15,13 @@ public class TPSCamera : MonoBehaviour
 
     private float distance = 10.0f;
     private float currentY = 0.0f;
+    private float currentRotation = 0.0f;
 
     private void Start()
     {
         camTransform = transform;
         cam = Camera.main;
+        
     }
 
     private void Update(){
@@ -29,7 +31,7 @@ public class TPSCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (lookAt != null)
+        if (lookAt != null) //Mouvement de camera pour le perso
         {
             Vector3 dir = new Vector3(0,0,-distance);
             Quaternion rotation = Quaternion.Euler(currentY, lookAt.transform.eulerAngles.y,0);
@@ -38,7 +40,21 @@ public class TPSCamera : MonoBehaviour
             
             camTransform.LookAt(lookAt.position);
         }
-
+        else //Mouvement de camera pour le menu
+        {
+            Vector3 poscentre = new Vector3(325,0,250);
+            Vector3 dir = new Vector3(0,0,-50);
+            Quaternion rotation = Quaternion.Euler(50, currentRotation,0);
+            camTransform.position = poscentre + rotation * dir;
+            camTransform.LookAt(poscentre);
+            if (currentRotation<360)
+            {
+                currentRotation += 10 * Time.deltaTime;
+            }else
+            {
+                currentRotation = 0;
+            }
+        }
     }
 
 }
