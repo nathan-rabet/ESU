@@ -25,6 +25,7 @@ public class GameManagerScript : MonoBehaviour
         public GameObject teamMenuUI;
         public GameObject pauseMenuUI;
         public GameObject connectionMenuUI;
+        public GameObject scoreboardMenu;
         public GameObject infosMenuUI;
         private bool showInfos = false;
         public TMP_Text FPS;
@@ -76,6 +77,30 @@ public class GameManagerScript : MonoBehaviour
                 showInfos = true;
             }
         }
+        if (Input.GetKeyDown("escape"))
+        {
+            if (pauseMenuUI.active)
+            {
+                pauseMenuUI.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                pauseMenuUI.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+        if (Input.GetKeyDown("tab"))
+        {
+            scoreboardMenu.SetActive(true);
+        }
+        if (Input.GetKeyUp("tab"))
+        {
+            scoreboardMenu.SetActive(false);
+        }
+
         if (showInfos)
         {
             FPS.text = "FPS: " + ((int)(1.0f / Time.smoothDeltaTime)).ToString() + "\nPing: " + (PhotonNetwork.GetPing()).ToString() + "\nClientState: " +PhotonNetwork.NetworkClientState.ToString()
