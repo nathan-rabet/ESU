@@ -11,12 +11,14 @@ public class PlayerMouvement : MonoBehaviour
     private int speed = 50;
     private float jumpHight = 10.0f;
     private bool canJump = true;
+    public GameObject mainCamera;
     PhotonView view;
 
     void Start()
     {
         view = GetComponent<PhotonView> ();
         MyRigidBody = GetComponent <Rigidbody> ();
+        mainCamera = GameObject.FindWithTag("MainCamera");
     }
 
     // Update is called once per frame
@@ -32,13 +34,19 @@ public class PlayerMouvement : MonoBehaviour
 
             Vector3 dirVector = (Input.GetAxis("Horizontal") * MyRigidBody.transform.right + Input.GetAxis("Vertical") * MyRigidBody.transform.forward).normalized;
             MyRigidBody.MovePosition (transform.position + dirVector * speed * Time.deltaTime);
-
-            Quaternion rotVector = Quaternion.Euler(0,Input.GetAxis("Mouse X") * 20,0);
-            MyRigidBody.MoveRotation (transform.rotation * rotVector);
+            Quaternion newrot = newrot = Quaternion.Slerp(transform.rotation, mainCamera.transform.rotation, 10f * Time.deltaTime);
+            if ( Input.GetKey("mouse 1") )
+            {
+                newrot.Set(0, mainCamera.transform.rotation.y , 0, mainCamera.transform.rotation.w);
+            }else
+            {
+                newrot.Set(0, newrot.y , 0, newrot.w);
+            }
+            transform.rotation = newrot;
 
             if (canJump && Input.GetKeyDown("space"))
             {
-                MyRigidBody.AddForce (transform.up * (int)Mathf.Sqrt(2.0f*jumpHight), ForceMode.VelocityChange);
+                MyRigidBody.AddForce (transform.up * (int)Mathf.Sqrt(3.0f*jumpHight), ForceMode.VelocityChange);
                 canJump = false;
             }
         }
