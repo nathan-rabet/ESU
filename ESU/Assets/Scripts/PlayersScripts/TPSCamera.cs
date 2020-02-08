@@ -41,6 +41,7 @@ public class TPSCamera : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(currentY, currentX,0);
             if (scope)
             {
+                int disEpaule = 5;
                 camTransform.position = lookAt.position + rotation * dirScope;
             }else
             {

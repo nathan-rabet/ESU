@@ -8,7 +8,7 @@ public class PlayerMouvement : MonoBehaviour
     private Rigidbody MyRigidBody;
 
 
-    private float speed = 0.5f;
+    private float speed = 0.15f;
     private float jumpHight = 10.0f;
     private bool canJump = true;
     public GameObject mainCamera;
@@ -24,14 +24,13 @@ public class PlayerMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!canJump && MyRigidBody.velocity.y == 0) {
-            canJump = true;
-        }
 
         if (view.IsMine)
         {
             
-
+            if (!canJump && MyRigidBody.velocity.y == 0) {
+                canJump = true;
+            }
             Vector3 dirVector = (Input.GetAxis("Horizontal") * MyRigidBody.transform.right + Input.GetAxis("Vertical") * MyRigidBody.transform.forward).normalized;
             MyRigidBody.MovePosition (transform.position + dirVector * speed);
             Quaternion newrot = newrot = Quaternion.Slerp(transform.rotation, mainCamera.transform.rotation, 10f * Time.deltaTime);

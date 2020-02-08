@@ -18,6 +18,8 @@ namespace ESU.Deltaplane {
 
             void Start()
             {
+                PhotonNetwork.SendRate = 20;
+                PhotonNetwork.SerializationRate = 15;
                 if (PhotonNetwork.NetworkClientState.ToString() == "ConnectedToMaster")
                 {
                     PhotonNetwork.JoinLobby (TypedLobby.Default);
