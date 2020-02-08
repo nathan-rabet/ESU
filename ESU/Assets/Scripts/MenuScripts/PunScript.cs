@@ -7,7 +7,6 @@ using Photon.Realtime;
 using Photon.Pun;
 using TMPro;
 
-namespace ESU.Deltaplane {
     public class PunScript : MonoBehaviourPunCallbacks
     {
         public GameObject gameManager;
@@ -85,4 +84,3 @@ namespace ESU.Deltaplane {
         {
         }
     }
-}
