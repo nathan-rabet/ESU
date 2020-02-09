@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="019e04f2-e67e-4e4f-b8f8-22042e2bb182" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Low Poly Water/Plane Meshes/Plane10x10W250H250.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Low Poly Water/Plane Meshes/Plane10x10W250H250.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Map.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Map.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayersScripts/PlayerMouvement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayersScripts/PlayerMouvement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,6 +19,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/LowPolyWater_Pack/Scripts/Editor/GeneratePlane.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayersScripts/PlayerMouvement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Animator_Controller.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Animator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayersScripts/PlayerMouvement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Animator_Controller.cs" />
+      </list>
+    </option>
   </component>
   <component name="ProjectId" id="1XAywTVTaJq6Yxs9aA2xRLR3RtX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -64,6 +84,16 @@
       <workItem from="1580503485502" duration="6000" />
       <workItem from="1580929400266" duration="9000" />
       <workItem from="1580935970150" duration="2000" />
+      <workItem from="1581174918166" duration="597000" />
+      <workItem from="1581176058981" duration="940000" />
+      <workItem from="1581178042567" duration="782000" />
+      <workItem from="1581178998517" duration="52000" />
+      <workItem from="1581179140950" duration="87000" />
+      <workItem from="1581179543732" duration="329000" />
+      <workItem from="1581251016535" duration="924000" />
+      <workItem from="1581252602291" duration="474000" />
+      <workItem from="1581253174882" duration="107000" />
+      <workItem from="1581253332264" duration="1782000" />
     </task>
     <servers />
   </component>

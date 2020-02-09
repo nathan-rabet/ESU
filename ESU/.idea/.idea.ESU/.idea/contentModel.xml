@@ -8,6 +8,7 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Animator_Controller.cs" t="Include" />
         <e p="Arkham Interactive" t="Include">
           <e p="Toony" t="Include">
             <e p="Skies" t="Include">
@@ -36,6 +37,9 @@
               <e p="LowPolyUnlitShader.shader" t="Include" />
             </e>
           </e>
+        </e>
+        <e p="Five Seamless Tileable Ground Textures" t="Include">
+          <e p="read me.txt" t="Include" />
         </e>
         <e p="LowPolyWater_Pack" t="Include">
           <e p="LowPoly Island" t="Include">

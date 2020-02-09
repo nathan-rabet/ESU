@@ -8,7 +8,8 @@ public class PlayerMouvement : MonoBehaviour
     private Rigidbody MyRigidBody;
 
 
-    private float speed = 0.15f;
+
+    private float speed = 0.08f;
     private float jumpHight = 10.0f;
     private bool canJump = true;
     public GameObject mainCamera;
@@ -18,6 +19,7 @@ public class PlayerMouvement : MonoBehaviour
     {
         view = GetComponent<PhotonView> ();
         MyRigidBody = GetComponent <Rigidbody> ();
+
         mainCamera = GameObject.FindWithTag("MainCamera");
     }
 
@@ -25,11 +27,21 @@ public class PlayerMouvement : MonoBehaviour
     void Update()
     {
 
+
         if (view.IsMine)
         {
             
             if (!canJump && MyRigidBody.velocity.y == 0) {
                 canJump = true;
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = 0.15f;
+            }
+            else
+            {
+                speed = 0.08f;
             }
             Vector3 dirVector = (Input.GetAxis("Horizontal") * MyRigidBody.transform.right + Input.GetAxis("Vertical") * MyRigidBody.transform.forward).normalized;
             MyRigidBody.MovePosition (transform.position + dirVector * speed);
