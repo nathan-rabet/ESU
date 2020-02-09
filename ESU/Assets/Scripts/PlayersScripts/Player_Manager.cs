@@ -60,9 +60,15 @@ public class Player_Manager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage(int damage)
     {
-        
+        if (health>damage)
+        {
+            health-=damage;
+        }
+        else
+        {
+            health=0;
+        }
     }
 }
