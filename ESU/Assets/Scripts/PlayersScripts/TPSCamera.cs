@@ -17,8 +17,8 @@ public class TPSCamera : MonoBehaviour
     private float currentRotation = 0.0f;
     private bool scope = false;
     public bool Scope() => scope;
-    private Vector3 dirNoScope = new Vector3(0,0,-10.0f);
-    private Vector3 dirScope = new Vector3(0,0,-5.0f);
+    private Vector3 dirNoScope = new Vector3(0,0,-2.5f);
+    private Vector3 dirScope = new Vector3(0,0,-1.0f);
 
     private void Start()
     {
@@ -41,7 +41,6 @@ public class TPSCamera : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(currentY, currentX,0);
             if (scope)
             {
-                int disEpaule = 5;
                 camTransform.position = lookAt.position + rotation * dirScope;
             }else
             {
