@@ -57,7 +57,7 @@ using TMPro;
                 if (PhotonNetwork.NetworkClientState.ToString() == "Joined")
                 {
                     GameObject MyPlayer = PhotonNetwork.Instantiate(PrefabPlayer.name,SpawnPoint.position,Quaternion.identity,0) as GameObject;
-                    MainCamera.GetComponent<TPSCamera>().lookAt = MyPlayer.transform;
+                    MainCamera.GetComponent<TPSCamera>().lookAt = MyPlayer.transform.Find("posCam").transform;
                 }
             }
 

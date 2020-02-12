@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TPSCamera : MonoBehaviour
 {
+    public GameObject InGameHUD;
     private const float Y_ANGLE_MIN = -50.0f;
     private const float Y_ANGLE_MAX = 50.0f;
     
@@ -15,37 +16,81 @@ public class TPSCamera : MonoBehaviour
     private float currentY = 0.0f;
     private float currentX = 0.0f;
     private float currentRotation = 0.0f;
-    private bool scope = false;
-    public bool Scope() => scope;
-    private Vector3 dirNoScope = new Vector3(0,0,-10.0f);
-    private Vector3 dirScope = new Vector3(0,0,-5.0f);
+
+        #region Viser
+        float currentTime;
+        float startTime;
+        Vector3 startVise;
+        private float tempsDeVise = 0.2f;
+        private bool scope = false;
+        public bool Scope() => scope;
+        #endregion
+    private Vector3 dirNoScope = new Vector3(0,0,-2.5f);
+    private Vector3 dirScope = new Vector3(0,0,-1.0f);
 
     private void Start()
     {
         camTransform = transform;
         cam = Camera.main;
+        startVise = transform.position;
+        currentTime = Time.time;
+        startTime = Time.time;
     }
 
     private void Update(){
-        currentY += Input.GetAxis("Mouse Y");
+        currentY -= Input.GetAxis("Mouse Y");
         currentY = Mathf.Clamp(currentY,Y_ANGLE_MIN,Y_ANGLE_MAX);
         currentX += Input.GetAxis("Mouse X") * 20.0f;
 
-        scope = Input.GetKey("mouse 1");
+        
     }
 
     private void LateUpdate()
     {
         if (lookAt != null) //Mouvement de camera pour le perso
         {
+            //Recup du clic droit
+            if (Input.GetKeyDown("mouse 1"))
+            {
+                scope = true;
+                startVise = transform.position;
+            
+                startTime = Time.time;
+                currentTime = startTime;
+            }
+            if (Input.GetKeyUp("mouse 1"))
+            {
+                scope = false;
+                startVise = transform.position;
+            
+                startTime = Time.time;
+                currentTime = startTime;
+            }
+
+            //Posiotion de la cam
             Quaternion rotation = Quaternion.Euler(currentY, currentX,0);
+            currentTime += Time.deltaTime;
+            float time = (currentTime - startTime) / tempsDeVise;
             if (scope)
             {
-                int disEpaule = 5;
-                camTransform.position = lookAt.position + rotation * dirScope;
+                InGameHUD.SetActive(true);
+                if (time>1)
+                {
+                    camTransform.position = lookAt.position + rotation * dirScope;
+                }else
+                {
+                    camTransform.position = Vector3.Slerp(startVise, lookAt.position + rotation * dirScope, (currentTime - startTime) / tempsDeVise);
+                }
             }else
             {
-                camTransform.position = lookAt.position + rotation * dirNoScope;
+                InGameHUD.SetActive(false);
+                if (time>1)
+                {
+                    camTransform.position = lookAt.position + rotation * dirNoScope;
+                }else
+                {
+                    camTransform.position = Vector3.Slerp(startVise, lookAt.position + rotation * dirNoScope, (currentTime - startTime) / tempsDeVise);
+                }
             }
             
             
