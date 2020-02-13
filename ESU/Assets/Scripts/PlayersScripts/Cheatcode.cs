@@ -15,7 +15,7 @@ public class Cheatcode : MonoBehaviour
     {
         if (Input.GetKeyDown("k"))
         {
-            transform.GetComponent<Player_Manager>().Death();
+            transform.GetComponent<Player_Manager>().Death("le Vide", 5);
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon;
+using TMPro;
 
 public class Player_Manager : MonoBehaviour
 {
@@ -22,13 +25,19 @@ public class Player_Manager : MonoBehaviour
         LanceFlamme = 4
     }
     
+    public PhotonView view;
     public Classe myClass;
     private int health;
     private List<Armes> weaponsInventory;
     private int selectedWeapon = 0;
 
+    public GameObject gamemanager;
+
     void Start()
     {
+        //Set des variables
+        gamemanager = GameObject.Find("/GAME/GameManager");
+        weaponsInventory = new List<Armes>();
         switch(myClass)
         {
             case Classe.Policier:
@@ -60,6 +69,7 @@ public class Player_Manager : MonoBehaviour
         }
     }
 
+    //Fonction perdre de la vie
     public void TakeDamage(int damage)
     {
         if (health>damage)
@@ -69,16 +79,37 @@ public class Player_Manager : MonoBehaviour
         else
         {
             health=0;
-            Death();
+            Death("Oui", 5);
         }
     }
 
-    public void Death()
+
+    //Protocol de mort
+    public void Death(string Killer, int respTime)
     {
-        transform.GetComponent<PlayerMouvement>().enabled = false;
-        transform.Find("Model").gameObject.SetActive(false);
-        Rigidbody rb = GetComponent <Rigidbody> ();
-        rb.isKinematic = false;
-        rb.detectCollisions = true;
+        if (view.IsMine)
+        {
+            //Affichage du HUD 
+            gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime);
+
+            //APPEL RPC
+            view.RPC("rpcDeath", RpcTarget.Others, view.ViewID, Killer);
+
+            //Gestion du Player
+            transform.GetComponent<PlayerMouvement>().enabled = false;
+            transform.Find("Model").gameObject.SetActive(false);
+            Rigidbody rb = GetComponent <Rigidbody> ();
+            rb.isKinematic = false;
+            rb.detectCollisions = true;
+        }
+    }
+
+    //Destruction
+    public void DestroyMe()
+    {
+        if (view.IsMine)
+        {
+            Destroy(gameObject);
+        }
     }
 }

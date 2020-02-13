@@ -470,9 +470,10 @@ GameObject:
   - component: {fileID: 5912796820023060040}
   - component: {fileID: 6593197709673776018}
   - component: {fileID: 4744049521408178066}
+  - component: {fileID: 6485566211965330858}
   m_Layer: 0
   m_Name: Policier
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -676,7 +677,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc3f32e91f6aea040994dadc6034727a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 970270358802399847}
   myClass: 0
+  gamemanager: {fileID: 0}
+--- !u!114 &6485566211965330858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970270358802399833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5d91777bd0bc143b9aa0075630b156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  view: {fileID: 970270358802399847}
 --- !u!1 &970270358855739402
 GameObject:
   m_ObjectHideFlags: 0
