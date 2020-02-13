@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TPSCamera : MonoBehaviour
 {
-    public GameObject InGameHUD;
+    public GameObject cursorHUD;
     private const float Y_ANGLE_MIN = -50.0f;
     private const float Y_ANGLE_MAX = 50.0f;
     
@@ -73,7 +73,7 @@ public class TPSCamera : MonoBehaviour
             float time = (currentTime - startTime) / tempsDeVise;
             if (scope)
             {
-                InGameHUD.SetActive(true);
+                cursorHUD.SetActive(true);
                 if (time>1)
                 {
                     camTransform.position = lookAt.position + rotation * dirScope;
@@ -83,7 +83,7 @@ public class TPSCamera : MonoBehaviour
                 }
             }else
             {
-                InGameHUD.SetActive(false);
+                cursorHUD.SetActive(false);
                 if (time>1)
                 {
                     camTransform.position = lookAt.position + rotation * dirNoScope;

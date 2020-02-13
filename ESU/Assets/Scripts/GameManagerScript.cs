@@ -27,6 +27,7 @@ public class GameManagerScript : MonoBehaviour
         public GameObject connectionMenuUI;
         public GameObject scoreboardMenu;
         public GameObject infosMenuUI;
+        public GameObject InGameHUD;
         private bool showInfos = false;
         public TMP_Text FPS;
     #endregion
@@ -43,6 +44,7 @@ public class GameManagerScript : MonoBehaviour
         teamMenuUI.SetActive(false);
         pauseMenuUI.SetActive(false);
         infosMenuUI.SetActive(false);
+        InGameHUD.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -119,6 +121,7 @@ public class GameManagerScript : MonoBehaviour
             teamMenuUI.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            InGameHUD.SetActive(true);
 
             Hashtable hash = new Hashtable();
             hash.Add("Team", "DEF");
@@ -136,6 +139,7 @@ public class GameManagerScript : MonoBehaviour
             teamMenuUI.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            InGameHUD.SetActive(true);
 
             Hashtable hash = new Hashtable();
             hash.Add("Team", "ATT");

@@ -69,6 +69,16 @@ public class Player_Manager : MonoBehaviour
         else
         {
             health=0;
+            Death();
         }
+    }
+
+    public void Death()
+    {
+        transform.GetComponent<PlayerMouvement>().enabled = false;
+        transform.Find("Model").gameObject.SetActive(false);
+        Rigidbody rb = GetComponent <Rigidbody> ();
+        rb.isKinematic = false;
+        rb.detectCollisions = true;
     }
 }
