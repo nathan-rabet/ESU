@@ -70,16 +70,20 @@ public class Player_Manager : MonoBehaviour
     }
 
     //Fonction perdre de la vie
-    public void TakeDamage(int damage)
+    public void TakeDamage(int viewID, int damage, string Killer)
     {
-        if (health>damage)
+        Debug.Log("TEST");
+        if (viewID==view.ViewID)
         {
-            health-=damage;
-        }
-        else
-        {
-            health=0;
-            Death("Oui", 5);
+            if (health>damage)
+            {
+                health-=damage;
+            }
+            else
+            {
+                health=0;
+                Death(Killer, 5);
+            }
         }
     }
 

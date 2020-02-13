@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon;
 
 public class PistoletScript : MonoBehaviour
 {
     public int damage = 10;
     public float range = 100f;
     public GameObject mainCam;
+    PhotonView view;
 
 
     void Start()
     {
+        view = GetComponent<PhotonView> ();
         mainCam = GameObject.FindWithTag("MainCamera");
     }
     void Update()
@@ -29,7 +33,7 @@ public class PistoletScript : MonoBehaviour
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * range, Color.white);
             if (hit.transform.gameObject.tag == "Player")
             {
-                transform.GetComponent<Player_Manager>().TakeDamage(damage);
+                view.RPC("dealDammage", RpcTarget.Others,hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, "Jacky Tuning");
             }
         }
     }

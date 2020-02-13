@@ -129,6 +129,7 @@ public class GameManagerScript : MonoBehaviour
                     p.GetComponent<Player_Manager>().DestroyMe();
                 }
                 GameObject.Find("/GAME/PunManager").GetComponent<PunScript>().SpawnPlayer();
+                InGameHUD.SetActive(true);
                 StadeGame = "INGAME";
             }
             break;
