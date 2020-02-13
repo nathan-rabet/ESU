@@ -16,7 +16,7 @@ public class AppelRCP : MonoBehaviour
     }
 
     [PunRPC]
-    void rpcDeath (int viewID, string Killer, int respTime)
+    void rpcDeath (int viewID, string Killer)
     {
         Destroy(PhotonView.Find(viewID).gameObject);
     }

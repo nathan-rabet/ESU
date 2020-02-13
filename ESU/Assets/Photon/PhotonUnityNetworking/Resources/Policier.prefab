@@ -471,6 +471,7 @@ GameObject:
   - component: {fileID: 6593197709673776018}
   - component: {fileID: 4744049521408178066}
   - component: {fileID: 6485566211965330858}
+  - component: {fileID: -5690014432524389588}
   m_Layer: 0
   m_Name: Policier
   m_TagString: Player
@@ -693,6 +694,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 970270358802399847}
+--- !u!114 &-5690014432524389588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970270358802399833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c0ba41beb263e458f281871327bcbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  range: 100
+  mainCam: {fileID: 0}
 --- !u!1 &970270358855739402
 GameObject:
   m_ObjectHideFlags: 0
