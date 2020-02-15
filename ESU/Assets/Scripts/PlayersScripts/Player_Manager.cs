@@ -38,6 +38,8 @@ public class Player_Manager : MonoBehaviour
         //Set des variables
         gamemanager = GameObject.Find("/GAME/GameManager");
         weaponsInventory = new List<Armes>();
+
+        //Donne les caractéristiques de la classe
         switch(myClass)
         {
             case Classe.Policier:
@@ -72,10 +74,9 @@ public class Player_Manager : MonoBehaviour
     //Fonction perdre de la vie
     public void TakeDamage(int viewID, int damage, string Killer)
     {
-        Debug.Log("TEST");
-        if (viewID==view.ViewID)
+        if (viewID==view.ViewID) //Test si on est la personne tuer
         {
-            if (health>damage)
+            if (health>damage) //Diminution de la vie
             {
                 health-=damage;
             }
@@ -94,17 +95,17 @@ public class Player_Manager : MonoBehaviour
         if (view.IsMine)
         {
             //Affichage du HUD 
-            gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime);
+            gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime); //Appel de la function HUDMort de GameManagerScript
 
             //APPEL RPC
-            view.RPC("rpcDeath", RpcTarget.Others, view.ViewID, Killer);
+            view.RPC("rpcDeath", RpcTarget.Others, view.ViewID, Killer); //Envoi ma mort aux autres
 
             //Gestion du Player
-            transform.GetComponent<PlayerMouvement>().enabled = false;
-            transform.Find("Model").gameObject.SetActive(false);
+            transform.GetComponent<PlayerMouvement>().enabled = false; //Désactive les mouvement
+            transform.Find("Model").gameObject.SetActive(false); //Cache le model
             Rigidbody rb = GetComponent <Rigidbody> ();
             rb.isKinematic = false;
-            rb.detectCollisions = true;
+            rb.detectCollisions = false; //désactive les collision
         }
     }
 
@@ -113,7 +114,7 @@ public class Player_Manager : MonoBehaviour
     {
         if (view.IsMine)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); //Détruit le gameObject coté client
         }
     }
 }

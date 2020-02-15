@@ -7,17 +7,28 @@ using Photon.Pun;
 using Photon;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
+//
+// Ce script se concentre sur l'affichage des Canvas/HUD durant les différent
+// états de la partie.
+//
+// PS: Vincent c'est ici ou tu peut gérer HUD en cours de partie (vie, inventaire, etc...)
+
 public class GameManagerScript : MonoBehaviour
 {
     #region DefVariable
 
-        string StadeGame = "CONNECTION";
+        string StadeGame = "CONNECTION"; //Variable sur l'état de la partie. 
+                                         //Elle permet de savoir si le joueur choisit son équipe ou classe.
+                                         //Si il en jeu en vie ou mort ect...
+                                         //Elle permet d'éviter que le joueur est la possibilité d'activé
+                                         //des interfaces et donc de les superposé.
+                                         //(Par exemple le tableau des score pendant le choix de classe)
         
-        private int nbDefPlayer = 0;
-        private int nbAttPlayer = 0;
+        private int nbDefPlayer = 0; //Variable sur le nombre de Def (A changé c'est de la merde)
+        private int nbAttPlayer = 0; //Variable sur le nombre de Att (A changé c'est de la merde)
 
-        public TMP_Text DispDefPlayer;
-        public TMP_Text DispAttPlayer;
+        public TMP_Text DispDefPlayer; //Recup du text sur le nombre de déf a afficher
+        public TMP_Text DispAttPlayer; //Recup du text sur le nombre de att a afficher
         private string myClass = null;
 
         public PhotonView view;
@@ -121,16 +132,16 @@ public class GameManagerScript : MonoBehaviour
             break;
 
             case "EN_ATT_REAPARITION":
-            if (Input.anyKey)
+            if (Input.anyKey) //Si une touche appuyer
             {
-                DeathHUD.SetActive(false);
-                foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+                DeathHUD.SetActive(false); //Désactivation de l'HUD de mort
+                foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player")) //Boucle de recherche sur les joueurs
                 {
-                    p.GetComponent<Player_Manager>().DestroyMe();
+                    p.GetComponent<Player_Manager>().DestroyMe(); //Appel la MORT (issou)
                 }
-                GameObject.Find("/GAME/PunManager").GetComponent<PunScript>().SpawnPlayer();
-                InGameHUD.SetActive(true);
-                StadeGame = "INGAME";
+                GameObject.Find("/GAME/PunManager").GetComponent<PunScript>().SpawnPlayer(); //Respawn de moi
+                InGameHUD.SetActive(true); //Activation de l'HUD dans la partie en vie
+                StadeGame = "INGAME"; //Statue de la partie en partie
             }
             break;
         }
@@ -188,13 +199,13 @@ public class GameManagerScript : MonoBehaviour
     }
     #endregion
     #region PhotonPun
-        public void SendToNewPlayer ()
+        public void SendToNewPlayer () //Function d'envoie de donné sur la partie
         {
             if (PhotonNetwork.IsMasterClient)
                 {
                     Debug.Log("Envoie du nombre de perso par Team" + nbAttPlayer + " " + nbDefPlayer );
-                    view.RPC ("NumberAtt", RpcTarget.Others, nbAttPlayer);
-                    view.RPC ("NumberDef", RpcTarget.Others, nbDefPlayer);
+                    view.RPC ("NumberAtt", RpcTarget.Others, nbAttPlayer); //Envoi att
+                    view.RPC ("NumberDef", RpcTarget.Others, nbDefPlayer); //Envoi def
                 }
         }
     #endregion

@@ -14,26 +14,25 @@ public class PistoletScript : MonoBehaviour
 
     void Start()
     {
-        view = GetComponent<PhotonView> ();
-        mainCam = GameObject.FindWithTag("MainCamera");
+        view = GetComponent<PhotonView> (); //Cherche la vue
+        mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
     }
     void Update()
     {
-        if (Input.GetKeyDown("mouse 0"))
+        if (Input.GetKeyDown("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
         {
-            Shoot();
+            Shoot(); //Tir
         }
     }
 
     private void Shoot()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, range))
+        RaycastHit hit; //Set de la variable de type RaycastHit(donné sur l'object toucher)
+        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, range)) //Envoi du tir
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * range, Color.white);
-            if (hit.transform.gameObject.tag == "Player")
+            if (hit.transform.gameObject.tag == "Player") //Si l'objet touché est un joueur
             {
-                view.RPC("dealDammage", RpcTarget.Others,hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, "Jacky Tuning");
+                view.RPC("dealDammage", RpcTarget.Others,hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, "Jacky Tuning"); //Envoi des dégâts
             }
         }
     }

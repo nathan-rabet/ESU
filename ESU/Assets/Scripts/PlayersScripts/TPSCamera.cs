@@ -49,7 +49,7 @@ public class TPSCamera : MonoBehaviour
     {
         if (lookAt != null) //Mouvement de camera pour le perso
         {
-            //Recup du clic droit
+            //Recup du clic droit pour transition
             if (Input.GetKeyDown("mouse 1"))
             {
                 scope = true;
@@ -67,48 +67,49 @@ public class TPSCamera : MonoBehaviour
                 currentTime = startTime;
             }
 
-            //Posiotion de la cam
+            //Position de la cam
             Quaternion rotation = Quaternion.Euler(currentY, currentX,0);
+            //Set des var de temps
             currentTime += Time.deltaTime;
             float time = (currentTime - startTime) / tempsDeVise;
-            if (scope)
+            if (scope) //Si entrain de viser
             {
-                cursorHUD.SetActive(true);
-                if (time>1)
+                cursorHUD.SetActive(true); //Activation du curseur
+                if (time>1) //Si on a fini la transition
                 {
-                    camTransform.position = lookAt.position + rotation * dirScope;
+                    camTransform.position = lookAt.position + rotation * dirScope; //Suivit instantané
                 }else
                 {
-                    camTransform.position = Vector3.Slerp(startVise, lookAt.position + rotation * dirScope, (currentTime - startTime) / tempsDeVise);
+                    camTransform.position = Vector3.Slerp(startVise, lookAt.position + rotation * dirScope, (currentTime - startTime) / tempsDeVise); //Transition de Zoom
                 }
             }else
             {
-                cursorHUD.SetActive(false);
+                cursorHUD.SetActive(false);//Desactivation du curseur
                 if (time>1)
                 {
-                    camTransform.position = lookAt.position + rotation * dirNoScope;
+                    camTransform.position = lookAt.position + rotation * dirNoScope; //Suivit instantané
                 }else
                 {
-                    camTransform.position = Vector3.Slerp(startVise, lookAt.position + rotation * dirNoScope, (currentTime - startTime) / tempsDeVise);
+                    camTransform.position = Vector3.Slerp(startVise, lookAt.position + rotation * dirNoScope, (currentTime - startTime) / tempsDeVise); //Transition de Dezoom
                 }
             }
             
             
-            camTransform.LookAt(lookAt.position);
+            camTransform.LookAt(lookAt.position); //Regarde devant
         }
         else //Mouvement de camera pour le menu
         {
-            Vector3 poscentre = new Vector3(325,0,250);
-            Vector3 dir = new Vector3(0,0,-50);
-            Quaternion rotation = Quaternion.Euler(50, currentRotation,0);
-            camTransform.position = poscentre + rotation * dir;
-            camTransform.LookAt(poscentre);
-            if (currentRotation<360)
+            Vector3 poscentre = new Vector3(325,0,250); //Position du centre
+            Vector3 dir = new Vector3(0,0,-50); //Distance du centre
+            Quaternion rotation = Quaternion.Euler(50, currentRotation,0); //Rotation
+            camTransform.position = poscentre + rotation * dir; //Set la pos de la cam
+            camTransform.LookAt(poscentre); //regarde le centre
+            if (currentRotation<360) 
             {
-                currentRotation += 10 * Time.deltaTime;
+                currentRotation += 10 * Time.deltaTime; //Tourne la cam
             }else
             {
-                currentRotation = 0;
+                currentRotation = 0; //Reset du tour
             }
         }
     }
