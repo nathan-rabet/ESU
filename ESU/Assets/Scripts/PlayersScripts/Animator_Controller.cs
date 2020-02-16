@@ -40,6 +40,33 @@ public class Animator_Controller : MonoBehaviour
             {
                 anim.SetBool("run", false);
             }
+            
+            if (Input.GetKey(KeyCode.S))
+            {
+                anim.SetBool("back", true);
+            }
+            else
+            {
+                anim.SetBool("back", false);
+            }
+            
+            if (Input.GetKey(KeyCode.A))
+            {
+                anim.SetBool("left", true);
+            }
+            else
+            {
+                anim.SetBool("left", false);
+            }
+            
+            if (Input.GetKey(KeyCode.D))
+            {
+                anim.SetBool("right", true);
+            }
+            else
+            {
+                anim.SetBool("right", false);
+            }
 
             if (Input.GetKey("space"))
             {
@@ -49,6 +76,8 @@ public class Animator_Controller : MonoBehaviour
             {
                 anim.SetBool("jump", false);
             }
+            
+            
 
             if (MyRigidBody.velocity.y < -2)
             {

@@ -651,6 +651,15 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: chute
+  - Type: 4
+    SynchronizeType: 0
+    Name: back
+  - Type: 4
+    SynchronizeType: 0
+    Name: right
+  - Type: 4
+    SynchronizeType: 0
+    Name: left
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

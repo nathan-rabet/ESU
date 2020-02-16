@@ -5,11 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ESU/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Low Poly Water/Plane Meshes/Plane10x10W250H250.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Low Poly Water/Plane Meshes/Plane10x10W250H250.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Map.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Map.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayersScripts/PlayerMouvement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayersScripts/PlayerMouvement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/Policier.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/Policier.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Player Prefab/Animation/Player Animator.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Player Prefab/Animation/Player Animator.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayersScripts/Animator_Controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayersScripts/Animator_Controller.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,8 +20,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/LowPolyWater_Pack/Scripts/Editor/GeneratePlane.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayersScripts/Animator_Controller.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayersScripts/PlayerMouvement.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Animator_Controller.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -31,6 +29,7 @@
         <option value="$PROJECT_DIR$/Assets/Animator.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayersScripts/PlayerMouvement.cs" />
         <option value="$PROJECT_DIR$/Assets/Animator_Controller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayersScripts/Animator_Controller.cs" />
       </list>
     </option>
   </component>
@@ -94,6 +93,9 @@
       <workItem from="1581252602291" duration="474000" />
       <workItem from="1581253174882" duration="107000" />
       <workItem from="1581253332264" duration="1782000" />
+      <workItem from="1581877682326" duration="216000" />
+      <workItem from="1581878095010" duration="27000" />
+      <workItem from="1581878157235" duration="20000" />
     </task>
     <servers />
   </component>

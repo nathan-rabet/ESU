@@ -14,8 +14,8 @@
     </explicitIncludes>
     <explicitExcludes>
       <Path>.idea</Path>
-      <Path>.vscode</Path>
       <Path>Library</Path>
+      <Path>Temp</Path>
       <Path>nepaspush</Path>
       <Path>obj</Path>
     </explicitExcludes>
