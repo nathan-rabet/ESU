@@ -103,9 +103,9 @@ public class Player_Manager : MonoBehaviour
             //Gestion du Player
             transform.GetComponent<PlayerMouvement>().enabled = false; //Désactive les mouvement
             transform.Find("Model").gameObject.SetActive(false); //Cache le model
-            Rigidbody rb = GetComponent <Rigidbody> ();
+            Rigidbody rb = GetComponent<Rigidbody>();
             rb.isKinematic = false;
-            rb.detectCollisions = false; //désactive les collision
+            rb.detectCollisions = true; //désactive les collision
         }
     }
 
