@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SkyM
+  m_Shader: {fileID: 104, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _FrontTex
+        second:
+          m_Texture: {fileID: 2800000, guid: c5a717f72cdd50746ba5bbb056836a8d, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BackTex
+        second:
+          m_Texture: {fileID: 2800000, guid: c710c700fc3578a4b860ad92553d4a99, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _LeftTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 366da25eeee95684fa3c29c826d5ba1e, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _RightTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 6c8eeb16b793bc14cb00486bb46b2e2f, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _UpTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 1b05817af1ca99142b67f6186ed17fcd, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DownTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 53c1999ebefd6ac48880cc71e9c837a8, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Exposure
+        second: 1
+      data:
+        first:
+          name: _Rotation
+        second: 0
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _Tint
+        second: {r: 0.90167475, g: 0.90167475, b: 0.90167475, a: 0}
