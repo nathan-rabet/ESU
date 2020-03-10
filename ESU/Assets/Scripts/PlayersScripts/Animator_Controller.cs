@@ -7,7 +7,7 @@ using Photon.Pun;
 public class Animator_Controller : MonoBehaviour
 {
 
-    public Animator anim;
+    private Animator anim;
     private Rigidbody MyRigidBody;
     PhotonView view;
     // Start is called before the first frame update
