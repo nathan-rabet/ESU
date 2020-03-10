@@ -7,7 +7,6 @@ using TMPro;
 
 public class Player_Manager : MonoBehaviour
 {
-    public HealtBar healtBar;
     public enum Classe
     {
         Policier = 0,
@@ -35,12 +34,15 @@ public class Player_Manager : MonoBehaviour
 
     
 
+    private healthbar healthBar;
     public GameObject gamemanager;
 
     void Start()
     {
         //Set des variables
         gamemanager = GameObject.Find("/GAME/GameManager");
+        healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
+        
         
         weaponsInventory = new List<Armes>();
 
@@ -74,8 +76,10 @@ public class Player_Manager : MonoBehaviour
                 break;
 
         }
-        
-        healtBar.SetMaxHealth(health);
+        if (view.IsMine)
+        {
+            healthBar.SetMaxHealth(health);
+        }
     }
 
     //Fonction perdre de la vie
@@ -93,7 +97,7 @@ public class Player_Manager : MonoBehaviour
                 Death(Killer, 5);
             }
             
-            healtBar.SetHealth(health);
+            healthBar.SetHealth(health);
         }
     }
 

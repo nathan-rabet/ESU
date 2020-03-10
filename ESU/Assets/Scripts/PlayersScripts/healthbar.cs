@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealtBar : MonoBehaviour
+public class healthbar : MonoBehaviour
 {
-
     public Slider slider;
 
     public void SetMaxHealth(int health)

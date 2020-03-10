@@ -687,7 +687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc3f32e91f6aea040994dadc6034727a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healtBar: {fileID: 0}
   view: {fileID: 970270358802399847}
   myClass: 0
   health: 0
