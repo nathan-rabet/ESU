@@ -257,8 +257,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5185793959883874091}
-  - {fileID: 3972538933067992058}
-  - {fileID: 7603650035530846045}
+  - {fileID: 6763874336376828845}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -699,10 +698,10 @@ Transform:
   m_GameObject: {fileID: 2728025569792693843}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 0.0013834275, y: 0.031921323, z: 0.0231108}
-  m_LocalScale: {x: 90.38204, y: 90.38201, z: 90.38201}
+  m_LocalScale: {x: 90.38204, y: 90.38198, z: 90.38198}
   m_Children: []
-  m_Father: {fileID: 2877959358381742673}
-  m_RootOrder: 1
+  m_Father: {fileID: 6763874336376828845}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1576166064155815856
 SkinnedMeshRenderer:
@@ -1010,6 +1009,38 @@ Transform:
   m_Father: {fileID: 4694987978226379655}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4133030244088573814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6763874336376828845}
+  m_Layer: 0
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6763874336376828845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133030244088573814}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3972538933067992058}
+  - {fileID: 7603650035530846045}
+  m_Father: {fileID: 2877959358381742673}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4235215446322432777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,8 +1071,8 @@ Transform:
   - {fileID: 1460587055409861556}
   - {fileID: 5149656727105021500}
   - {fileID: 7614855481639734011}
-  m_Father: {fileID: 2877959358381742673}
-  m_RootOrder: 2
+  m_Father: {fileID: 6763874336376828845}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5001312537768455753
 GameObject:
