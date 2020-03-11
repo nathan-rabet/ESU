@@ -80,7 +80,7 @@ public class Animator_Controller : MonoBehaviour
             
             
 
-            if (anim_chute && MyRigidBody.velocity.y > -2 && MyRigidBody.velocity.y < -1)
+            if (anim_chute && !anim.GetBool("landing"))
             {
                 anim.SetBool("chute", true);
                 anim_chute = false;

@@ -1266,7 +1266,6 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 5969129954553722592}
   - {fileID: -507813649158810645}
   - {fileID: 800702295121594115}
   viewIdField: 0
@@ -1421,7 +1420,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: landing
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!1 &8319399941336900579
 GameObject:
