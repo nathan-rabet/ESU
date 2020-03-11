@@ -7,8 +7,8 @@ public class PlayerMouvement : MonoBehaviour
 {
     private Rigidbody MyRigidBody;
 
-
-
+    
+    private Animator anim;
     private float speed = 0.08f;
     private float jumpHight = 10.0f;
     private bool canJump = true;
@@ -17,6 +17,7 @@ public class PlayerMouvement : MonoBehaviour
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         view = GetComponent<PhotonView> (); //Cherche la vue
         MyRigidBody = GetComponent <Rigidbody> (); //Cherche du rigidbody
 
@@ -34,6 +35,11 @@ public class PlayerMouvement : MonoBehaviour
             if (!canJump && MyRigidBody.velocity.y == 0) //Si on peut pas sauter et on tombe pas
             {
                 canJump = true; //peut sauter
+                anim.SetBool("landing", true);
+            }
+            else
+            {
+                anim.SetBool("landing", false);
             }
 
             if (Input.GetKey(KeyCode.LeftShift)) //Si Maj enfoncé

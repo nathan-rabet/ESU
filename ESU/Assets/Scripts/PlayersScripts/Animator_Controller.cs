@@ -8,6 +8,7 @@ public class Animator_Controller : MonoBehaviour
 {
 
     private Animator anim;
+    private bool anim_chute = true;
     private Rigidbody MyRigidBody;
     PhotonView view;
     // Start is called before the first frame update
@@ -79,13 +80,15 @@ public class Animator_Controller : MonoBehaviour
             
             
 
-            if (MyRigidBody.velocity.y < -2)
+            if (anim_chute && MyRigidBody.velocity.y > -2 && MyRigidBody.velocity.y < -1)
             {
                 anim.SetBool("chute", true);
+                anim_chute = false;
             }
             else
             {
                 anim.SetBool("chute", false);
+                anim_chute = true;
             }
         }
     }

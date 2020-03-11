@@ -41246,7 +41246,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1279561908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d942470302049214abfdb5011e21ecea, type: 3}
+  m_Script: {fileID: 11500000, guid: 15a19560f40656349bcee3470d909e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1279561910}
@@ -52089,7 +52089,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ddda67999f88daf47880aa31ba33c4a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d47934d7d53ea745a2f1481369afe16, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -56348,7 +56348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -69288,7 +69288,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d65b41cdde2b6df48bd456c7c32b8198, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee63d2d73ff60eb42bab3181b2d87353, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -70686,11 +70686,11 @@ MonoBehaviour:
   gameManager: {fileID: 1999596250}
   SpawnPoint: {fileID: 346737550}
   PlayerPrefab:
-  - {fileID: 8184056700238872057, guid: 205bd9aa2379a5a4cb7083bc1e59aef9, type: 3}
-  - {fileID: 7036911524350451349, guid: 300bb76990b754d4582bb5b9f41f70d9, type: 3}
-  - {fileID: 7036911524350451349, guid: 300bb76990b754d4582bb5b9f41f70d9, type: 3}
-  - {fileID: 7036911524350451349, guid: 300bb76990b754d4582bb5b9f41f70d9, type: 3}
-  - {fileID: 7036911524350451349, guid: 300bb76990b754d4582bb5b9f41f70d9, type: 3}
+  - {fileID: 8184056700238872057, guid: 152ce76ac16e27541a65022ad9bf7862, type: 3}
+  - {fileID: 7036911524350451349, guid: 2097d5868304a8347b04d402223d7a67, type: 3}
+  - {fileID: 7036911524350451349, guid: 2097d5868304a8347b04d402223d7a67, type: 3}
+  - {fileID: 8184056700238872057, guid: 152ce76ac16e27541a65022ad9bf7862, type: 3}
+  - {fileID: 8184056700238872057, guid: 152ce76ac16e27541a65022ad9bf7862, type: 3}
   MainCamera: {fileID: 967342214}
   ClientState: {fileID: 511975312}
 --- !u!1001 &2115868892
