@@ -11,7 +11,7 @@ using TMPro;
     {
         public GameObject gameManager;
         public Transform SpawnPoint;
-        public GameObject PrefabPlayer;
+        public GameObject[] PlayerPrefab;
         public Camera MainCamera;
         public TMP_Text ClientState;
 
@@ -59,7 +59,31 @@ using TMPro;
                     //
                     //  Ajout d'un switch en fonction de la classe choisit (Rajout en paramètre de cette Fonction)
                     //
-                    GameObject MyPlayer = PhotonNetwork.Instantiate(PrefabPlayer.name,SpawnPoint.position,Quaternion.identity,0) as GameObject; //Instantier le prefab
+                    GameObject classprefab = PlayerPrefab[0];
+                    switch (gameManager.GetComponent<GameManagerScript>().MyClass)
+                    {
+                        case "Policier":
+                            classprefab = PlayerPrefab[0];
+                            break;
+                        case "Pompier":
+                            classprefab = PlayerPrefab[1];
+                            break;
+                        case "Medecin":
+                            classprefab = PlayerPrefab[2];
+                            break;
+                        case "Mercenaire":
+                            classprefab = PlayerPrefab[3];
+                            break;
+                        case "Pyroman":
+                            classprefab = PlayerPrefab[4];
+                            break;
+                        case "Drogueur":
+                            classprefab = PlayerPrefab[5];
+                            break;
+                    }
+
+                    //Instanciation
+                    GameObject MyPlayer = PhotonNetwork.Instantiate(classprefab.name,SpawnPoint.position,Quaternion.identity,0) as GameObject; //Instantier le prefab
                     MainCamera.GetComponent<TPSCamera>().lookAt = MyPlayer.transform.Find("posCam").transform; //Set de la var lookAt de la cam
                 }
             }

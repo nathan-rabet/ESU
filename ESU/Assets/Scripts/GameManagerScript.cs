@@ -30,6 +30,10 @@ public class GameManagerScript : MonoBehaviour
         public TMP_Text DispDefPlayer; //Recup du text sur le nombre de déf a afficher
         public TMP_Text DispAttPlayer; //Recup du text sur le nombre de att a afficher
         private string myClass = null;
+        public string MyClass
+        {
+            get {return myClass;}
+        }
 
         public PhotonView view;
         
@@ -42,6 +46,7 @@ public class GameManagerScript : MonoBehaviour
         public GameObject infosMenuUI;
         public GameObject InGameHUD;
         public GameObject DeathHUD;
+        public GameObject ClassDefMenu;
         private bool showInfos = false;
         public TMP_Text FPS;
     #endregion
@@ -59,6 +64,7 @@ public class GameManagerScript : MonoBehaviour
         pauseMenuUI.SetActive(false);
         infosMenuUI.SetActive(false);
         InGameHUD.SetActive(false);
+        ClassDefMenu.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -153,6 +159,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (nbDefPlayer<10 && PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") 
         {
+            myClass = "Policier";
             //Envoie RPC
             nbDefPlayer++;
             view.RPC ("NumberDef", RpcTarget.Others, nbDefPlayer);
@@ -177,6 +184,7 @@ public class GameManagerScript : MonoBehaviour
     public void AddAttPlayer()
     {
         if (nbAttPlayer<10 && PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") {
+            myClass = "Mercenaire";
             //Envoie RPC
             nbAttPlayer++;
             view.RPC ("NumberAtt", RpcTarget.Others, nbAttPlayer);
