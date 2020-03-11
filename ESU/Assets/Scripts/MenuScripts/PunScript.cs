@@ -59,8 +59,8 @@ using TMPro;
                     //
                     //  Ajout d'un switch en fonction de la classe choisit (Rajout en paramètre de cette Fonction)
                     //
-                    GameObject classprefab = PlayerPrefab[2];
-                    switch (gameManager.GetComponent<GameManagerScript>().MyClass)
+                    GameObject classprefab = PlayerPrefab[0];
+                    switch (PhotonNetwork.LocalPlayer.CustomProperties["Class"])
                     {
                         case "Policier":
                             classprefab = PlayerPrefab[0];

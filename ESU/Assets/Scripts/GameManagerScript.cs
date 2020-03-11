@@ -29,11 +29,6 @@ public class GameManagerScript : MonoBehaviour
 
         public TMP_Text DispDefPlayer; //Recup du text sur le nombre de déf a afficher
         public TMP_Text DispAttPlayer; //Recup du text sur le nombre de att a afficher
-        private string myClass = null;
-        public string MyClass
-        {
-            get {return myClass;}
-        }
 
         public PhotonView view;
         
@@ -47,6 +42,7 @@ public class GameManagerScript : MonoBehaviour
         public GameObject InGameHUD;
         public GameObject DeathHUD;
         public GameObject ClassDefMenu;
+        public GameObject ClassAttMenu;
         private bool showInfos = false;
         public TMP_Text FPS;
     #endregion
@@ -71,6 +67,7 @@ public class GameManagerScript : MonoBehaviour
 
         Hashtable hash = new Hashtable();
         hash.Add("Team", "");
+        hash.Add("Class", "");
         hash.Add("Kill", 0);
         hash.Add("Death", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
@@ -104,7 +101,7 @@ public class GameManagerScript : MonoBehaviour
         if (showInfos)
         {
             FPS.text = "FPS: " + ((int)(1.0f / Time.smoothDeltaTime)).ToString() + "\nPing: " + (PhotonNetwork.GetPing()).ToString() + "\nClientState: " +PhotonNetwork.NetworkClientState.ToString()
-            + "\nAttPlayers: " + nbAttPlayer + "\nDefPlayers: " + nbDefPlayer + "\nMyTeam: " + PhotonNetwork.LocalPlayer.CustomProperties["Team"];
+            + "\nAttPlayers: " + nbAttPlayer + "\nDefPlayers: " + nbDefPlayer + "\nMyTeam: " + PhotonNetwork.LocalPlayer.CustomProperties["Team"] + "\nMyClass: " + PhotonNetwork.LocalPlayer.CustomProperties["Class"];
         }
 
         switch(StadeGame)
@@ -113,27 +110,77 @@ public class GameManagerScript : MonoBehaviour
             //Menu Echap
             if (Input.GetKeyDown("escape"))
             {
-                if (pauseMenuUI.active)
-                {
-                    pauseMenuUI.SetActive(false);
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                }
-                else
-                {
-                    pauseMenuUI.SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                }
+                pauseMenuUI.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                StadeGame = "PAUSE";
             }
             //Tableau des score
             if (Input.GetKeyDown("tab"))
             {
                 scoreboardMenu.SetActive(true);
+                StadeGame = "TAB";
             }
-            if (Input.GetKeyUp("tab"))
+
+            //Menu choix des classes
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                scoreboardMenu.SetActive(false);
+                if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="DEF")
+                {
+                    ClassDefMenu.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    StadeGame = "CHOOSINGCLASS";
+                }
+                if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="ATT")
+                {
+                    ClassAttMenu.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    StadeGame = "CHOOSINGCLASS";
+                }
+            }
+
+            break;
+
+            //En pause echap
+            case "PAUSE": 
+                if (Input.GetKeyDown("escape"))
+                {
+                        pauseMenuUI.SetActive(false);
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                        StadeGame = "INGAME";
+                }
+            break;
+
+            //Affichage du tableau des scores
+            case "TAB":
+                if (Input.GetKeyUp("tab"))
+                {
+                    scoreboardMenu.SetActive(false);
+                    StadeGame = "INGAME";
+                }
+            break;
+
+            //Choix de la class
+            case "CHOOSINGCLASS":
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="DEF")
+                {
+                    ClassDefMenu.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    StadeGame = "INGAME";
+                }
+                if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="ATT")
+                {
+                    ClassAttMenu.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    StadeGame = "INGAME";
+                }
             }
             break;
 
@@ -155,11 +202,26 @@ public class GameManagerScript : MonoBehaviour
     }
     #endregion
     #region PlayerGestion
+    public void ChangePlayerClass(string newClass)
+    {
+        //Mise a jour de la hashtable
+        Hashtable hash = new Hashtable();
+        hash.Add("Class", newClass);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        if (ClassDefMenu.active || ClassAttMenu.active)
+        {
+            ClassDefMenu.SetActive(false);
+            ClassAttMenu.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            StadeGame = "INGAME";
+        }
+    }
+
     public void AddDefPlayer()
     {
         if (nbDefPlayer<10 && PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") 
         {
-            myClass = "Policier";
             //Envoie RPC
             nbDefPlayer++;
             view.RPC ("NumberDef", RpcTarget.Others, nbDefPlayer);
@@ -174,6 +236,7 @@ public class GameManagerScript : MonoBehaviour
             //Mise a jour de la hashtable
             Hashtable hash = new Hashtable();
             hash.Add("Team", "DEF");
+            hash.Add("Class", "Policier");
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
 
             //Mise a jour du statue de la partie
@@ -184,7 +247,6 @@ public class GameManagerScript : MonoBehaviour
     public void AddAttPlayer()
     {
         if (nbAttPlayer<10 && PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") {
-            myClass = "Mercenaire";
             //Envoie RPC
             nbAttPlayer++;
             view.RPC ("NumberAtt", RpcTarget.Others, nbAttPlayer);
@@ -199,6 +261,7 @@ public class GameManagerScript : MonoBehaviour
             //Mise a jour de la hashtable
             Hashtable hash = new Hashtable();
             hash.Add("Team", "ATT");
+            hash.Add("Class", "Mercenaire");
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
 
             //Mise a jour du statue de la partie

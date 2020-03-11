@@ -24,7 +24,7 @@ public class Animator_Controller : MonoBehaviour
     {
         if (view.IsMine)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetAxis("Vertical")>0)
             {
                 anim.SetBool("walk", true);
             }
@@ -33,7 +33,7 @@ public class Animator_Controller : MonoBehaviour
                 anim.SetBool("walk", false);
             }
             
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetAxis("Vertical")>0 && Input.GetKey(KeyCode.LeftShift))
             {
                 anim.SetBool("run", true);
             }
@@ -42,7 +42,7 @@ public class Animator_Controller : MonoBehaviour
                 anim.SetBool("run", false);
             }
             
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetAxis("Vertical")<0)
             {
                 anim.SetBool("back", true);
             }
@@ -51,7 +51,7 @@ public class Animator_Controller : MonoBehaviour
                 anim.SetBool("back", false);
             }
             
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetAxis("Horizontal")<0)
             {
                 anim.SetBool("left", true);
             }
@@ -60,7 +60,7 @@ public class Animator_Controller : MonoBehaviour
                 anim.SetBool("left", false);
             }
             
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetAxis("Horizontal")>0)
             {
                 anim.SetBool("right", true);
             }
