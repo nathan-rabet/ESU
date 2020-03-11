@@ -59,7 +59,7 @@ using TMPro;
                     //
                     //  Ajout d'un switch en fonction de la classe choisit (Rajout en paramètre de cette Fonction)
                     //
-                    GameObject classprefab = PlayerPrefab[0];
+                    GameObject classprefab = PlayerPrefab[2];
                     switch (gameManager.GetComponent<GameManagerScript>().MyClass)
                     {
                         case "Policier":
@@ -105,8 +105,4 @@ using TMPro;
                     gameManager.GetComponent<GameManagerScript>().SendToNewPlayer(); //Appel  de la fonction SendToNewPlayer de GameManagerScript
                 }
             }
-        // Update is called once per frame
-        void Update()
-        {
-        }
     }
