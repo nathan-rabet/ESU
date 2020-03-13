@@ -6,6 +6,7 @@ using Photon;
 
 public class PistoletScript : MonoBehaviour
 {
+    public bool inHand = true;
     public int damage = 10;
     public float range = 100f;
     public GameObject mainCam;
@@ -16,12 +17,24 @@ public class PistoletScript : MonoBehaviour
     {
         view = GetComponent<PhotonView> (); //Cherche la vue
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
+
     }
     void Update()
     {
-        if (Input.GetKeyDown("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
+        if (inHand)
         {
-            Shoot(); //Tir
+            if (Input.GetKeyDown("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
+            {
+                Shoot(); //Tir
+            }
+            if (Input.GetKeyDown("mouse 1"))
+            {
+                mainCam.GetComponent<CameraCollision>().Scope(1f, 5f);
+            }
+            if (Input.GetKeyUp("mouse 1")) 
+            {
+                mainCam.GetComponent<CameraCollision>().Scope(2.5f, 5f);
+            }
         }
     }
 

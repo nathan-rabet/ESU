@@ -1377,6 +1377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c0ba41beb263e458f281871327bcbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inHand: 0
   damage: 10
   range: 100
   mainCam: {fileID: 0}

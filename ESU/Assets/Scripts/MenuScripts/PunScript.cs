@@ -10,9 +10,10 @@ using TMPro;
     public class PunScript : MonoBehaviourPunCallbacks
     {
         public GameObject gameManager;
-        public Transform SpawnPoint;
+        public Transform SpawnPointDef;
+        public Transform SpawnPointAtt;
         public GameObject[] PlayerPrefab;
-        public Camera MainCamera;
+        public GameObject MainCamera;
         public TMP_Text ClientState;
 
             void Start()
@@ -82,9 +83,17 @@ using TMPro;
                             break;
                     }
 
+                    //Spawnpoint
+
+                    Transform spawn = SpawnPointDef;
+                    if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"] == "ATT")
+                    {
+                        spawn = SpawnPointAtt;
+                    }
+
                     //Instanciation
-                    GameObject MyPlayer = PhotonNetwork.Instantiate(classprefab.name,SpawnPoint.position,Quaternion.identity,0) as GameObject; //Instantier le prefab
-                    MainCamera.GetComponent<TPSCamera>().lookAt = MyPlayer.transform.Find("posCam").transform; //Set de la var lookAt de la cam
+                    GameObject MyPlayer = PhotonNetwork.Instantiate(classprefab.name,spawn.position,Quaternion.identity,0) as GameObject; //Instantier le prefab
+                    MainCamera.GetComponent<CameraFollow>().CameraFollowObj = MyPlayer.transform.Find("posCam").transform; //Set de la var lookAt de la cam
                 }
             }
 
