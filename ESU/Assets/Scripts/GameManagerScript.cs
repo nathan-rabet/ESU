@@ -70,6 +70,7 @@ public class GameManagerScript : MonoBehaviour
         hash.Add("Class", "");
         hash.Add("Kill", 0);
         hash.Add("Death", 0);
+        hash.Add("Weapon", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
@@ -101,7 +102,8 @@ public class GameManagerScript : MonoBehaviour
         if (showInfos)
         {
             FPS.text = "FPS: " + ((int)(1.0f / Time.smoothDeltaTime)).ToString() + "\nPing: " + (PhotonNetwork.GetPing()).ToString() + "\nClientState: " +PhotonNetwork.NetworkClientState.ToString()
-            + "\nAttPlayers: " + nbAttPlayer + "\nDefPlayers: " + nbDefPlayer + "\nMyTeam: " + PhotonNetwork.LocalPlayer.CustomProperties["Team"] + "\nMyClass: " + PhotonNetwork.LocalPlayer.CustomProperties["Class"];
+            + "\nAttPlayers: " + nbAttPlayer + "\nDefPlayers: " + nbDefPlayer + "\nMyTeam: " + PhotonNetwork.LocalPlayer.CustomProperties["Team"] + "\nMyClass: " + PhotonNetwork.LocalPlayer.CustomProperties["Class"]
+            + "\nWeapon: " + PhotonNetwork.LocalPlayer.CustomProperties["Weapon"];
         }
 
         switch(StadeGame)

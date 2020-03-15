@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 using TMPro;
 
 public class Player_Manager : MonoBehaviour
@@ -18,11 +19,12 @@ public class Player_Manager : MonoBehaviour
     }
     public enum Armes
     {
-        Pistolet = 0,
-        Hache = 1,
-        Extincteur = 2,
-        Medpack = 3,
-        LanceFlamme = 4
+        Hand = 0,
+        Pistolet = 1,
+        Hache = 2,
+        Extincteur = 3,
+        Medpack = 4,
+        LanceFlamme = 5
     }
     
     public PhotonView view;
@@ -30,6 +32,7 @@ public class Player_Manager : MonoBehaviour
     public int health;
     
     private List<Armes> weaponsInventory;
+    private int weaponsInventoryLength;
     private int selectedWeapon = 0;
 
     
@@ -51,31 +54,37 @@ public class Player_Manager : MonoBehaviour
         {
             case Classe.Policier:
                 health = 100;
+                weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Pistolet);
                 break;
             case Classe.Pompier:
                 health = 100;
+                weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Hache);
                 weaponsInventory.Add(Armes.Extincteur);
                 break;
             case Classe.Medecin:
                 health = 100;
+                weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Medpack);
                 break;
             case Classe.Mercenaire:
                 health = 100;
+                weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Pistolet);
                 break;
             case Classe.Pyroman:
                 health = 100;
+                weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.LanceFlamme);
                 break;
             case Classe.Drogueur:
                 health = 100;
+                weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Medpack);
                 break;
-
         }
+        weaponsInventoryLength = weaponsInventory.Count;
         if (view.IsMine)
         {
             healthBar.SetMaxHealth(health);
@@ -128,6 +137,55 @@ public class Player_Manager : MonoBehaviour
         if (view.IsMine)
         {
             Destroy(gameObject); //Détruit le gameObject coté client
+        }
+    }
+
+    void Update()
+    {
+        if (Input.mouseScrollDelta.y < 0.0f && selectedWeapon>0)
+        {
+            selectedWeapon--;
+            Hashtable hash = new Hashtable();
+            hash.Add("Weapon", selectedWeapon);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            updateWeaponScript(weaponsInventory[selectedWeapon]);
+        }
+        if (Input.mouseScrollDelta.y > 0.0f && selectedWeapon<weaponsInventoryLength-1)
+        {
+            selectedWeapon++;
+            Hashtable hash = new Hashtable();
+            hash.Add("Weapon", selectedWeapon);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            updateWeaponScript(weaponsInventory[selectedWeapon]);
+        }
+        if (Input.GetKeyDown("1") && weaponsInventoryLength>0)
+        {
+            selectedWeapon = 0;
+            Hashtable hash = new Hashtable();
+            hash.Add("Weapon", selectedWeapon);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            updateWeaponScript(weaponsInventory[selectedWeapon]);
+        }
+        if (Input.GetKeyDown("2") && weaponsInventoryLength>1)
+        {
+            selectedWeapon = 1;
+            Hashtable hash = new Hashtable();
+            hash.Add("Weapon", selectedWeapon);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            updateWeaponScript(weaponsInventory[selectedWeapon]);
+        }
+    }
+
+    //Update weaponscript
+    private void updateWeaponScript(Armes weapon)
+    {
+        if (weapon == Armes.Pistolet)
+        {
+            GetComponent<PistoletScript>().inHand =true;
+        }
+        else
+        {
+         GetComponent<PistoletScript>().ChangeWeapon();
         }
     }
 }

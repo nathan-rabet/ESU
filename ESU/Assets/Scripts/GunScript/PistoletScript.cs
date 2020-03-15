@@ -38,6 +38,7 @@ public class PistoletScript : MonoBehaviour
         }
     }
 
+    //Function de tir
     private void Shoot()
     {
         RaycastHit hit; //Set de la variable de type RaycastHit(donné sur l'object toucher)
@@ -48,5 +49,12 @@ public class PistoletScript : MonoBehaviour
                 view.RPC("dealDammage", RpcTarget.Others,hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.NickName); //Envoi des dégâts
             }
         }
+    }
+
+    //Function de inHandfalse
+    public void ChangeWeapon()
+    {
+        inHand = false;
+        mainCam.GetComponent<CameraCollision>().Scope(2.5f, 5f);
     }
 }
