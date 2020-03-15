@@ -142,37 +142,40 @@ public class Player_Manager : MonoBehaviour
 
     void Update()
     {
-        if (Input.mouseScrollDelta.y < 0.0f && selectedWeapon>0)
+        if (view.IsMine)
         {
-            selectedWeapon--;
-            Hashtable hash = new Hashtable();
-            hash.Add("Weapon", selectedWeapon);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            updateWeaponScript(weaponsInventory[selectedWeapon]);
-        }
-        if (Input.mouseScrollDelta.y > 0.0f && selectedWeapon<weaponsInventoryLength-1)
-        {
-            selectedWeapon++;
-            Hashtable hash = new Hashtable();
-            hash.Add("Weapon", selectedWeapon);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            updateWeaponScript(weaponsInventory[selectedWeapon]);
-        }
-        if (Input.GetKeyDown("1") && weaponsInventoryLength>0)
-        {
-            selectedWeapon = 0;
-            Hashtable hash = new Hashtable();
-            hash.Add("Weapon", selectedWeapon);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            updateWeaponScript(weaponsInventory[selectedWeapon]);
-        }
-        if (Input.GetKeyDown("2") && weaponsInventoryLength>1)
-        {
-            selectedWeapon = 1;
-            Hashtable hash = new Hashtable();
-            hash.Add("Weapon", selectedWeapon);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            updateWeaponScript(weaponsInventory[selectedWeapon]);
+            if (Input.mouseScrollDelta.y < 0.0f && selectedWeapon>0)
+            {
+                selectedWeapon--;
+                Hashtable hash = new Hashtable();
+                hash.Add("Weapon", selectedWeapon);
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                updateWeaponScript(weaponsInventory[selectedWeapon]);
+            }
+            if (Input.mouseScrollDelta.y > 0.0f && selectedWeapon<weaponsInventoryLength-1)
+            {
+                selectedWeapon++;
+                Hashtable hash = new Hashtable();
+                hash.Add("Weapon", selectedWeapon);
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                updateWeaponScript(weaponsInventory[selectedWeapon]);
+            }
+            if (Input.GetKeyDown("1") && weaponsInventoryLength>0)
+            {
+                selectedWeapon = 0;
+                Hashtable hash = new Hashtable();
+                hash.Add("Weapon", selectedWeapon);
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                updateWeaponScript(weaponsInventory[selectedWeapon]);
+            }
+            if (Input.GetKeyDown("2") && weaponsInventoryLength>1)
+            {
+                selectedWeapon = 1;
+                Hashtable hash = new Hashtable();
+                hash.Add("Weapon", selectedWeapon);
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                updateWeaponScript(weaponsInventory[selectedWeapon]);
+            }
         }
     }
 

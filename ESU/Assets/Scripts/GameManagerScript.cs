@@ -43,6 +43,7 @@ public class GameManagerScript : MonoBehaviour
         public GameObject DeathHUD;
         public GameObject ClassDefMenu;
         public GameObject ClassAttMenu;
+        public GameObject GameHUD;
         private bool showInfos = false;
         public TMP_Text FPS;
     #endregion
@@ -61,6 +62,7 @@ public class GameManagerScript : MonoBehaviour
         infosMenuUI.SetActive(false);
         InGameHUD.SetActive(false);
         ClassDefMenu.SetActive(false);
+        GameHUD.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -78,6 +80,7 @@ public class GameManagerScript : MonoBehaviour
     {
         connectionMenuUI.SetActive(false);
         teamMenuUI.SetActive(true);
+        GameHUD.SetActive(true);
         StadeGame = "EQUIPE";
     }
     

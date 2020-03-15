@@ -51,6 +51,10 @@ using TMPro;
             {
                 ClientState.text = PhotonNetwork.NetworkClientState.ToString(); //Affichage
                 gameManager.GetComponent<GameManagerScript>().IsConnected(); //Appel de la fonction IsConnected de GameManager
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    gameManager.GetComponent<GameStat>().sendGamestat(10,0,0,0);
+                }
             }
 
             public void SpawnPlayer() //Function de création de joueur
@@ -112,6 +116,7 @@ using TMPro;
                 if (PhotonNetwork.IsMasterClient) //Si je suis le maître
                 {
                     gameManager.GetComponent<GameManagerScript>().SendToNewPlayer(); //Appel  de la fonction SendToNewPlayer de GameManagerScript
+                    gameManager.GetComponent<GameStat>().SendToNewPlayer();
                 }
             }
     }
