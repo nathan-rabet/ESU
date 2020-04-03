@@ -6,9 +6,9 @@ using Photon.Pun;
 public class PlayerMouvement : MonoBehaviour
 {
     private Rigidbody MyRigidBody;
-
-
-
+    private float distToGround;
+    
+    private Animator anim;
     private float speed = 0.08f;
     private float jumpHight = 10.0f;
     private bool canJump = true;
@@ -17,10 +17,17 @@ public class PlayerMouvement : MonoBehaviour
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         view = GetComponent<PhotonView> (); //Cherche la vue
         MyRigidBody = GetComponent <Rigidbody> (); //Cherche du rigidbody
 
         mainCamera = GameObject.FindWithTag("MainCamera"); //Cherche de la camera
+        distToGround = GetComponent<Collider>().bounds.extents.y;
+    }
+
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
     }
 
     // Update is called once per frame
@@ -31,9 +38,15 @@ public class PlayerMouvement : MonoBehaviour
         if (view.IsMine) //Si ma vue
         {
             
-            if (!canJump && MyRigidBody.velocity.y == 0) //Si on peut pas sauter et on tombe pas
+            if (IsGrounded()) //Si on peut pas sauter et on tombe pas
             {
                 canJump = true; //peut sauter
+                anim.SetBool("landing", true);
+            }
+            else
+            {
+                canJump = false;
+                anim.SetBool("landing", false);
             }
 
             if (Input.GetKey(KeyCode.LeftShift)) //Si Maj enfoncé

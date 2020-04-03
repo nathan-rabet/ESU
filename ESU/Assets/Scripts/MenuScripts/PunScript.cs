@@ -10,9 +10,10 @@ using TMPro;
     public class PunScript : MonoBehaviourPunCallbacks
     {
         public GameObject gameManager;
-        public Transform SpawnPoint;
-        public GameObject PrefabPlayer;
-        public Camera MainCamera;
+        public Transform SpawnPointDef;
+        public Transform SpawnPointAtt;
+        public GameObject[] PlayerPrefab;
+        public GameObject MainCamera;
         public TMP_Text ClientState;
 
             void Start()
@@ -50,6 +51,10 @@ using TMPro;
             {
                 ClientState.text = PhotonNetwork.NetworkClientState.ToString(); //Affichage
                 gameManager.GetComponent<GameManagerScript>().IsConnected(); //Appel de la fonction IsConnected de GameManager
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    gameManager.GetComponent<GameStat>().sendGamestat(10,0,0,0);
+                }
             }
 
             public void SpawnPlayer() //Function de création de joueur
@@ -59,8 +64,40 @@ using TMPro;
                     //
                     //  Ajout d'un switch en fonction de la classe choisit (Rajout en paramètre de cette Fonction)
                     //
-                    GameObject MyPlayer = PhotonNetwork.Instantiate(PrefabPlayer.name,SpawnPoint.position,Quaternion.identity,0) as GameObject; //Instantier le prefab
-                    MainCamera.GetComponent<TPSCamera>().lookAt = MyPlayer.transform.Find("posCam").transform; //Set de la var lookAt de la cam
+                    GameObject classprefab = PlayerPrefab[0];
+                    switch (PhotonNetwork.LocalPlayer.CustomProperties["Class"])
+                    {
+                        case "Policier":
+                            classprefab = PlayerPrefab[0];
+                            break;
+                        case "Pompier":
+                            classprefab = PlayerPrefab[1];
+                            break;
+                        case "Medecin":
+                            classprefab = PlayerPrefab[2];
+                            break;
+                        case "Mercenaire":
+                            classprefab = PlayerPrefab[3];
+                            break;
+                        case "Pyroman":
+                            classprefab = PlayerPrefab[4];
+                            break;
+                        case "Drogueur":
+                            classprefab = PlayerPrefab[5];
+                            break;
+                    }
+
+                    //Spawnpoint
+
+                    Transform spawn = SpawnPointDef;
+                    if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"] == "ATT")
+                    {
+                        spawn = SpawnPointAtt;
+                    }
+
+                    //Instanciation
+                    GameObject MyPlayer = PhotonNetwork.Instantiate(classprefab.name,spawn.position,Quaternion.identity,0) as GameObject; //Instantier le prefab
+                    MainCamera.GetComponent<CameraFollow>().CameraFollowObj = MyPlayer.transform.Find("posCam").transform; //Set de la var lookAt de la cam
                 }
             }
 
@@ -79,10 +116,7 @@ using TMPro;
                 if (PhotonNetwork.IsMasterClient) //Si je suis le maître
                 {
                     gameManager.GetComponent<GameManagerScript>().SendToNewPlayer(); //Appel  de la fonction SendToNewPlayer de GameManagerScript
+                    gameManager.GetComponent<GameStat>().SendToNewPlayer();
                 }
             }
-        // Update is called once per frame
-        void Update()
-        {
-        }
     }

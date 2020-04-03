@@ -7,7 +7,8 @@ using Photon.Pun;
 public class Animator_Controller : MonoBehaviour
 {
 
-    public Animator anim;
+    private Animator anim;
+    private bool anim_chute = true;
     private Rigidbody MyRigidBody;
     PhotonView view;
     // Start is called before the first frame update
@@ -23,7 +24,7 @@ public class Animator_Controller : MonoBehaviour
     {
         if (view.IsMine)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetAxis("Vertical")>0)
             {
                 anim.SetBool("walk", true);
             }
@@ -32,7 +33,7 @@ public class Animator_Controller : MonoBehaviour
                 anim.SetBool("walk", false);
             }
             
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetAxis("Vertical")>0 && Input.GetKey(KeyCode.LeftShift))
             {
                 anim.SetBool("run", true);
             }
@@ -41,7 +42,7 @@ public class Animator_Controller : MonoBehaviour
                 anim.SetBool("run", false);
             }
             
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetAxis("Vertical")<0)
             {
                 anim.SetBool("back", true);
             }
@@ -50,7 +51,7 @@ public class Animator_Controller : MonoBehaviour
                 anim.SetBool("back", false);
             }
             
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetAxis("Horizontal")<0)
             {
                 anim.SetBool("left", true);
             }
@@ -59,7 +60,7 @@ public class Animator_Controller : MonoBehaviour
                 anim.SetBool("left", false);
             }
             
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetAxis("Horizontal")>0)
             {
                 anim.SetBool("right", true);
             }
@@ -79,13 +80,15 @@ public class Animator_Controller : MonoBehaviour
             
             
 
-            if (MyRigidBody.velocity.y < -2)
+            if (anim_chute && !anim.GetBool("landing"))
             {
                 anim.SetBool("chute", true);
+                anim_chute = false;
             }
             else
             {
                 anim.SetBool("chute", false);
+                anim_chute = true;
             }
         }
     }
