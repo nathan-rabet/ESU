@@ -1425,6 +1425,8 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+  - SynchronizeType: 0
+    LayerIndex: 1
 --- !u!1 &8319399941336900579
 GameObject:
   m_ObjectHideFlags: 0

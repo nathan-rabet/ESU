@@ -121,6 +121,13 @@ public class Player_Manager : MonoBehaviour
 
             //APPEL RPC
             view.RPC("rpcDeath", RpcTarget.Others, view.ViewID, Killer); //Envoi ma mort aux autres
+            if (myClass == Classe.Policier || myClass == Classe.Medecin || myClass == Classe.Pompier)
+            {
+                view.RPC("changeScore", RpcTarget.All, 0, 10);
+            }else
+            {
+                view.RPC("changeScore", RpcTarget.All, 10, 0);
+            }
 
             //Gestion du Player
             transform.GetComponent<PlayerMouvement>().enabled = false; //Désactive les mouvement
