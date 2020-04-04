@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ceba717d01c1fa1458e34f93acc30651
+labels:
+- street
+- road
+- freeway
+- low-poly
+- lowpoly
+- tunnel
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
