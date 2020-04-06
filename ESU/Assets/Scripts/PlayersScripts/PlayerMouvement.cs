@@ -27,7 +27,8 @@ public class PlayerMouvement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        Debug.DrawRay(transform.position + Vector3.up * 0.2f, -Vector3.up * (distToGround - 0.3f), Color.white);
+        return Physics.Raycast(transform.position + Vector3.up * 0.2f, -Vector3.up, distToGround - 0.3f);
     }
 
     // Update is called once per frame
