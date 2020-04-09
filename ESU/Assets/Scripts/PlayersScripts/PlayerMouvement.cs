@@ -6,11 +6,18 @@ using Photon.Pun;
 public class PlayerMouvement : MonoBehaviour
 {
     private Rigidbody MyRigidBody;
+<<<<<<< HEAD
     private float distToGround;
     
     private Animator anim;
     private float speed = 0.08f;
     private float jumpHight = 10.0f;
+=======
+
+
+    private int speed = 25;
+    private float jumpHight = 35.0f;
+>>>>>>> Louis
     private bool canJump = true;
     public GameObject mainCamera;
     PhotonView view;
