@@ -29,9 +29,9 @@ public class PowerUp : MonoBehaviour {
         
         PlayerMouvement mouv = player.GetComponent<PlayerMouvement>();
         if (multiplierSpeed > 0)
-            mouv.MaxSpeed *= multiplierSpeed;
+            //mouv.MaxSpeed *= multiplierSpeed;
         if (multiplierJump > 0)
-        mouv.MaxJumpHight *= multiplierJump;
+            //mouv.MaxJumpHight *= multiplierJump;
 
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
