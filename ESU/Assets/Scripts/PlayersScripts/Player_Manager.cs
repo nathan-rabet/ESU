@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.Animations;
 using Photon;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using TMPro;
@@ -31,12 +32,14 @@ public class Player_Manager : MonoBehaviour
     public Classe myClass;
     public int health;
     
+    
+    
     private List<Armes> weaponsInventory;
     private int weaponsInventoryLength;
     private int selectedWeapon = 0;
-
     
-
+    private Animator anim;
+    
     private healthbar healthBar;
     public GameObject gamemanager;
 
@@ -45,6 +48,8 @@ public class Player_Manager : MonoBehaviour
         //Set des variables
         gamemanager = GameObject.Find("/GAME/GameManager");
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
+        
+        anim = GetComponent<Animator>();
         
         
         weaponsInventory = new List<Armes>();
@@ -182,6 +187,7 @@ public class Player_Manager : MonoBehaviour
                 hash.Add("Weapon", selectedWeapon);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                 updateWeaponScript(weaponsInventory[selectedWeapon]);
+                
             }
         }
     }
@@ -192,6 +198,7 @@ public class Player_Manager : MonoBehaviour
         if (weapon == Armes.Pistolet)
         {
             GetComponent<PistoletScript>().inHand =true;
+            anim.SetTrigger("grap");
         }
         else
         {

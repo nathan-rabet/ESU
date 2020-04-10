@@ -1422,6 +1422,15 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: landing
+  - Type: 4
+    SynchronizeType: 0
+    Name: put_back
+  - Type: 4
+    SynchronizeType: 0
+    Name: rifle_up
+  - Type: 9
+    SynchronizeType: 0
+    Name: grap
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0

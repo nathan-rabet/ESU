@@ -10,6 +10,7 @@ public class PistoletScript : MonoBehaviour
     public int damage = 10;
     public float range = 100f;
     public GameObject mainCam;
+    private Animator anim;
     PhotonView view;
 
 
@@ -17,12 +18,16 @@ public class PistoletScript : MonoBehaviour
     {
         view = GetComponent<PhotonView> (); //Cherche la vue
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
-
+        anim = GetComponent<Animator>();
     }
     void Update()
     {
         if (inHand)
         {
+            
+            anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f);
+
+
             if (Input.GetKeyDown("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
                 Shoot(); //Tir
@@ -30,6 +35,11 @@ public class PistoletScript : MonoBehaviour
             if (Input.GetKeyDown("mouse 1"))
             {
                 mainCam.GetComponent<CameraCollision>().Scope(1f, 5f);
+                anim.SetBool("rifle_up", true);
+            }
+            else
+            {
+                anim.SetBool("rifle_up", false);
             }
             if (Input.GetKeyUp("mouse 1")) 
             {
@@ -54,6 +64,8 @@ public class PistoletScript : MonoBehaviour
     //Function de inHandfalse
     public void ChangeWeapon()
     {
+        anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
+        
         inHand = false;
         mainCam.GetComponent<CameraCollision>().Scope(2.5f, 5f);
     }

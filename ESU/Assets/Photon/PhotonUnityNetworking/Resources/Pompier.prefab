@@ -1264,7 +1264,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7036911524350451349}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 75fac7f234c347e4da100b34ee421b6d, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 2ad437996297d8a4d9fbf1683207a29e, type: 3}
   m_Controller: {fileID: 9100000, guid: 9bab0aca6e472f744a6871a0d3fdc350, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1419,9 +1419,20 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: landing
+  - Type: 4
+    SynchronizeType: 0
+    Name: put_back
+  - Type: 4
+    SynchronizeType: 0
+    Name: rifle_up
+  - Type: 9
+    SynchronizeType: 0
+    Name: grap
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+  - SynchronizeType: 0
+    LayerIndex: 1
 --- !u!114 &5888001104827137942
 MonoBehaviour:
   m_ObjectHideFlags: 0
