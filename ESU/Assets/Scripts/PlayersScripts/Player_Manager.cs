@@ -125,7 +125,7 @@ public class Player_Manager : MonoBehaviour
             gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime); //Appel de la function HUDMort de GameManagerScript
 
             //APPEL RPC
-            view.RPC("rpcDeath", RpcTarget.Others, view.ViewID, Killer); //Envoi ma mort aux autres
+            view.RPC("rpcDeath", RpcTarget.MasterClient , view.ViewID, Killer); //Envoi ma mort aux autres
             if (myClass == Classe.Policier || myClass == Classe.Medecin || myClass == Classe.Pompier)
             {
                 view.RPC("changeScore", RpcTarget.All, 0, 10);
@@ -202,7 +202,21 @@ public class Player_Manager : MonoBehaviour
         }
         else
         {
-         GetComponent<PistoletScript>().ChangeWeapon();
+            GetComponent<PistoletScript>().ChangeWeapon();
         }
+    }
+
+
+    //RPC
+    [PunRPC]
+    void rpcDeath (int viewID, string Killer) 
+    {
+        PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject); //Détruit le perso mort
+    }
+
+    [PunRPC]
+    public void dealDammage (int viewID, int damage, string Killer)
+    {
+        TakeDamage(viewID, damage, Killer); //Envoie les dégâts aux autres
     }
 }

@@ -13,6 +13,8 @@ public class PistoletScript : MonoBehaviour
     public bool inHand = true;
     public int damage = 10;
     public float range = 100f;
+    private int ammo = 20;
+    private bool canShoot = true;
     public GameObject mainCam;
     private GameObject inHandGun;
     private GameObject stackGun;
@@ -31,17 +33,24 @@ public class PistoletScript : MonoBehaviour
     }
     void Update()
     {
-        if (inHand)
+        if (view.IsMine && inHand)
         {
             inHandGun.SetActive(true);
             stackGun.SetActive(false);
             anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
 
 
-            if (Input.GetKeyDown("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
+            if (canShoot && ammo>0 && Input.GetKeyDown("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
                 Shoot(); //Tir
+                ammo--;
             }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                canShoot = false;
+            }
+
             if (Input.GetKeyDown("mouse 1")) //Si clic droit ZOOM and ANIM
             {
                 mainCam.GetComponent<CameraCollision>().Scope(1f, 5f);
@@ -63,7 +72,7 @@ public class PistoletScript : MonoBehaviour
         {
             if (hit.transform.gameObject.tag == "Player") //Si l'objet touché est un joueur
             {
-                view.RPC("dealDammage", RpcTarget.Others,hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.NickName); //Envoi des dégâts
+                view.RPC("dealDammage", RpcTarget.Others, view.ViewID, damage, PhotonNetwork.NickName); //Envoi des dégâts
             }
         }
     }

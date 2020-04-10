@@ -1230,7 +1230,6 @@ GameObject:
   - component: {fileID: 2043937794647355548}
   - component: {fileID: 5888001104827137942}
   - component: {fileID: 6083424919412055359}
-  - component: {fileID: 4719764034878680599}
   - component: {fileID: 6703655536720163295}
   m_Layer: 0
   m_Name: Pompier
@@ -1421,9 +1420,6 @@ MonoBehaviour:
     Name: landing
   - Type: 4
     SynchronizeType: 0
-    Name: put_back
-  - Type: 4
-    SynchronizeType: 0
     Name: rifle_up
   - Type: 9
     SynchronizeType: 0
@@ -1463,19 +1459,6 @@ MonoBehaviour:
   myClass: 1
   health: 0
   gamemanager: {fileID: 0}
---- !u!114 &4719764034878680599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7036911524350451349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5d91777bd0bc143b9aa0075630b156, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  view: {fileID: 6903345996571936705}
 --- !u!114 &6703655536720163295
 MonoBehaviour:
   m_ObjectHideFlags: 0

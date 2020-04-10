@@ -235,7 +235,6 @@ GameObject:
   - component: {fileID: 2314690883543540747}
   - component: {fileID: 6616070784403425835}
   - component: {fileID: 7811526580486638352}
-  - component: {fileID: 6187898662106043084}
   - component: {fileID: 4999903564268413009}
   - component: {fileID: 1786722927528625744}
   m_Layer: 0
@@ -416,19 +415,6 @@ MonoBehaviour:
   myClass: 2
   health: 0
   gamemanager: {fileID: 0}
---- !u!114 &6187898662106043084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273332395550713922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5d91777bd0bc143b9aa0075630b156, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  view: {fileID: 0}
 --- !u!114 &4999903564268413009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,9 +470,17 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: landing
+  - Type: 4
+    SynchronizeType: 1
+    Name: rifle_up
+  - Type: 9
+    SynchronizeType: 1
+    Name: grap
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+  - SynchronizeType: 1
+    LayerIndex: 1
 --- !u!1 &1409869382960900537
 GameObject:
   m_ObjectHideFlags: 0
