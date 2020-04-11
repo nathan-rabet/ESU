@@ -1604,17 +1604,19 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: landing
-  - Type: 4
-    SynchronizeType: 1
-    Name: rifle_up
   - Type: 9
     SynchronizeType: 1
     Name: grap
+  - Type: 1
+    SynchronizeType: 1
+    Name: Aim Angle
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
   - SynchronizeType: 1
     LayerIndex: 1
+  - SynchronizeType: 1
+    LayerIndex: 2
 --- !u!1 &8319399941336900579
 GameObject:
   m_ObjectHideFlags: 0
