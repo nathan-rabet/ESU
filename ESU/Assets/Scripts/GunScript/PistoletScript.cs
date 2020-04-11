@@ -54,12 +54,12 @@ public class PistoletScript : MonoBehaviour
             if (Input.GetKeyDown("mouse 1")) //Si clic droit ZOOM and ANIM
             {
                 mainCam.GetComponent<CameraCollision>().Scope(1f, 5f);
-                anim.SetBool("rifle_up", true);
+                anim.SetLayerWeight(anim.GetLayerIndex("Rifle Up"), 1f);
             }
             if (Input.GetKeyUp("mouse 1")) //Si non clic droit ZOOM and ANIM
             {
                 mainCam.GetComponent<CameraCollision>().Scope(2.5f, 5f);
-                anim.SetBool("rifle_up", false);
+                anim.SetLayerWeight(anim.GetLayerIndex("Rifle Up"), 0f);
             }
         }
     }

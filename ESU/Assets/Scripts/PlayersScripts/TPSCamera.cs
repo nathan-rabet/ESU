@@ -17,6 +17,8 @@ public class TPSCamera : MonoBehaviour
     private float currentX = 0.0f;
     private float currentRotation = 0.0f;
 
+
+
         #region Viser
         float currentTime;
         float startTime;
