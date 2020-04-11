@@ -14,6 +14,7 @@ public class PistoletScript : MonoBehaviour
     public int damage = 10;
     public float range = 100f;
     private int ammo = 20;
+    private bool reloading = false;
     private bool canShoot = true;
     public GameObject mainCam;
     private GameObject inHandGun;
@@ -40,15 +41,19 @@ public class PistoletScript : MonoBehaviour
             anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
 
 
-            if (canShoot && ammo>0 && Input.GetKeyDown("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
-            {
-                Shoot(); //Tir
-                ammo--;
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
+            if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
                 canShoot = false;
+                Shoot(); //Tir
+                ammo--;
+                StartCoroutine(recoil(0.1f));
+            }
+
+            if (!reloading && Input.GetKeyDown(KeyCode.R))
+            {
+                reloading = true;
+                canShoot = false;
+                StartCoroutine(reloadingIE(3));
             }
 
             if (Input.GetKeyDown("mouse 1")) //Si clic droit ZOOM and ANIM
@@ -88,4 +93,25 @@ public class PistoletScript : MonoBehaviour
         inHandGun.SetActive(false);
         stackGun.SetActive(true);
     }
+
+    //Function de rechargement
+    IEnumerator reloadingIE(int reloadtime)
+        {
+            //  Jouer l'anim de rechargement /!\
+
+            
+            yield return new WaitForSeconds(reloadtime);
+            ammo = 20;
+            reloading = false;
+            canShoot = true;
+        }
+
+    //Function de recoil
+    IEnumerator recoil(float recoiltime)
+        {
+            //  Jouer l'anim de rechargement /!\
+
+            yield return new WaitForSeconds(recoiltime);
+            canShoot = true;
+        }
 }
