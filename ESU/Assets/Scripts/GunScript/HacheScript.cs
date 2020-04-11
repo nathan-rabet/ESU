@@ -1,0 +1,81 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Photon.Pun;
+using Photon;
+
+
+public class HacheScript : MonoBehaviour
+{
+    public int damage = 40;
+    public bool inHand = false;
+    public bool canHit = true;
+    private HacheTriggerScript HTS;
+    private GameObject inHandAxe;
+    private GameObject stackAxe;
+    private Animator anim;
+    PhotonView view;
+
+
+    void Start()
+    {
+        view = GetComponent<PhotonView> (); //Cherche la vue
+        anim = GetComponent<Animator>(); //Cherche Animator
+        HTS = transform.Find("AxeHitTrigger").GetComponent<HacheTriggerScript>();
+
+        inHandAxe = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandAxe").gameObject;
+        stackAxe = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/StackAxe").gameObject;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (view.IsMine && inHand)
+        {
+            if (canHit && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
+            {
+                canHit = false;
+                Shoot(); //Tir
+                StartCoroutine(recoil(0.2f));
+            }
+        }
+        
+    }
+
+    private void Shoot()
+    {
+        foreach (GameObject player in HTS.playersHit)
+        {
+            player.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.Others, player.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.NickName); //Envoi des dégâts
+        }
+        
+    }
+
+    public void ChangeWeapon()
+    {
+        inHand = false;
+        view.RPC("SyncHache", RpcTarget.All, false); //Set display arme
+    }
+
+    IEnumerator recoil(float recoiltime)
+    {
+
+        yield return new WaitForSeconds(recoiltime);
+        canHit = true;
+    }
+
+    [PunRPC]
+    public void SyncHache(bool in_hand)
+    {
+        if (in_hand)
+        {
+            inHandAxe.SetActive(true);
+            stackAxe.SetActive(false);
+        }
+        else
+        {
+            inHandAxe.SetActive(false);
+            stackAxe.SetActive(true);
+        }
+    }
+}

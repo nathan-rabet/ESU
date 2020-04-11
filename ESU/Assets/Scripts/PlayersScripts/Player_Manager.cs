@@ -50,7 +50,7 @@ public class Player_Manager : MonoBehaviour
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
         
         anim = GetComponent<Animator>();
-        
+        anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
         
         weaponsInventory = new List<Armes>();
 
@@ -125,7 +125,7 @@ public class Player_Manager : MonoBehaviour
             gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime); //Appel de la function HUDMort de GameManagerScript
 
             //APPEL RPC
-            view.RPC("rpcDeath", RpcTarget.MasterClient , view.ViewID, Killer); //Envoi ma mort aux autres
+            view.RPC("rpcDeath", RpcTarget.All , view.ViewID, Killer); //Envoi ma mort aux autres
             if (myClass == Classe.Policier || myClass == Classe.Medecin || myClass == Classe.Pompier)
             {
                 view.RPC("changeScore", RpcTarget.All, 0, 10);
@@ -195,14 +195,30 @@ public class Player_Manager : MonoBehaviour
     //Update weaponscript
     private void updateWeaponScript(Armes weapon)
     {
-        if (weapon == Armes.Pistolet)
+        if (myClass == Classe.Policier)
         {
-            GetComponent<PistoletScript>().inHand =true;
-            anim.SetTrigger("grap");
+            if (weapon == Armes.Pistolet)
+            {
+                view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
+                GetComponent<PistoletScript>().inHand =true;
+                anim.SetTrigger("grap");
+            }
+            else
+            {
+                GetComponent<PistoletScript>().ChangeWeapon();
+            }
         }
-        else
+        if (myClass == Classe.Pompier)
         {
-            GetComponent<PistoletScript>().ChangeWeapon();
+            if (weapon == Armes.Hache)
+            {
+                view.RPC("SyncHache", RpcTarget.All, true); //Set display arme
+                GetComponent<HacheScript>().inHand = true;
+            }
+            else
+            {
+                GetComponent<HacheScript>().ChangeWeapon();
+            }
         }
     }
 
@@ -211,7 +227,10 @@ public class Player_Manager : MonoBehaviour
     [PunRPC]
     void rpcDeath (int viewID, string Killer) 
     {
-        PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject); //Détruit le perso mort
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject); //Détruit le perso mort
+        }
     }
 
     [PunRPC]
