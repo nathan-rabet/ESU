@@ -17,6 +17,7 @@ public class PistoletScript : MonoBehaviour
     private bool reloading = false;
     private bool canShoot = true;
     public GameObject mainCam;
+    private ParticleSystem muzzleFlash;
     private GameObject inHandGun;
     private GameObject stackGun;
     private Animator anim;
@@ -31,6 +32,7 @@ public class PistoletScript : MonoBehaviour
 
         inHandGun = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/InHand_ump47").gameObject;
         stackGun = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/Stack_ump47").gameObject;
+        muzzleFlash = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/InHand_ump47/default/Muzzle Flash").GetComponent<ParticleSystem>();
     }
     void Update()
     {
@@ -44,9 +46,10 @@ public class PistoletScript : MonoBehaviour
             if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
                 canShoot = false;
+                muzzleFlash.Play();
                 Shoot(); //Tir
                 ammo--;
-                StartCoroutine(recoil(0.1f));
+                StartCoroutine(recoil(0.2f));
             }
 
             if (!reloading && Input.GetKeyDown(KeyCode.R))
