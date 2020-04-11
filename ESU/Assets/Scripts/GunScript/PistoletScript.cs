@@ -72,7 +72,7 @@ public class PistoletScript : MonoBehaviour
         {
             if (hit.transform.gameObject.tag == "Player") //Si l'objet touché est un joueur
             {
-                view.RPC("dealDammage", RpcTarget.Others, view.ViewID, damage, PhotonNetwork.NickName); //Envoi des dégâts
+                hit.transform.gameObject.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.Others, hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.NickName); //Envoi des dégâts
             }
         }
     }
