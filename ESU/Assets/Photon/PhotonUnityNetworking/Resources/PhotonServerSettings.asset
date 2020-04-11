@@ -40,5 +40,6 @@ MonoBehaviour:
   - dealDammage
   - sendGamestat
   - changeScore
+  - SyncWeapon
   DisableAutoOpenWizard: 1
   ShowSettings: 1

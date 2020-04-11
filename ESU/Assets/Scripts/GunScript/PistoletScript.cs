@@ -38,9 +38,8 @@ public class PistoletScript : MonoBehaviour
     {
         if (view.IsMine && inHand)
         {
-            inHandGun.SetActive(true);
-            stackGun.SetActive(false);
             anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
+            view.RPC("SyncWeapon", RpcTarget.All, true); //Set display arme
 
 
             if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
@@ -93,8 +92,7 @@ public class PistoletScript : MonoBehaviour
         inHand = false;
         mainCam.GetComponent<CameraCollision>().Scope(2.5f, 5f);
 
-        inHandGun.SetActive(false);
-        stackGun.SetActive(true);
+        view.RPC("SyncWeapon", RpcTarget.All, false); //Set display arme
     }
 
     //Function de rechargement
@@ -117,4 +115,19 @@ public class PistoletScript : MonoBehaviour
             yield return new WaitForSeconds(recoiltime);
             canShoot = true;
         }
+
+    [PunRPC]
+    public void SyncWeapon(bool in_hand)
+    {
+        if (in_hand)
+        {
+            inHandGun.SetActive(true);
+            stackGun.SetActive(false);
+        }
+        else
+        {
+            inHandGun.SetActive(false);
+            stackGun.SetActive(true);
+        }
+    }
 }
