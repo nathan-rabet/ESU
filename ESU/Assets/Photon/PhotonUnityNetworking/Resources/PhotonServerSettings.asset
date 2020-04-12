@@ -43,5 +43,6 @@ MonoBehaviour:
   - SyncWeapon
   - SyncHache
   - SyncPistolet
+  - SyncParticules
   DisableAutoOpenWizard: 1
   ShowSettings: 1
