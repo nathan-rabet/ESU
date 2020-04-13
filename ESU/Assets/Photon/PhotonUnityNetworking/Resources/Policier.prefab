@@ -6377,6 +6377,13 @@ MonoBehaviour:
   damage: 10
   range: 100
   mainCam: {fileID: 0}
+  muzzleFlash: {fileID: 2581310423235377405}
+  hitPlayer: {fileID: 4074816135022536575, guid: 59140537b06f1084d901c21deeab3f63,
+    type: 3}
+  hitGround: {fileID: 8200869539927140221, guid: 39f18d2982d110948a58695acd020057,
+    type: 3}
+  inHandGun: {fileID: 8377311715662362242}
+  stackGun: {fileID: 4400027634634909440}
 --- !u!114 &-507813649158810645
 MonoBehaviour:
   m_ObjectHideFlags: 0

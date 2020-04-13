@@ -17,9 +17,11 @@ public class PistoletScript : MonoBehaviour
     private bool reloading = false;
     private bool canShoot = true;
     public GameObject mainCam;
-    private ParticleSystem muzzleFlash;
-    private GameObject inHandGun;
-    private GameObject stackGun;
+    public ParticleSystem muzzleFlash;
+    public ParticleSystem hitPlayer;
+    public ParticleSystem hitGround;
+    public GameObject inHandGun;
+    public GameObject stackGun;
     private Animator anim;
     PhotonView view;
 
@@ -29,10 +31,6 @@ public class PistoletScript : MonoBehaviour
         view = GetComponent<PhotonView> (); //Cherche la vue
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
         anim = GetComponent<Animator>(); //Cherche Animator
-
-        inHandGun = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/InHand_ump47").gameObject;
-        stackGun = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/Stack_ump47").gameObject;
-        muzzleFlash = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/InHand_ump47/default/Muzzle Flash").GetComponent<ParticleSystem>();
     }
     void Update()
     {
@@ -78,7 +76,15 @@ public class PistoletScript : MonoBehaviour
         {
             if (hit.transform.gameObject.tag == "Player") //Si l'objet touché est un joueur
             {
+                Instantiate(hitPlayer, hit.point, new Quaternion(0,0,0,0)); //Spawn Particule
+                view.RPC("SyncParticules", RpcTarget.Others, 0, hit.point); //Envoie aux autres
+
                 hit.transform.gameObject.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.Others, hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.NickName); //Envoi des dégâts
+            }
+            else
+            {
+                Instantiate(hitGround, hit.point, new Quaternion(0,0,0,0)); //Spawn Particule
+                view.RPC("SyncParticules", RpcTarget.Others, 1, hit.point); //Envoie aux autres
             }
         }
     }
@@ -126,6 +132,20 @@ public class PistoletScript : MonoBehaviour
         {
             inHandGun.SetActive(false);
             stackGun.SetActive(true);
+        }
+    }
+
+    [PunRPC]
+    public void SyncParticules(int type, Vector3 hitpoint)
+    {
+        switch (type)
+        {
+            case 0:
+                Instantiate(hitPlayer, hitpoint, new Quaternion(0,0,0,0));
+                break;
+            case 1:
+                Instantiate(hitGround, hitpoint, new Quaternion(0,0,0,0));
+                break;
         }
     }
 }
