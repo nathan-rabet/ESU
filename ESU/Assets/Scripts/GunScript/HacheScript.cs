@@ -55,6 +55,8 @@ public class HacheScript : MonoBehaviour
     {
         inHand = false;
         view.RPC("SyncHache", RpcTarget.All, false); //Set display arme
+
+        // /!\ Set Layer Anim pompier
     }
 
     IEnumerator recoil(float recoiltime)
