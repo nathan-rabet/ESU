@@ -201,7 +201,8 @@ public class Player_Manager : MonoBehaviour
             {
                 view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
                 GetComponent<PistoletScript>().inHand =true;
-                anim.SetTrigger("grap");
+                anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
+                anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet
             }
             else
             {
@@ -214,6 +215,8 @@ public class Player_Manager : MonoBehaviour
             {
                 view.RPC("SyncHache", RpcTarget.All, true); //Set display arme
                 GetComponent<HacheScript>().inHand = true;
+
+                // /!\ Set Layer Anim pompier
             }
             else
             {

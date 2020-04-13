@@ -36,7 +36,6 @@ public class PistoletScript : MonoBehaviour
     {
         if (view.IsMine && inHand)
         {
-            anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
 
 
             if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
