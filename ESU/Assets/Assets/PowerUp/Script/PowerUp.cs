@@ -9,6 +9,7 @@ public class PowerUp : MonoBehaviour {
     public float multiplierPlayerScale = 1f;
     public float multiplierSpeed = 1.4f;
     public float multiplierJump = 1.4f;
+    public GameObject light = GameObject.Find("LightShape");
 
     void OnTriggerEnter (Collider other) 
     {
@@ -20,28 +21,46 @@ public class PowerUp : MonoBehaviour {
 
     IEnumerator Pickup(Collider player) 
     {
+        bool isJumpModif = false;
+        bool isSpeedModif = false;
+        bool isScaleModif = false;
         //Spawn a cool effect
-        Instantiate(pickupEffect, transform.position, transform.rotation);
+        GameObject effect = Instantiate(pickupEffect, transform.position, transform.rotation);
 
         //Apply an effect to the player
         if (multiplierPlayerScale > 0)
+        {
             player.transform.localScale *= multiplierPlayerScale;
-        
+            isScaleModif = true;
+        }
         PlayerMouvement mouv = player.GetComponent<PlayerMouvement>();
         if (multiplierSpeed > 0)
-            //mouv.MaxSpeed *= multiplierSpeed;
+        {
+            mouv.MaxSpeed *= multiplierSpeed;
+            isSpeedModif = true;
+        }
         if (multiplierJump > 0)
-            //mouv.MaxJumpHight *= multiplierJump;
-
+        {
+            mouv.JumpHight *= multiplierJump;
+            isJumpModif = true;
+        }
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
-
+        
 
         yield return new WaitForSeconds(duration);
-        //Destroy PowerUp
         
+        if (isJumpModif)
+            mouv.JumpHight /= multiplierJump;
+        if (isSpeedModif)
+            mouv.MaxSpeed /= multiplierSpeed;
+        if (isScaleModif)
+            player.transform.localScale /= multiplierPlayerScale;
+
+
+        //Destroy PowerUp
         Destroy(gameObject);
-        Debug.Log("Power up picked up!");
+        Destroy(light);
     }
    
 }

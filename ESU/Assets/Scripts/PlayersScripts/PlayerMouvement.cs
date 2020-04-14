@@ -16,6 +16,18 @@ public class PlayerMouvement : MonoBehaviour
     public GameObject mainCamera;
     PhotonView view;
 
+    public float MaxSpeed
+    {
+        get => maxspeed;
+        set => maxspeed = value;
+    }
+
+    public float JumpHight
+    {
+        get => jumpHight;
+        set => jumpHight = value;
+    }
+
     void Start()
     {
         anim = GetComponent<Animator>();
