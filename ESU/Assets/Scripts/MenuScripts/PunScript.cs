@@ -98,6 +98,7 @@ using TMPro;
                     //Instanciation
                     GameObject MyPlayer = PhotonNetwork.Instantiate(classprefab.name,spawn.position,Quaternion.identity,0) as GameObject; //Instantier le prefab
                     MainCamera.GetComponent<CameraFollow>().CameraFollowObj = MyPlayer.transform.Find("posCam").transform; //Set de la var lookAt de la cam
+                    MainCamera.GetComponent<CameraFollow>().anim = MyPlayer.transform.GetComponent<Animator>();
                 }
             }
 

@@ -31,6 +31,7 @@ public class Player_Manager : MonoBehaviour
     public PhotonView view;
     public Classe myClass;
     public int health;
+    public int maxhealth;
     
     
     
@@ -50,7 +51,7 @@ public class Player_Manager : MonoBehaviour
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
         
         anim = GetComponent<Animator>();
-        
+        anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
         
         weaponsInventory = new List<Armes>();
 
@@ -58,37 +59,38 @@ public class Player_Manager : MonoBehaviour
         switch(myClass)
         {
             case Classe.Policier:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Pistolet);
                 break;
             case Classe.Pompier:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Hache);
                 weaponsInventory.Add(Armes.Extincteur);
                 break;
             case Classe.Medecin:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Medpack);
                 break;
             case Classe.Mercenaire:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Pistolet);
                 break;
             case Classe.Pyroman:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.LanceFlamme);
                 break;
             case Classe.Drogueur:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Medpack);
                 break;
         }
+        health = maxhealth;
         weaponsInventoryLength = weaponsInventory.Count;
         if (view.IsMine)
         {
@@ -115,6 +117,23 @@ public class Player_Manager : MonoBehaviour
         }
     }
 
+    //Fonction gagner de la vie
+    public void Healing(int viewID, int heal)
+    {
+        if (viewID==view.ViewID) //Test si on est la personne tuer
+        {
+            if (health+heal<maxhealth) //Diminution de la vie
+            {
+                health+=heal;
+            }
+            else
+            {
+                health = maxhealth;
+            }
+            
+            healthBar.SetHealth(health);
+        }
+    }
 
     //Protocol de mort
     public void Death(string Killer, int respTime)
@@ -125,7 +144,7 @@ public class Player_Manager : MonoBehaviour
             gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime); //Appel de la function HUDMort de GameManagerScript
 
             //APPEL RPC
-            view.RPC("rpcDeath", RpcTarget.Others, view.ViewID, Killer); //Envoi ma mort aux autres
+            view.RPC("rpcDeath", RpcTarget.Others); //Envoi ma mort aux autres
             if (myClass == Classe.Policier || myClass == Classe.Medecin || myClass == Classe.Pompier)
             {
                 view.RPC("changeScore", RpcTarget.All, 0, 10);
@@ -140,15 +159,7 @@ public class Player_Manager : MonoBehaviour
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.isKinematic = false;
             rb.detectCollisions = true; //désactive les collision
-        }
-    }
-
-    //Destruction
-    public void DestroyMe()
-    {
-        if (view.IsMine)
-        {
-            Destroy(gameObject); //Détruit le gameObject coté client
+            Destroy(gameObject, 5f);
         }
     }
 
@@ -195,14 +206,53 @@ public class Player_Manager : MonoBehaviour
     //Update weaponscript
     private void updateWeaponScript(Armes weapon)
     {
-        if (weapon == Armes.Pistolet)
+        if (myClass == Classe.Policier)
         {
-            GetComponent<PistoletScript>().inHand =true;
-            anim.SetTrigger("grap");
+            if (weapon == Armes.Pistolet)
+            {
+                view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
+                GetComponent<PistoletScript>().inHand =true;
+                anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
+                anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet
+            }
+            else
+            {
+                GetComponent<PistoletScript>().ChangeWeapon();
+            }
         }
-        else
+        if (myClass == Classe.Pompier)
         {
-         GetComponent<PistoletScript>().ChangeWeapon();
+            if (weapon == Armes.Hache)
+            {
+                view.RPC("SyncHache", RpcTarget.All, true); //Set display arme
+                GetComponent<HacheScript>().inHand = true;
+
+                // /!\ Set Layer Anim pompier
+            }
+            else
+            {
+                GetComponent<HacheScript>().ChangeWeapon();
+            }
         }
+    }
+
+
+    //RPC
+    [PunRPC]
+    void rpcDeath () 
+    {
+        Destroy(gameObject); //Détruit le perso mort
+    }
+
+    [PunRPC]
+    public void dealDammage (int viewID, int damage, string Killer)
+    {
+        TakeDamage(viewID, damage, Killer); //Envoie les dégâts aux autres
+    }
+
+    [PunRPC]
+    public void healing (int viewID, int heal)
+    {
+        Healing(viewID, heal); //Heal
     }
 }

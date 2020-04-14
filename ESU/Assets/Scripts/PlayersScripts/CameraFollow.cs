@@ -15,6 +15,8 @@ public class CameraFollow : MonoBehaviour {
 	private float rotX = 0.0f;
 
 	private float currentRotation = 0.0f;
+	public Animator anim;
+
 
 
 
@@ -70,6 +72,9 @@ public class CameraFollow : MonoBehaviour {
 	void CameraUpdater() {
 		// set the target object to follow
 		Transform target = CameraFollowObj;
+		
+		// Set du blend Tree Aim
+		anim.SetFloat("Aim Angle", -rotX);
 
 		//move towards the game object that is the target
 		float step = CameraMoveSpeed * Time.deltaTime;

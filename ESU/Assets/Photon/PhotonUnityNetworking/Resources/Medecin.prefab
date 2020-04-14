@@ -235,8 +235,6 @@ GameObject:
   - component: {fileID: 2314690883543540747}
   - component: {fileID: 6616070784403425835}
   - component: {fileID: 7811526580486638352}
-  - component: {fileID: 6187898662106043084}
-  - component: {fileID: 4999903564268413009}
   - component: {fileID: 1786722927528625744}
   m_Layer: 0
   m_Name: Medecin
@@ -270,7 +268,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273332395550713922}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 108051a3032be7e4c946691fd5f35420, type: 3}
+  m_Avatar: {fileID: 9000000, guid: ed91f2962440e2a459e2e628d315c15b, type: 3}
   m_Controller: {fileID: 9100000, guid: 9bab0aca6e472f744a6871a0d3fdc350, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -416,35 +414,6 @@ MonoBehaviour:
   myClass: 2
   health: 0
   gamemanager: {fileID: 0}
---- !u!114 &6187898662106043084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273332395550713922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5d91777bd0bc143b9aa0075630b156, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  view: {fileID: 0}
---- !u!114 &4999903564268413009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273332395550713922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3c0ba41beb263e458f281871327bcbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inHand: 1
-  damage: 10
-  range: 100
-  mainCam: {fileID: 0}
 --- !u!114 &1786722927528625744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,9 +453,19 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: landing
+  - Type: 9
+    SynchronizeType: 1
+    Name: grap
+  - Type: 1
+    SynchronizeType: 0
+    Name: Aim Angle
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+  - SynchronizeType: 1
+    LayerIndex: 1
+  - SynchronizeType: 0
+    LayerIndex: 2
 --- !u!1 &1409869382960900537
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class PlayerMouvement : MonoBehaviour
     
     private Animator anim;
     private float speed = 0.08f;
+    private float maxspeed = 0.16f;
     private float jumpHight = 10.0f;
     private bool canJump = true;
     public GameObject mainCamera;
@@ -27,7 +28,8 @@ public class PlayerMouvement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        Debug.DrawRay(transform.position + Vector3.up * 0.2f, -Vector3.up * (distToGround - 0.3f), Color.white);
+        return Physics.Raycast(transform.position + Vector3.up * 0.2f, -Vector3.up, distToGround - 0.3f);
     }
 
     // Update is called once per frame
@@ -51,11 +53,11 @@ public class PlayerMouvement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift)) //Si Maj enfoncé
             {
-                speed = 0.15f; //vitesse
+                speed = maxspeed; //vitesse
             }
             else
             {
-                speed = 0.08f; //vitesse
+                speed = maxspeed/2; //vitesse
             }
             //Création du vecteur direction du mouvement
             Vector3 dirVector = (Input.GetAxis("Horizontal") * MyRigidBody.transform.right + Input.GetAxis("Vertical") * MyRigidBody.transform.forward).normalized;
