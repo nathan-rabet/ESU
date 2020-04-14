@@ -35,8 +35,13 @@ public class HacheScript : MonoBehaviour
             if (canHit && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
                 canHit = false;
+                anim.SetBool("Attack", true);
                 Shoot(); //Tir
                 StartCoroutine(recoil(0.2f));
+            }
+            else
+            {
+                anim.SetBool("Attack", false);
             }
         }
         

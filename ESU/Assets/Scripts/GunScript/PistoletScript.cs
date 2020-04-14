@@ -113,6 +113,7 @@ public class PistoletScript : MonoBehaviour
             
             yield return new WaitForSeconds(reloadtime);
             ammo = 20;
+            ammoCount.SetAmmo(ammo);
             reloading = false;
             canShoot = true;
         }

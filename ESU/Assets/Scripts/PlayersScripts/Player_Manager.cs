@@ -51,6 +51,7 @@ public class Player_Manager : MonoBehaviour
         
         anim = GetComponent<Animator>();
         anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
+        anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 0f);
         
         weaponsInventory = new List<Armes>();
 
@@ -217,6 +218,8 @@ public class Player_Manager : MonoBehaviour
                 GetComponent<HacheScript>().inHand = true;
 
                 // /!\ Set Layer Anim pompier
+                anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 1f);
+                anim.SetTrigger("grap");
             }
             else
             {
