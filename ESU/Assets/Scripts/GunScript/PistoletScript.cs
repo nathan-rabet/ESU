@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon;
+using UnityEngine.UI;
 
 public class PistoletScript : MonoBehaviour
 {
@@ -25,9 +26,12 @@ public class PistoletScript : MonoBehaviour
     private Animator anim;
     PhotonView view;
 
+    private AmmoCount ammoCount;
+
 
     void Start()
     {
+        ammoCount = GameObject.Find("/GAME/Menu/InGameHUD/Weapon Info").GetComponent<AmmoCount>();
         view = GetComponent<PhotonView> (); //Cherche la vue
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
         anim = GetComponent<Animator>(); //Cherche Animator
@@ -36,20 +40,22 @@ public class PistoletScript : MonoBehaviour
     {
         if (view.IsMine && inHand)
         {
-
-
-            if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche tiré
+            
+            if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
                 canShoot = false;
                 muzzleFlash.Play();
                 Shoot(); //Tir
                 ammo--;
+                ammoCount.SetAmmo(ammo);
                 StartCoroutine(recoil(0.2f));
             }
 
             if (!reloading && Input.GetKeyDown(KeyCode.R))
             {
+                ammoCount.ReloadAnim();
                 reloading = true;
+                ammoCount.SetAmmo(ammo);
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
             }
