@@ -220,6 +220,7 @@ public class Player_Manager : MonoBehaviour
                 GetComponent<PistoletScript>().ChangeWeapon();
             }
         }
+
         if (myClass == Classe.Pompier)
         {
             if (weapon == Armes.Hache)
@@ -232,6 +233,18 @@ public class Player_Manager : MonoBehaviour
             else
             {
                 GetComponent<HacheScript>().ChangeWeapon();
+            }
+        }
+
+        if (myClass == Classe.Medecin)
+        {
+            if (weapon == Armes.Medpack)
+            {
+                GetComponent<MedkitScript>().inHand = true;
+            }
+            else
+            {
+                GetComponent<MedkitScript>().ChangeWeapon();
             }
         }
     }
