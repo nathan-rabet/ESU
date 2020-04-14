@@ -55,7 +55,6 @@ public class PistoletScript : MonoBehaviour
             {
                 ammoCount.ReloadAnim();
                 reloading = true;
-                ammoCount.SetAmmo(ammo);
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
             }
@@ -113,6 +112,7 @@ public class PistoletScript : MonoBehaviour
             
             yield return new WaitForSeconds(reloadtime);
             ammo = 20;
+            ammoCount.SetAmmo(ammo);
             reloading = false;
             canShoot = true;
         }
