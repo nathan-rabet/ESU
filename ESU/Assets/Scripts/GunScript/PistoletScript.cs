@@ -38,7 +38,7 @@ public class PistoletScript : MonoBehaviour
         {
 
 
-            if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
+            if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche tiré
             {
                 canShoot = false;
                 muzzleFlash.Play();

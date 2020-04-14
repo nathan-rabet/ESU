@@ -6360,6 +6360,7 @@ MonoBehaviour:
   view: {fileID: 7669379680196004934}
   myClass: 0
   health: 0
+  maxhealth: 0
   gamemanager: {fileID: 0}
 --- !u!114 &2691864950699537898
 MonoBehaviour:
