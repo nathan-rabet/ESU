@@ -16,6 +16,7 @@ public class Ammo_Animation : MonoBehaviour
 
     public void PlayAnimation()
     {
+        // Jour l'anim de rechargement
         anim.SetTrigger("reload");
     }
 }
