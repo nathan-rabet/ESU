@@ -43,6 +43,7 @@ public class Player_Manager : MonoBehaviour
     
     private healthbar healthBar;
     public GameObject gamemanager;
+    public GameObject HealingPrefab;
 
     void Start()
     {
@@ -123,6 +124,7 @@ public class Player_Manager : MonoBehaviour
     {
         if (viewID==view.ViewID) //Test si on est la personne tuer
         {
+            HealingPrefab.GetComponent<ParticleSystem>().Play();
             if (health+heal<maxhealth) //Diminution de la vie
             {
                 health+=heal;
