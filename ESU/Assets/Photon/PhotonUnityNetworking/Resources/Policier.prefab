@@ -928,8 +928,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5777488972958961606}
-  m_LocalRotation: {x: 0.00000013195596, y: 0.00000052889806, z: -0.000019096993,
-    w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.87974226, z: 0.0034034562}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6431,6 +6430,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 1
     Name: Aim Angle
+  - Type: 4
+    SynchronizeType: 0
+    Name: Attack
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -6438,6 +6440,8 @@ MonoBehaviour:
     LayerIndex: 1
   - SynchronizeType: 1
     LayerIndex: 2
+  - SynchronizeType: 0
+    LayerIndex: 3
 --- !u!1 &8319399941336900579
 GameObject:
   m_ObjectHideFlags: 0

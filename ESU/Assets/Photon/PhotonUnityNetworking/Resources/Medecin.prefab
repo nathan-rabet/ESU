@@ -461,6 +461,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 1
     Name: Aim Angle
+  - Type: 4
+    SynchronizeType: 0
+    Name: Attack
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -468,6 +471,8 @@ MonoBehaviour:
     LayerIndex: 1
   - SynchronizeType: 1
     LayerIndex: 2
+  - SynchronizeType: 0
+    LayerIndex: 3
 --- !u!114 &-3109986953810266747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +490,7 @@ MonoBehaviour:
   inHandMedkit: {fileID: 0}
   stackMedkit: {fileID: 0}
   Medkit: {fileID: 1051385403557412936, guid: d8058bc1794e5c543a9713f297e9ace1, type: 3}
-  MedkitSpawnPosition: {fileID: 1409869382960900537}
+  MedkitSpawnPosition: {fileID: 8658782538399726625}
 --- !u!1 &1409869382960900537
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +519,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4899686431931361474}
+  - {fileID: 8027556006114733975}
   m_Father: {fileID: 2968150382488807940}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1662,6 +1668,36 @@ Transform:
   - {fileID: 5938895679607176172}
   m_Father: {fileID: 4441711608346990499}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8658782538399726625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8027556006114733975}
+  m_Layer: 0
+  m_Name: SpawnMedKit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8027556006114733975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8658782538399726625}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.022, y: -0.003, z: 0.126}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3277822168487215974}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8849180314708892750
 GameObject:

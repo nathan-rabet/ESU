@@ -1717,6 +1717,7 @@ MonoBehaviour:
   view: {fileID: 6903345996571936705}
   myClass: 1
   health: 0
+  maxhealth: 0
   gamemanager: {fileID: 0}
 --- !u!114 &-87544246477033858
 MonoBehaviour:

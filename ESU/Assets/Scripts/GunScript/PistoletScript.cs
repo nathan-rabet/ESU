@@ -97,7 +97,7 @@ public class PistoletScript : MonoBehaviour
     public void ChangeWeapon()
     {
         anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
-        
+
         inHand = false;
         mainCam.GetComponent<CameraCollision>().Scope(2.5f, 5f);
 

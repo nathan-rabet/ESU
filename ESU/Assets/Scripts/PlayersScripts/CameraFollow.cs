@@ -6,8 +6,8 @@ public class CameraFollow : MonoBehaviour {
 
 	public float CameraMoveSpeed = 120.0f;
 	public Transform CameraFollowObj;
-	public float clampAnglemax = 80.0f;
-	public float clampAnglemin = 60.0f;
+	private float clampAnglemax = 25.0f;
+	private float clampAnglemin = 45.0f;
 	public float inputSensitivity = 150.0f;
 	public float finalInputX;
 	public float finalInputZ;

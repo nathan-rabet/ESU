@@ -41,7 +41,7 @@ public class MedkitScript : MonoBehaviour
                     reloading = true;
                     StartCoroutine(reloadingIE(1));
                 }
-                StartCoroutine(recoil(0.2f));
+                StartCoroutine(recoil(0.1f));
             }
         }
         
@@ -49,7 +49,8 @@ public class MedkitScript : MonoBehaviour
 
     private void Shoot()
     {
-        PhotonNetwork.Instantiate(Medkit.name, MedkitSpawnPosition.transform.position, mainCam.transform.rotation, 0);
+        GameObject MyMedkit = PhotonNetwork.Instantiate(Medkit.name, MedkitSpawnPosition.transform.position, MedkitSpawnPosition.transform.rotation, 0);
+        MyMedkit.GetComponent<Rigidbody>().AddForce(mainCam.transform.forward * 700);
     }
 
     //Function de inHandfalse
