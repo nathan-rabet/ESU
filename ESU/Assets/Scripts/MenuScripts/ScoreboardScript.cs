@@ -10,7 +10,6 @@ public class ScoreboardScript : MonoBehaviour
 {
     public List<GameObject> HUDDefJoueur;
     public List<GameObject> HUDAttJoueur;
-    public int DefLenght = 0;
 
     private List<Photon.Realtime.Player> DefJoueur = new List<Photon.Realtime.Player>();
 
@@ -56,7 +55,7 @@ public class ScoreboardScript : MonoBehaviour
                 HUD.transform.GetChild(1).GetComponent<TMP_Text>().text = player.CustomProperties["Kill"].ToString();
                 HUD.transform.GetChild(2).GetComponent<TMP_Text>().text = player.CustomProperties["Death"].ToString();
                 HUD.transform.GetChild(3).GetComponent<TMP_Text>().text = player.CustomProperties["Class"].ToString();
-                HUDDefJoueur[i].SetActive(true);
+                HUDAttJoueur[i].SetActive(true);
             }
             for (int i = 0; i < DefJoueur.Count; i++)
             {

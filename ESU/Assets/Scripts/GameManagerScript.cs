@@ -325,4 +325,5 @@ public class GameManagerScript : MonoBehaviour
             Respawntime.text = "Appuyer sur une touche pour réapparaître";
             StadeGame = "EN_ATT_REAPARITION";
         }
+
 }
