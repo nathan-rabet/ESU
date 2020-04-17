@@ -193,10 +193,6 @@ public class GameManagerScript : MonoBehaviour
             if (Input.anyKey) //Si une touche appuyer
             {
                 DeathHUD.SetActive(false); //Désactivation de l'HUD de mort
-                foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player")) //Boucle de recherche sur les joueurs
-                {
-                    p.GetComponent<Player_Manager>().DestroyMe(); //Appel la MORT (issou)
-                }
                 GameObject.Find("/GAME/PunManager").GetComponent<PunScript>().SpawnPlayer(); //Respawn de moi
                 InGameHUD.SetActive(true); //Activation de l'HUD dans la partie en vie
                 StadeGame = "INGAME"; //Statue de la partie en partie

@@ -55,7 +55,6 @@ public class PistoletScript : MonoBehaviour
             {
                 ammoCount.ReloadAnim();
                 reloading = true;
-                ammoCount.SetAmmo(ammo);
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
             }
@@ -98,7 +97,7 @@ public class PistoletScript : MonoBehaviour
     public void ChangeWeapon()
     {
         anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
-        
+
         inHand = false;
         mainCam.GetComponent<CameraCollision>().Scope(2.5f, 5f);
 
