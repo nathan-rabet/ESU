@@ -103,7 +103,7 @@ public class Player_Manager : MonoBehaviour
     }
 
     //Fonction perdre de la vie
-    public void TakeDamage(int viewID, int damage, string Killer)
+    public void TakeDamage(int viewID, int damage, Photon.Realtime.Player Killer)
     {
         if (viewID==view.ViewID) //Test si on est la personne tuer
         {
@@ -114,6 +114,11 @@ public class Player_Manager : MonoBehaviour
             else
             {
                 health=0;
+
+                Hashtable hash = new Hashtable();
+                hash.Add("Kill", (int)Killer.CustomProperties["Kill"]+1);
+                Killer.SetCustomProperties(hash); //Add d'un kill
+                
                 Death(Killer, 5);
             }
             
@@ -141,12 +146,12 @@ public class Player_Manager : MonoBehaviour
     }
 
     //Protocol de mort
-    public void Death(string Killer, int respTime)
+    public void Death(Photon.Realtime.Player Killer, int respTime)
     {
         if (view.IsMine)
         {
             //Affichage du HUD 
-            gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime); //Appel de la function HUDMort de GameManagerScript
+            gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer.NickName, respTime); //Appel de la function HUDMort de GameManagerScript
 
             //APPEL RPC
             view.RPC("rpcDeath", RpcTarget.Others); //Envoi ma mort aux autres
@@ -164,6 +169,11 @@ public class Player_Manager : MonoBehaviour
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.isKinematic = false;
             rb.detectCollisions = true; //désactive les collision
+
+            Hashtable hash = new Hashtable();
+            hash.Add("Death", (int)PhotonNetwork.LocalPlayer.CustomProperties["Death"]+1);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash); //Add d'une mort
+
             Destroy(gameObject, 5f);
         }
     }
@@ -265,7 +275,7 @@ public class Player_Manager : MonoBehaviour
     }
 
     [PunRPC]
-    public void dealDammage (int viewID, int damage, string Killer)
+    public void dealDammage (int viewID, int damage, Photon.Realtime.Player Killer)
     {
         TakeDamage(viewID, damage, Killer); //Envoie les dégâts aux autres
     }

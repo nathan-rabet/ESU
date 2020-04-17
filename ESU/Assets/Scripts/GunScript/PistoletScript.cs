@@ -83,7 +83,7 @@ public class PistoletScript : MonoBehaviour
                 Instantiate(hitPlayer, hit.point, new Quaternion(0,0,0,0)); //Spawn Particule
                 view.RPC("SyncParticules", RpcTarget.Others, 0, hit.point); //Envoie aux autres
 
-                hit.transform.gameObject.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.Others, hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.NickName); //Envoi des dégâts
+                hit.transform.gameObject.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.Others, hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.LocalPlayer); //Envoi des dégâts
             }
             else
             {

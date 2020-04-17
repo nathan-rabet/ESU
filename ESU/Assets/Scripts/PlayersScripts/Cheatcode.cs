@@ -22,7 +22,7 @@ public class Cheatcode : MonoBehaviour
         {
             if (Input.GetKeyDown("k"))
             {
-                transform.GetComponent<Player_Manager>().Death("le Vide", 5);
+                transform.GetComponent<Player_Manager>().Death(PhotonNetwork.LocalPlayer, 5);
             }
             if (Input.GetKeyDown("l"))
             {
