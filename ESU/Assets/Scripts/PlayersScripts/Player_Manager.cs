@@ -42,14 +42,16 @@ public class Player_Manager : MonoBehaviour
     private Animator anim;
     
     private healthbar healthBar;
-    public GameObject gamemanager;
-    public GameObject HealingPrefab;
+    private GameObject gamemanager;
+    private GameObject HealingPrefab;
+    private GameStat GameStat;
 
     void Start()
     {
         //Set des variables
         gamemanager = GameObject.Find("/GAME/GameManager");
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
+        GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
         
         anim = GetComponent<Animator>();
         anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
@@ -150,10 +152,10 @@ public class Player_Manager : MonoBehaviour
             view.RPC("rpcDeath", RpcTarget.Others); //Envoi ma mort aux autres
             if (myClass == Classe.Policier || myClass == Classe.Medecin || myClass == Classe.Pompier)
             {
-                view.RPC("changeScore", RpcTarget.All, 0, 10);
+                GameStat.changeScore(0, 10);
             }else
             {
-                view.RPC("changeScore", RpcTarget.All, 10, 0);
+                GameStat.changeScore(10, 0);
             }
 
             //Gestion du Player

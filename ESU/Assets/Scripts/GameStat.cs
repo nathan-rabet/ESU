@@ -28,12 +28,17 @@ public class GameStat : MonoBehaviour
         scoreDEFHUD.text = "" + scoreDEF;
     }
     [PunRPC]
-    public void changeScore (int scoreA, int scoreD)
+    public void changeScoreRCP (int scoreA, int scoreD)
     {
         scoreAtt += scoreA;
         scoreDEF += scoreD;
         scoreATTHUD.text = "" + scoreAtt;
         scoreDEFHUD.text = "" + scoreDEF;
+    }
+
+    public void changeScore(int scoreA, int scoreD)
+    {
+        view.RPC("changeScoreRCP", RpcTarget.All, scoreA, scoreD);
     }
 
     public void SendToNewPlayer()

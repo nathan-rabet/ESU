@@ -11114,8 +11114,6 @@ MonoBehaviour:
   myClass: 0
   health: 0
   maxhealth: 0
-  gamemanager: {fileID: 0}
-  HealingPrefab: {fileID: 3344914587963636027}
 --- !u!114 &2691864950699537898
 MonoBehaviour:
   m_ObjectHideFlags: 0
