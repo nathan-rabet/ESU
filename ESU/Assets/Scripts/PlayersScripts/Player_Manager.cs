@@ -145,6 +145,10 @@ public class Player_Manager : MonoBehaviour
         {
             //Affichage du HUD 
             gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime); //Appel de la function HUDMort de GameManagerScript
+            if (myClass == Classe.Policier)
+            {
+                GetComponent<PistoletScript>().HUD.SetActive(false);
+            }
 
             //APPEL RPC
             view.RPC("rpcDeath", RpcTarget.Others); //Envoi ma mort aux autres
@@ -214,6 +218,7 @@ public class Player_Manager : MonoBehaviour
             if (weapon == Armes.Pistolet)
             {
                 view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
+                GetComponent<PistoletScript>().HUD.SetActive(true);
                 GetComponent<PistoletScript>().inHand =true;
                 anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
                 anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet

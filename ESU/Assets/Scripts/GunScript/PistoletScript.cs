@@ -24,6 +24,7 @@ public class PistoletScript : MonoBehaviour
     public GameObject inHandGun;
     public GameObject stackGun;
     private Animator anim;
+    public GameObject HUD;
     PhotonView view;
 
     private AmmoCount ammoCount;
@@ -32,6 +33,7 @@ public class PistoletScript : MonoBehaviour
     void Start()
     {
         ammoCount = GameObject.Find("/GAME/Menu/InGameHUD/Weapon Info").GetComponent<AmmoCount>();
+        HUD = GameObject.Find("/GAME/Menu/InGameHUD/Weapon Info");
         view = GetComponent<PhotonView> (); //Cherche la vue
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
         anim = GetComponent<Animator>(); //Cherche Animator
@@ -96,6 +98,7 @@ public class PistoletScript : MonoBehaviour
     //Function de inHandfalse
     public void ChangeWeapon()
     {
+        HUD.SetActive(false);
         anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
 
         inHand = false;
