@@ -42,8 +42,10 @@ using TMPro;
             {
                     RoomOptions myRoomOption = new RoomOptions(); //Création de la var de room
                     myRoomOption.MaxPlayers = 20; //20 joueurs max
-                    
-                    PhotonNetwork.JoinOrCreateRoom ("OfficialRoom", myRoomOption, TypedLobby.Default); //Essai de rejoindre la partie en crée une sinon
+                    if (SceneManager.GetActiveScene().buildIndex == 1)
+                        PhotonNetwork.JoinOrCreateRoom ("OfficialRoomMap1", myRoomOption, TypedLobby.Default); //Essai de rejoindre la partie en crée une sinon
+                    else
+                        PhotonNetwork.JoinOrCreateRoom ("OfficialRoomMap2", myRoomOption, TypedLobby.Default); //Essai de rejoindre la partie en crée une sinon
                     ClientState.text = PhotonNetwork.NetworkClientState.ToString(); //Affichage
             }
 
