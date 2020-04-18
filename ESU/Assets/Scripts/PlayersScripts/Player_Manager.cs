@@ -151,7 +151,7 @@ public class Player_Manager : MonoBehaviour
         if (view.IsMine)
         {
             //Affichage du HUD 
-            gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime); //Appel de la function HUDMort de GameManagerScript
+            gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer.NickName, respTime); //Appel de la function HUDMort de GameManagerScript
             if (myClass == Classe.Policier)
             {
                 GetComponent<PistoletScript>().HUD.SetActive(false);
