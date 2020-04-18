@@ -17,12 +17,12 @@ public class GameManagerScript : MonoBehaviour
 {
     #region DefVariable
 
-        string StadeGame = "CONNECTION"; //Variable sur l'état de la partie. 
-                                         //Elle permet de savoir si le joueur choisit son équipe ou classe.
-                                         //Si il en jeu en vie ou mort ect...
-                                         //Elle permet d'éviter que le joueur est la possibilité d'activé
-                                         //des interfaces et donc de les superposé.
-                                         //(Par exemple le tableau des score pendant le choix de classe)
+        public string StadeGame = "CONNECTION"; //Variable sur l'état de la partie. 
+                                                //Elle permet de savoir si le joueur choisit son équipe ou classe.
+                                                //Si il en jeu en vie ou mort ect...
+                                                //Elle permet d'éviter que le joueur est la possibilité d'activé
+                                                //des interfaces et donc de les superposé.
+                                                //(Par exemple le tableau des score pendant le choix de classe)
         
         private int nbDefPlayer = 0; //Variable sur le nombre de Def (A changé c'est de la merde)
         private int nbAttPlayer = 0; //Variable sur le nombre de Att (A changé c'est de la merde)
