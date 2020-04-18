@@ -42,10 +42,10 @@ public class PistoletScript : MonoBehaviour
     }
     void Update()
     {
-        if (view.IsMine && inHand)
+        if (view.IsMine && inHand && ManagerScript.StadeGame == "INGAME")
         {
             
-            if (canShoot && ammo>0 && Input.GetKey("mouse 0") && ManagerScript.StadeGame == "INGAME") //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
+            if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
                 canShoot = false;
                 muzzleFlash.Play();
