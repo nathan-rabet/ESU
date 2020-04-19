@@ -113,6 +113,7 @@ public class PistoletScript : MonoBehaviour
     IEnumerator reloadingIE(int reloadtime)
         {
             //  Jouer l'anim de rechargement /!\
+            anim.SetTrigger("Reload");
 
             
             yield return new WaitForSeconds(reloadtime);
