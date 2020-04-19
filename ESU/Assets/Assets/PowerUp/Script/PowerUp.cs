@@ -6,16 +6,22 @@ public class PowerUp : MonoBehaviour {
 
     public GameObject pickupEffect;
     public float duration = 4f;
+    public float respawn = 10f;
     public float multiplierPlayerScale = 1f;
     public float multiplierSpeed = 1.4f;
     public float multiplierJump = 1.4f;
-    public GameObject light = GameObject.Find("LightShape");
 
     void OnTriggerEnter (Collider other) 
     {
+        // Get light
+        GameObject originalGameObject = this.gameObject;
+        GameObject light = this.transform.GetChild(0).gameObject;
+
         if (other.CompareTag("Player"))
         {
+            light.GetComponent<MeshRenderer>().enabled = false;
             StartCoroutine( Pickup(other) );
+            StartCoroutine(ActivePower(light.GetComponent<MeshRenderer>()));
         }
     }
 
@@ -24,8 +30,10 @@ public class PowerUp : MonoBehaviour {
         bool isJumpModif = false;
         bool isSpeedModif = false;
         bool isScaleModif = false;
+
         //Spawn a cool effect
-        GameObject effect = Instantiate(pickupEffect, transform.position, transform.rotation);
+        Instantiate(pickupEffect, transform.position, transform.rotation);
+        
 
         //Apply an effect to the player
         if (multiplierPlayerScale > 0)
@@ -57,10 +65,15 @@ public class PowerUp : MonoBehaviour {
         if (isScaleModif)
             player.transform.localScale /= multiplierPlayerScale;
 
+    }
+    IEnumerator ActivePower(MeshRenderer light) 
+    {
+        yield return new WaitForSeconds(respawn+duration);
 
-        //Destroy PowerUp
-        Destroy(gameObject);
-        Destroy(light);
+        GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<Collider>().enabled = true;
+        light.enabled = true;
+
     }
    
 }
