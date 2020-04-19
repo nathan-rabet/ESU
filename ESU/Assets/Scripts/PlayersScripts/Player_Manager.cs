@@ -152,7 +152,7 @@ public class Player_Manager : MonoBehaviour
         {
             //Affichage du HUD 
             gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer.NickName, respTime); //Appel de la function HUDMort de GameManagerScript
-            if (myClass == Classe.Policier)
+            if (myClass == Classe.Policier || myClass == Classe.Mercenaire)
             {
                 GetComponent<PistoletScript>().HUD.SetActive(false);
             }
@@ -225,7 +225,7 @@ public class Player_Manager : MonoBehaviour
     //Update weaponscript
     private void updateWeaponScript(Armes weapon)
     {
-        if (myClass == Classe.Policier)
+        if (myClass == Classe.Policier || myClass == Classe.Mercenaire)
         {
             if (weapon == Armes.Pistolet)
             {
@@ -258,7 +258,7 @@ public class Player_Manager : MonoBehaviour
             }
         }
 
-        if (myClass == Classe.Medecin)
+        if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
         {
             if (weapon == Armes.Medpack)
             {

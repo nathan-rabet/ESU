@@ -82,6 +82,7 @@ public class PistoletScript : MonoBehaviour
         RaycastHit hit; //Set de la variable de type RaycastHit(donné sur l'object toucher)
         if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, range)) //Envoi du tir
         {
+            Debug.DrawRay(mainCam.transform.position, mainCam.transform.forward * hit.distance, Color.green, 2.5f);
             if (hit.transform.gameObject.tag == "Player") //Si l'objet touché est un joueur
             {
                 Instantiate(hitPlayer, hit.point, new Quaternion(0,0,0,0)); //Spawn Particule
