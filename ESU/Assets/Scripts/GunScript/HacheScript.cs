@@ -15,10 +15,12 @@ public class HacheScript : MonoBehaviour
     private GameObject stackAxe;
     private Animator anim;
     PhotonView view;
+    public GameObject HUD;
 
 
     void Start()
     {
+        HUD = GameObject.Find("/GAME/Menu/InGameHUD/Pompier Info");
         view = GetComponent<PhotonView> (); //Cherche la vue
         anim = GetComponent<Animator>(); //Cherche Animator
         HTS = transform.Find("AxeHitTrigger").GetComponent<HacheTriggerScript>();
@@ -58,6 +60,7 @@ public class HacheScript : MonoBehaviour
 
     public void ChangeWeapon()
     {
+        HUD.SetActive(false);
         inHand = false;
         view.RPC("SyncHache", RpcTarget.All, false); //Set display arme
 

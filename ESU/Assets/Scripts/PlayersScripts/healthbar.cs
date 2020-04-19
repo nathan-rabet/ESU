@@ -12,6 +12,7 @@ public class healthbar : MonoBehaviour
     private float t = 0;
     private int Health;
     public float LerpSpeed = 3;
+    public Text Textvalue;
 
 
     public void SetMaxHealth(int health)
@@ -22,7 +23,10 @@ public class healthbar : MonoBehaviour
 
     public void Update()
     {
+        // Vérifie si la vie actuelle correspond à la valeur de la vie théorique
         ChangeHealthValue();
+        // Remplace la valeur du text par la vie actuelle
+        Textvalue.text = Convert.ToString(Health) + "%";
     }
 
 

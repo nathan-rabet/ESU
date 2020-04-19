@@ -6492,6 +6492,7 @@ MonoBehaviour:
   damage: 40
   inHand: 0
   canHit: 1
+  HUD: {fileID: 0}
 --- !u!1 &7309515371517740783
 GameObject:
   m_ObjectHideFlags: 0

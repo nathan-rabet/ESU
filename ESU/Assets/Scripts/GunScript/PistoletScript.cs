@@ -101,7 +101,7 @@ public class PistoletScript : MonoBehaviour
     //Function de inHandfalse
     public void ChangeWeapon()
     {
-        HUD.SetActive(false);
+        HUD.SetActive(false); // Desactive le HUD
         anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
 
         inHand = false;
@@ -114,6 +114,7 @@ public class PistoletScript : MonoBehaviour
     IEnumerator reloadingIE(int reloadtime)
         {
             //  Jouer l'anim de rechargement /!\
+            anim.SetTrigger("Reload");
 
             
             yield return new WaitForSeconds(reloadtime);

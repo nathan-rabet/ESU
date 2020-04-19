@@ -16,6 +16,7 @@ public class MedkitScript : MonoBehaviour
     public GameObject Medkit;
     public GameObject MedkitSpawnPosition;
     private Animator anim;
+    public GameObject HUD;
     PhotonView view;
 
 
@@ -23,6 +24,7 @@ public class MedkitScript : MonoBehaviour
     {
         view = GetComponent<PhotonView> (); //Cherche la vue
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
+        HUD = GameObject.Find("/GAME/Menu/InGameHUD/Medecin Info"); // Cherche Medecin HUD
     }
 
     // Update is called once per frame
@@ -56,6 +58,7 @@ public class MedkitScript : MonoBehaviour
     //Function de inHandfalse
     public void ChangeWeapon()
     {
+        HUD.SetActive(false); // Désactive le HUD
         inHand = false;
     }
 

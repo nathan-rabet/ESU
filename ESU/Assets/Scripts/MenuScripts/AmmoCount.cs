@@ -12,6 +12,7 @@ public class AmmoCount : MonoBehaviour
     private Ammo_Animation _ammoAnimation;
     private float LerpSpeed = 3;
     private int Ammo;
+    public Text Textvalue;
 
     public void Start()
     {
@@ -21,6 +22,8 @@ public class AmmoCount : MonoBehaviour
     public void Update()
     {
         ChangeAmmoValue();
+        // Affiche le nombre de balle restante
+        Textvalue.text = Convert.ToString(Ammo);
     }
 
     public void SetAmmo(int ammo)

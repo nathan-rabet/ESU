@@ -156,6 +156,17 @@ public class Player_Manager : MonoBehaviour
             {
                 GetComponent<PistoletScript>().HUD.SetActive(false);
             }
+            
+            if (myClass == Classe.Pompier)
+            {
+                GetComponent<HacheScript>().HUD.SetActive(false);
+            }
+            
+            if (myClass == Classe.Medecin)
+            {
+                GetComponent<MedkitScript>().HUD.SetActive(false);
+            }
+            
 
             //APPEL RPC
             view.RPC("rpcDeath", RpcTarget.Others); //Envoi ma mort aux autres
@@ -230,7 +241,7 @@ public class Player_Manager : MonoBehaviour
             if (weapon == Armes.Pistolet)
             {
                 view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
-                GetComponent<PistoletScript>().HUD.SetActive(true);
+                GetComponent<PistoletScript>().HUD.SetActive(true); // Active le HUD du Policier
                 GetComponent<PistoletScript>().inHand =true;
                 anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
                 anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet
@@ -246,6 +257,7 @@ public class Player_Manager : MonoBehaviour
             if (weapon == Armes.Hache)
             {
                 view.RPC("SyncHache", RpcTarget.All, true); //Set display arme
+                GetComponent<HacheScript>().HUD.SetActive(true); // Active le HUD du pompier
                 GetComponent<HacheScript>().inHand = true;
 
                 // /!\ Set Layer Anim pompier
@@ -262,6 +274,7 @@ public class Player_Manager : MonoBehaviour
         {
             if (weapon == Armes.Medpack)
             {
+                GetComponent<MedkitScript>().HUD.SetActive(true); // Active le HUD du médecin
                 GetComponent<MedkitScript>().inHand = true;
             }
             else
