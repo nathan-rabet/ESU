@@ -101,6 +101,7 @@ using TMPro;
                     GameObject MyPlayer = PhotonNetwork.Instantiate(classprefab.name,spawn.position,Quaternion.identity,0) as GameObject; //Instantier le prefab
                     MainCamera.GetComponent<CameraFollow>().CameraFollowObj = MyPlayer.transform.Find("posCam").transform; //Set de la var lookAt de la cam
                     MainCamera.GetComponent<CameraFollow>().anim = MyPlayer.transform.GetComponent<Animator>();
+                    gameManager.GetComponent<GameManagerScript>().mainplayer = MyPlayer;
                 }
             }
 
@@ -120,6 +121,10 @@ using TMPro;
                 {
                     gameManager.GetComponent<GameManagerScript>().SendToNewPlayer(); //Appel  de la fonction SendToNewPlayer de GameManagerScript
                     gameManager.GetComponent<GameStat>().SendToNewPlayer();
+                    foreach (GameObject batiment in GameObject.FindGameObjectsWithTag("Batiment"))
+                    {
+                        batiment.GetComponent<PhotonView>().RPC("SyncBat", RpcTarget.Others, batiment.GetComponent<BuildingScript>().health);
+                    }
                 }
             }
     }

@@ -83,12 +83,27 @@ public class PistoletScript : MonoBehaviour
         if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, range)) //Envoi du tir
         {
             Debug.DrawRay(mainCam.transform.position, mainCam.transform.forward * hit.distance, Color.green, 2.5f);
+            switch (hit.transform.gameObject.tag)
+            {
+                case "Player":
+                    Instantiate(hitPlayer, hit.point, new Quaternion(0,0,0,0)); //Spawn Particule
+                    view.RPC("SyncParticules", RpcTarget.Others, 0, hit.point); //Envoie aux autres
+
+                    hit.transform.gameObject.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.Others, hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.LocalPlayer); //Envoi des dégâts
+                    break;
+                case "Batiment":
+                    Instantiate(hitGround, hit.point, new Quaternion(0,0,0,0)); //Spawn Particule
+                    view.RPC("SyncParticules", RpcTarget.Others, 1, hit.point); //Envoie aux autres
+                    hit.transform.gameObject.GetComponent<BuildingScript>().TakeDamage(hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.LocalPlayer); //Envoi des dégâts
+                    break;
+                default:
+                    Instantiate(hitGround, hit.point, new Quaternion(0,0,0,0)); //Spawn Particule
+                    view.RPC("SyncParticules", RpcTarget.Others, 1, hit.point); //Envoie aux autres
+                    break;
+            }
             if (hit.transform.gameObject.tag == "Player") //Si l'objet touché est un joueur
             {
-                Instantiate(hitPlayer, hit.point, new Quaternion(0,0,0,0)); //Spawn Particule
-                view.RPC("SyncParticules", RpcTarget.Others, 0, hit.point); //Envoie aux autres
-
-                hit.transform.gameObject.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.Others, hit.transform.gameObject.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.LocalPlayer); //Envoi des dégâts
+                
             }
             else
             {
