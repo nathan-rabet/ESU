@@ -44,6 +44,7 @@ public class GameManagerScript : MonoBehaviour
         public GameObject ClassDefMenu;
         public GameObject ClassAttMenu;
         public GameObject GameHUD;
+        public GameObject mainplayer;
         private bool showInfos = false;
         public TMP_Text FPS;
     #endregion
@@ -127,25 +128,6 @@ public class GameManagerScript : MonoBehaviour
                 StadeGame = "TAB";
             }
 
-            //Menu choix des classes
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="DEF")
-                {
-                    ClassDefMenu.SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                    StadeGame = "CHOOSINGCLASS";
-                }
-                if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="ATT")
-                {
-                    ClassAttMenu.SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                    StadeGame = "CHOOSINGCLASS";
-                }
-            }
-
             break;
 
             //En pause echap
@@ -170,22 +152,14 @@ public class GameManagerScript : MonoBehaviour
 
             //Choix de la class
             case "CHOOSINGCLASS":
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown("escape"))
             {
-                if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="DEF")
-                {
-                    ClassDefMenu.SetActive(false);
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                    StadeGame = "INGAME";
-                }
-                if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="ATT")
-                {
-                    ClassAttMenu.SetActive(false);
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                    StadeGame = "INGAME";
-                }
+                pauseMenuUI.SetActive(true);
+                ClassDefMenu.SetActive(false);
+                ClassAttMenu.SetActive(false);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                StadeGame = "PAUSE";
             }
             break;
 
@@ -201,6 +175,26 @@ public class GameManagerScript : MonoBehaviour
         }
         
     }
+
+    public void ChangeClassButton()
+    {
+        pauseMenuUI.SetActive(false);
+        if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="DEF")
+                {
+                    ClassDefMenu.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    StadeGame = "CHOOSINGCLASS";
+                }
+                if ((string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="ATT")
+                {
+                    ClassAttMenu.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    StadeGame = "CHOOSINGCLASS";
+                }
+    }
+
     #endregion
     #region PlayerGestion
     public void ChangePlayerClass(string newClass)
@@ -217,6 +211,7 @@ public class GameManagerScript : MonoBehaviour
             Cursor.visible = false;
             StadeGame = "INGAME";
         }
+        mainplayer.GetComponent<Player_Manager>().Death(PhotonNetwork.LocalPlayer, 10);
     }
 
     public void AddDefPlayer()

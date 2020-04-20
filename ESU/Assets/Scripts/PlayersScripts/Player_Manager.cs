@@ -189,7 +189,7 @@ public class Player_Manager : MonoBehaviour
             hash.Add("Death", (int)PhotonNetwork.LocalPlayer.CustomProperties["Death"]+1);
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash); //Add d'une mort
 
-            Destroy(gameObject, 5f);
+            Destroy(gameObject, respTime);
         }
     }
 
