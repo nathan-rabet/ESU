@@ -32,7 +32,7 @@ public class CameraFollow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (ManagerScript.StadeGame == "INGAME")
+		if (ManagerScript.StadeGame == "INGAME" || ManagerScript.StadeGame == "MORT")
 		{
 			// We setup the rotation of the sticks here
 			float mouseX = Input.GetAxis ("Mouse X");

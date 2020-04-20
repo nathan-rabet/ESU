@@ -46,5 +46,6 @@ MonoBehaviour:
   - SyncParticules
   - healing
   - changeScoreRCP
+  - SyncBat
   DisableAutoOpenWizard: 1
   ShowSettings: 1
