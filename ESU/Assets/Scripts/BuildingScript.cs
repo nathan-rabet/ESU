@@ -24,19 +24,25 @@ public class BuildingScript : MonoBehaviour
             if (health>damage) //Diminution de la vie
             {
                 health-=damage;
+                view.RPC("SyncBat", RpcTarget.Others, health);
             }
             else
             {
-                health=0;
-                string myClass = (string)Killer.CustomProperties["Team"];
-                if (myClass == "DEF")
+                if (health>0)
                 {
-                    GameStat.changeScore(0, 10);
-                }else
-                {
-                    GameStat.changeScore(10, 0);
+                    string myClass = (string)Killer.CustomProperties["Team"];
+                    if (myClass == "DEF")
+                    {
+                        GameStat.changeScore(0, 10);
+                    }else
+                    {
+                        GameStat.changeScore(10, 0);
+                    }
+                    view.RPC("SyncBat", RpcTarget.Others, health);
+                    //jouer l'anim de mort
+                    Destroy(gameObject, 5f);
                 }
-                //jouer l'anim de mort
+                health = 0;
             }
         }
     }

@@ -121,6 +121,10 @@ using TMPro;
                 {
                     gameManager.GetComponent<GameManagerScript>().SendToNewPlayer(); //Appel  de la fonction SendToNewPlayer de GameManagerScript
                     gameManager.GetComponent<GameStat>().SendToNewPlayer();
+                    foreach (GameObject batiment in GameObject.FindGameObjectsWithTag("Batiment"))
+                    {
+                        batiment.GetComponent<PhotonView>().RPC("SyncBat", RpcTarget.Others, batiment.GetComponent<BuildingScript>().health);
+                    }
                 }
             }
     }

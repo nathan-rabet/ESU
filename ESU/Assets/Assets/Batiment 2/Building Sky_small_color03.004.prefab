@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 5996960291931772806}
   - component: {fileID: 5996960291930641734}
   - component: {fileID: 4005860938326427792}
+  - component: {fileID: 3197522949004188705}
+  - component: {fileID: 4762227059185213670}
   m_Layer: 0
   m_Name: Building Sky_small_color03.004
-  m_TagString: Untagged
+  m_TagString: Batiment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,3 +95,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4301962, guid: 877f11d19d2c152488ed29f996b524f3, type: 3}
+--- !u!114 &3197522949004188705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5996960291928443782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &4762227059185213670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5996960291928443782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b43e2a0419d994c96212e3e28cc2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1000
