@@ -12,12 +12,9 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void ChangeMap()
+    public void ChangeMap(int index)
     {
-        if (MapIndex == 1)
-            MapIndex = 2;
-        else
-            MapIndex = 1;
+        MapIndex = index;
     }
 
     public void JoinMultiplayerGame ()
