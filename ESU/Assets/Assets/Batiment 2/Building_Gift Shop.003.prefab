@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2471749652862228857}
   - component: {fileID: 2318398454039628669}
   - component: {fileID: -5189138400006667375}
+  - component: {fileID: -5804707253691363001}
   m_Layer: 0
   m_Name: Building_Gift Shop.003
   m_TagString: Batiment
@@ -112,7 +113,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -129,3 +131,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1000
+--- !u!111 &-5804707253691363001
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6356609888932933752}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0

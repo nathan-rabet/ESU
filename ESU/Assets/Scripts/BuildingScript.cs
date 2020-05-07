@@ -10,9 +10,11 @@ public class BuildingScript : MonoBehaviour
     public int health = 1000;
     private PhotonView view;
     private GameStat GameStat;
+    private Animation anim;
 
     private void Start()
     {
+        anim = gameObject.GetComponent<Animation>();
         view = GetComponent<PhotonView>(); //Cherche la vue
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
     }
@@ -40,7 +42,8 @@ public class BuildingScript : MonoBehaviour
                     }
                     view.RPC("SyncBat", RpcTarget.Others, health);
                     //jouer l'anim de mort
-                    Destroy(gameObject, 5f);
+                    anim.Play("batiment");
+                    Destroy(gameObject, 3f);
                 }
                 health = 0;
             }
@@ -53,7 +56,8 @@ public class BuildingScript : MonoBehaviour
         this.health = health;
         if (this.health == 0)
         {
-            Destroy(gameObject);
+            anim.Play("batiment");
+            Destroy(gameObject, 3f);
         }
     }
 }

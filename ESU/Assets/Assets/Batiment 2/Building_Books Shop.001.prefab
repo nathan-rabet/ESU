@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -6360588745465921110}
   - component: {fileID: 1524149520782396557}
   - component: {fileID: -8470076658945796256}
+  - component: {fileID: -7744775645710690206}
   m_Layer: 0
   m_Name: Building_Books Shop.001
   m_TagString: Batiment
@@ -129,3 +130,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1000
+--- !u!111 &-7744775645710690206
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922811415574803606}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0

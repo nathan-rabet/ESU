@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -6442120087102841146}
   - component: {fileID: 4132737607920911069}
   - component: {fileID: 3230344561654379202}
+  - component: {fileID: 10496585881408027}
   m_Layer: 0
   m_Name: Building_Coffee Shop.001
   m_TagString: Batiment
@@ -129,3 +130,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1000
+--- !u!111 &10496585881408027
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7242142987797685066}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0

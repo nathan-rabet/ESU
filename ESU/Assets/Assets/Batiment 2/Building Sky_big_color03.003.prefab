@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1908709285813976239}
   - component: {fileID: -4880117763542751252}
   - component: {fileID: -1457537238746410386}
+  - component: {fileID: -7776590246615075810}
   m_Layer: 0
   m_Name: Building Sky_big_color03.003
   m_TagString: Batiment
@@ -129,3 +130,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1000
+--- !u!111 &-7776590246615075810
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2461043229915728762}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
