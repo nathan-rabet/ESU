@@ -338,6 +338,7 @@ MonoBehaviour:
   stackMedkit: {fileID: 0}
   Medkit: {fileID: 1051385403557412936, guid: d8058bc1794e5c543a9713f297e9ace1, type: 3}
   MedkitSpawnPosition: {fileID: 0}
+  HUD: {fileID: 0}
 --- !u!1 &470401449606007727
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -3724661385860677519}
   - component: {fileID: -885877531649838320}
   - component: {fileID: -4725524842528232303}
+  - component: {fileID: 3953031287598873971}
   m_Layer: 0
   m_Name: Building_Auto Service.001
   m_TagString: Batiment
@@ -129,3 +130,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1000
+--- !u!111 &3953031287598873971
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2190454650940730085}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 42ce5f9cddd802944b9fc76c2418b680, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
