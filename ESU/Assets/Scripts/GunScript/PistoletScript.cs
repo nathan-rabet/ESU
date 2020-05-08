@@ -55,7 +55,7 @@ public class PistoletScript : MonoBehaviour
                 StartCoroutine(recoil(0.2f));
             }
 
-            if (!reloading && Input.GetKeyDown(KeyCode.R))
+            if (!reloading && ammo<20 && Input.GetKeyDown(KeyCode.R))
             {
                 ammoCount.ReloadAnim();
                 reloading = true;
@@ -144,7 +144,10 @@ public class PistoletScript : MonoBehaviour
         {
 
             yield return new WaitForSeconds(recoiltime);
-            canShoot = true;
+            if (!reloading)
+            {
+                canShoot = true;
+            }
         }
 
     [PunRPC]

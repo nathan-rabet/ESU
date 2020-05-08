@@ -5804,7 +5804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1142641839975624538
 Transform:
   m_ObjectHideFlags: 0
@@ -6438,6 +6438,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 0
     Name: Attack
+  - Type: 9
+    SynchronizeType: 0
+    Name: Reload
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
