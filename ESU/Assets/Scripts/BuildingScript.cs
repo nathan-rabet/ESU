@@ -8,6 +8,7 @@ using Photon;
 public class BuildingScript : MonoBehaviour
 {
     public int health = 1000;
+    public int fire = 0;
     private PhotonView view;
     private GameStat GameStat;
 
@@ -16,7 +17,7 @@ public class BuildingScript : MonoBehaviour
         view = GetComponent<PhotonView>(); //Cherche la vue
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
     }
-    
+
     public void TakeDamage(int viewID, int damage, Photon.Realtime.Player Killer)
     {
         if (viewID == view.ViewID && health > 0) //Test si on est le bâtiment
@@ -24,19 +25,37 @@ public class BuildingScript : MonoBehaviour
             if (health>damage) //Diminution de la vie
             {
                 health-=damage;
-                view.RPC("SyncBat", RpcTarget.Others, health);
+                view.RPC("SyncBat", RpcTarget.Others, health, fire);
             }
             else
             {
-                string myClass = (string)Killer.CustomProperties["Team"];
                 GameStat.changeScore(50, 0);
-                    
-                view.RPC("SyncBat", RpcTarget.Others, health);
-
-                StartCoroutine(Anims());
                 
                 health = 0;
+                view.RPC("SyncBat", RpcTarget.All, health, fire);
             }
+        }
+    }
+
+    public void SetFire(int amount)
+    {
+        if (fire + amount > 10)
+            fire = 10;
+        if (fire + amount < 0)
+            fire = 0;
+        fire += amount;
+    }
+
+    IEnumerator Fire()
+    {
+        if (fire > 0)
+        {
+            health -= fire;
+
+
+            view.RPC("SyncBat", RpcTarget.Others, health, fire);
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(Fire());
         }
     }
 
@@ -67,9 +86,10 @@ public class BuildingScript : MonoBehaviour
     }
 
     [PunRPC]
-    public void SyncBat(int health)
+    public void SyncBat(int health, int fire)
     {
         this.health = health;
+        this.fire = fire;
         if (this.health == 0)
         {
             StartCoroutine(Anims());

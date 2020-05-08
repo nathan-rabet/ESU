@@ -131,7 +131,7 @@ using TMPro;
                     gameManager.GetComponent<GameStat>().SendToNewPlayer();
                     foreach (GameObject batiment in GameObject.FindGameObjectsWithTag("Batiment"))
                     {
-                        batiment.GetComponent<PhotonView>().RPC("SyncBat", RpcTarget.Others, batiment.GetComponent<BuildingScript>().health);
+                        batiment.GetComponent<PhotonView>().RPC("SyncBat", RpcTarget.Others, batiment.GetComponent<BuildingScript>().health, batiment.GetComponent<BuildingScript>().fire);
                     }
                 }
             }
