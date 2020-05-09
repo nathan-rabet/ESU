@@ -218,6 +218,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce196ffc0ae89e54f88e47f01384bf4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayersPrefab:
+  - {fileID: 7941232936560822212, guid: a715a641484076244a0131f674c444c8, type: 3}
+  - {fileID: 5852291038536503539, guid: 3c926a6e79b9c854a8f4610037afa605, type: 3}
+  - {fileID: 6128574677290936690, guid: 58b3d3f8f24e0934bac72f383d1d7d1d, type: 3}
+  - {fileID: 4521592183460616492, guid: 4fa5f8ddd86b3b743a1d8fa77ce5f533, type: 3}
+  - {fileID: 4521592183460616492, guid: 4fa5f8ddd86b3b743a1d8fa77ce5f533, type: 3}
+  - {fileID: 4521592183460616492, guid: 4fa5f8ddd86b3b743a1d8fa77ce5f533, type: 3}
   anim: {fileID: 8665701390278679655}
 --- !u!114 &4700067388181981870
 MonoBehaviour:

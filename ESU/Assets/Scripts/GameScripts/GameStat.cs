@@ -16,7 +16,7 @@ public class GameStat : MonoBehaviour
     public TMP_Text scoreATTHUD;
     public TMP_Text scoreDEFHUD;
     public PhotonView view;
-    public Object GameStatPrafeb;
+    public GameObject GameStatPrafeb;
 
     [PunRPC]
     public void sendGamestat (int min, int sec, int scoreA, int scoreD)
