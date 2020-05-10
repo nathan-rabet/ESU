@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2670493671129891287}
   - component: {fileID: 1573272558763805650}
   m_Layer: 0
-  m_Name: Fir_Tree (8)
+  m_Name: Palm(Collider)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

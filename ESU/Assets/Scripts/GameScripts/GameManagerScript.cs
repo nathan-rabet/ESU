@@ -216,7 +216,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void AddDefPlayer()
     {
-        if (nbDefPlayer<10 && PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") 
+        if (nbDefPlayer<10 && (string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") 
         {
             //Envoie RPC
             nbDefPlayer++;
@@ -242,7 +242,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void AddAttPlayer()
     {
-        if (nbAttPlayer<10 && PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") {
+        if (nbAttPlayer<10 && (string)PhotonNetwork.LocalPlayer.CustomProperties["Team"]=="") {
             //Envoie RPC
             nbAttPlayer++;
             view.RPC ("NumberAtt", RpcTarget.Others, nbAttPlayer);
