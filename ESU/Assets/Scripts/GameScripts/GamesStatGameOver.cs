@@ -6,9 +6,8 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
-using Michsky.UI.ModernUIPack;
 using System;
-using System.Runtime.CompilerServices;
+
 
 public class GamesStatGameOver : MonoBehaviour
 {
@@ -36,6 +35,7 @@ public class GamesStatGameOver : MonoBehaviour
         PhotonNetwork.LeaveRoom();
         spawns = GameObject.FindGameObjectsWithTag("Respawn");
         PlacePrefab();
+        UpdateHUD();
         Destroy(this.gameObject);
     }
 
@@ -125,6 +125,15 @@ public class GamesStatGameOver : MonoBehaviour
             GameObject p = Instantiate(prefab, spawns[i].transform.position, spawns[i].transform.rotation);
             p.GetComponentInChildren<TextMesh>().text = loosers[i - 5].NickName;
         }
+    }
+
+    public void UpdateHUD()
+    {
+        int totalscore = score.Item1 + score.Item2;
+        GameObject.Find("/HUD/Score/ATT").GetComponent<TMP_Text>().text = score.Item1.ToString();
+        GameObject.Find("/HUD/Score/DEF").GetComponent<TMP_Text>().text = score.Item2.ToString();
+        if (totalscore != 0)
+            GameObject.Find("/HUD/Score/Background/Loading Bar").GetComponent<Image>().fillAmount = score.Item1 / totalscore;
     }
 
     void Start()
