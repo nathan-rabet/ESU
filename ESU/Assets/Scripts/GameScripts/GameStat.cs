@@ -49,8 +49,8 @@ public class GameStat : MonoBehaviour
     
     IEnumerator UpdateSec(int min, int sec)
     {
-        timeMin = 0;
-        timeSec = 10;
+        timeMin = min;
+        timeSec = sec;
         while (timeMin>0 || timeSec>0)
         {
             timeSec--;

@@ -39,6 +39,7 @@ public class PistoletScript : MonoBehaviour
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
         anim = GetComponent<Animator>(); //Cherche Animator
         ManagerScript = GameObject.Find("/GAME/GameManager").GetComponent<GameManagerScript>();
+        ammoCount.SetAmmo(ammo);
     }
     void Update()
     {
