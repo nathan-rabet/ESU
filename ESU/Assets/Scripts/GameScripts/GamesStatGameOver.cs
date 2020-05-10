@@ -68,6 +68,10 @@ public class GamesStatGameOver : MonoBehaviour
                 }
             }
         }
+        if (win == "DEF")
+            GameObject.Find("/GAME/Menu/ScoreboardMenu").GetComponent<ScroreboardGameOver>().UpdateMe(loosers, winners);
+        else
+            GameObject.Find("/GAME/Menu/ScoreboardMenu").GetComponent<ScroreboardGameOver>().UpdateMe(winners, loosers);
 
         for (int i = 0; i < winners.Count; i++)
         {
