@@ -32,11 +32,10 @@ public class GamesStatGameOver : MonoBehaviour
         loadScene = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        PhotonNetwork.LeaveRoom();
         spawns = GameObject.FindGameObjectsWithTag("Respawn");
         PlacePrefab();
         UpdateHUD();
-        Destroy(this.gameObject);
+        PhotonNetwork.LeaveRoom();
     }
 
     private void PlacePrefab()
@@ -69,7 +68,11 @@ public class GamesStatGameOver : MonoBehaviour
             }
         }
         if (win == "DEF")
+        {
             GameObject.Find("/GAME/Menu/ScoreboardMenu").GetComponent<ScroreboardGameOver>().UpdateMe(loosers, winners);
+            GameObject.Find("/Environnement/TeamWin").GetComponent<TextMesh>().text = "Défenseur";
+            GameObject.Find("/Environnement/TeamWin").GetComponent<TextMesh>().color = new Color(0.3294118f, 0.427451f, 0.8980392f);
+        }
         else
             GameObject.Find("/GAME/Menu/ScoreboardMenu").GetComponent<ScroreboardGameOver>().UpdateMe(winners, loosers);
 

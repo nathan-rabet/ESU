@@ -36,6 +36,11 @@ public class GameStat : MonoBehaviour
         scoreATTHUD.text = "" + scoreAtt;
         scoreDEFHUD.text = "" + scoreDEF;
     }
+    [PunRPC]
+    public void GameOver ()
+    {
+        Instantiate(GameStatPrafeb);
+    }
 
     public void changeScore(int scoreA, int scoreD)
     {
@@ -49,7 +54,7 @@ public class GameStat : MonoBehaviour
     
     IEnumerator UpdateSec(int min, int sec)
     {
-        timeMin = min;
+        timeMin = 1;
         timeSec = sec;
         while (timeMin>0 || timeSec>0)
         {
@@ -83,6 +88,7 @@ public class GameStat : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-        Instantiate(GameStatPrafeb);
+        if (PhotonNetwork.IsMasterClient)
+            view.RPC("GameOver", RpcTarget.All);
     }
 }

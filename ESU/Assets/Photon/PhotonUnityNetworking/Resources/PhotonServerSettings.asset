@@ -47,5 +47,6 @@ MonoBehaviour:
   - healing
   - changeScoreRCP
   - SyncBat
+  - GameOver
   DisableAutoOpenWizard: 1
   ShowSettings: 1

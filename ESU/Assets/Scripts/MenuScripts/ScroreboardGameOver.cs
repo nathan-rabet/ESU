@@ -10,10 +10,6 @@ public class ScroreboardGameOver : MonoBehaviour
     public List<GameObject> HUDDefJoueur;
     public List<GameObject> HUDAttJoueur;
 
-    private List<Photon.Realtime.Player> DefJoueur = new List<Photon.Realtime.Player>();
-
-    private List<Photon.Realtime.Player> AttJoueur = new List<Photon.Realtime.Player>();
-
 
 
     public void UpdateMe(List<Photon.Realtime.Player> AttJoueur, List<Photon.Realtime.Player> DefJoueur)
