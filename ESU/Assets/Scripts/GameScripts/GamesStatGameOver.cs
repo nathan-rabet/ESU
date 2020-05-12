@@ -11,7 +11,7 @@ using System;
 
 public class GamesStatGameOver : MonoBehaviour
 {
-    private Player[] players;
+    public Player[] players;
     private Tuple<int, int> score;
 
     public GameObject[] PlayersPrefab;
@@ -32,11 +32,10 @@ public class GamesStatGameOver : MonoBehaviour
         loadScene = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        PhotonNetwork.LeaveRoom();
         spawns = GameObject.FindGameObjectsWithTag("Respawn");
+        PhotonNetwork.LeaveRoom();
         PlacePrefab();
         UpdateHUD();
-        Destroy(this.gameObject);
     }
 
     private void PlacePrefab()
@@ -68,6 +67,14 @@ public class GamesStatGameOver : MonoBehaviour
                 }
             }
         }
+        if (win == "DEF")
+        {
+            GameObject.Find("/GAME/Menu/ScoreboardMenu").GetComponent<ScroreboardGameOver>().UpdateMe(loosers, winners);
+            GameObject.Find("/Environnement/TeamWin").GetComponent<TextMesh>().text = "Défenseur";
+            GameObject.Find("/Environnement/TeamWin").GetComponent<TextMesh>().color = new Color(0.3294118f, 0.427451f, 0.8980392f);
+        }
+        else
+            GameObject.Find("/GAME/Menu/ScoreboardMenu").GetComponent<ScroreboardGameOver>().UpdateMe(winners, loosers);
 
         for (int i = 0; i < winners.Count; i++)
         {
@@ -138,7 +145,6 @@ public class GamesStatGameOver : MonoBehaviour
 
     void Start()
     {
-            players = PhotonNetwork.PlayerList;
             GameStat game = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
             score = new Tuple<int, int>(game.scoreAtt, game.scoreDEF);
             anim.SetTrigger("FadeOut");

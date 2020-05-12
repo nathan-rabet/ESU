@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 7848172509884258337}
   - component: {fileID: -168888403179366750}
   - component: {fileID: 4700067388181981870}
-  - component: {fileID: 8665701390278679655}
+  - component: {fileID: 4446570708043044986}
   m_Layer: 0
   m_Name: GameStatPrefab
   m_TagString: GameStat
@@ -222,10 +222,10 @@ MonoBehaviour:
   - {fileID: 7941232936560822212, guid: a715a641484076244a0131f674c444c8, type: 3}
   - {fileID: 5852291038536503539, guid: 3c926a6e79b9c854a8f4610037afa605, type: 3}
   - {fileID: 6128574677290936690, guid: 58b3d3f8f24e0934bac72f383d1d7d1d, type: 3}
-  - {fileID: 4521592183460616492, guid: 4fa5f8ddd86b3b743a1d8fa77ce5f533, type: 3}
-  - {fileID: 4521592183460616492, guid: 4fa5f8ddd86b3b743a1d8fa77ce5f533, type: 3}
-  - {fileID: 4521592183460616492, guid: 4fa5f8ddd86b3b743a1d8fa77ce5f533, type: 3}
-  anim: {fileID: 8665701390278679655}
+  - {fileID: 7526914079057309179, guid: 57a35448c414f344e8eb7e9e0e7cdde8, type: 3}
+  - {fileID: 7526914079057309179, guid: 57a35448c414f344e8eb7e9e0e7cdde8, type: 3}
+  - {fileID: 7526914079057309179, guid: 57a35448c414f344e8eb7e9e0e7cdde8, type: 3}
+  anim: {fileID: 4446570708043044986}
 --- !u!114 &4700067388181981870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbcde87a48f3f494a833add86997e14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &8665701390278679655
+--- !u!95 &4446570708043044986
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0

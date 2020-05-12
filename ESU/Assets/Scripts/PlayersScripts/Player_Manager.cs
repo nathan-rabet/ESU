@@ -241,11 +241,11 @@ public class Player_Manager : MonoBehaviour
         {
             if (weapon == Armes.Pistolet)
             {
-                view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
                 GetComponent<PistoletScript>().HUD.SetActive(true); // Active le HUD du Policier
                 GetComponent<PistoletScript>().inHand =true;
                 anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
                 anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet
+                view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
             }
             else
             {

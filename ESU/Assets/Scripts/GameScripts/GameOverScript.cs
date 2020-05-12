@@ -5,14 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class GameOverScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private GameObject gameStat;
     void Start()
     {
-        GameObject.FindGameObjectWithTag("GameStat").GetComponent<GamesStatGameOver>().OnSceneLoaded();
+        gameStat = GameObject.FindGameObjectWithTag("GameStat");
+        gameStat.GetComponent<GamesStatGameOver>().OnSceneLoaded();
     }
 
     public void LeaveGameOver()
     {
+        Destroy(gameStat);
         SceneManager.LoadScene(0);
     }
 }
