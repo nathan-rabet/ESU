@@ -11,7 +11,7 @@ using System;
 
 public class GamesStatGameOver : MonoBehaviour
 {
-    private Player[] players;
+    public Player[] players;
     private Tuple<int, int> score;
 
     public GameObject[] PlayersPrefab;
@@ -33,9 +33,9 @@ public class GamesStatGameOver : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         spawns = GameObject.FindGameObjectsWithTag("Respawn");
+        PhotonNetwork.LeaveRoom();
         PlacePrefab();
         UpdateHUD();
-        PhotonNetwork.LeaveRoom();
     }
 
     private void PlacePrefab()
@@ -145,7 +145,6 @@ public class GamesStatGameOver : MonoBehaviour
 
     void Start()
     {
-            players = PhotonNetwork.PlayerList;
             GameStat game = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
             score = new Tuple<int, int>(game.scoreAtt, game.scoreDEF);
             anim.SetTrigger("FadeOut");

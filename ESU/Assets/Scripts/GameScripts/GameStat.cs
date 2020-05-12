@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon;
+using Photon.Realtime;
 
 public class GameStat : MonoBehaviour
 {
@@ -37,9 +38,10 @@ public class GameStat : MonoBehaviour
         scoreDEFHUD.text = "" + scoreDEF;
     }
     [PunRPC]
-    public void GameOver ()
+    public void GameOver (Player[] playerlist)
     {
-        Instantiate(GameStatPrafeb);
+        GameObject game = Instantiate(GameStatPrafeb);
+        game.GetComponent<GamesStatGameOver>().players = playerlist;
     }
 
     public void changeScore(int scoreA, int scoreD)
@@ -89,6 +91,6 @@ public class GameStat : MonoBehaviour
         }
 
         if (PhotonNetwork.IsMasterClient)
-            view.RPC("GameOver", RpcTarget.All);
+            view.RPC("GameOver", RpcTarget.All, PhotonNetwork.PlayerList);
     }
 }
