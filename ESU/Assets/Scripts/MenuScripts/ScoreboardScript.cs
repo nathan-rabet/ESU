@@ -35,6 +35,14 @@ public class ScoreboardScript : MonoBehaviour
         {
             DefJoueur = new List<Photon.Realtime.Player>();
             AttJoueur = new List<Photon.Realtime.Player>();
+            foreach (GameObject HUD in HUDDefJoueur)
+            {
+                HUD.SetActive(false);
+            }
+            foreach (GameObject HUD in HUDAttJoueur)
+            {
+                HUD.SetActive(false);
+            }
             foreach (Photon.Realtime.Player player in playerList)
             {
                 if ((string)player.CustomProperties["Team"] == "ATT")

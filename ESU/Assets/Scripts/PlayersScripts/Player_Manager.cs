@@ -52,6 +52,7 @@ public class Player_Manager : MonoBehaviour
         gamemanager = GameObject.Find("/GAME/GameManager");
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
+        HealingPrefab = transform.Find("HealingParticule").gameObject;
         
         anim = GetComponent<Animator>();
         anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
@@ -172,10 +173,10 @@ public class Player_Manager : MonoBehaviour
             view.RPC("rpcDeath", RpcTarget.Others); //Envoi ma mort aux autres
             if (myClass == Classe.Policier || myClass == Classe.Medecin || myClass == Classe.Pompier)
             {
-                GameStat.changeScore(0, 10);
+                GameStat.changeScore(10, 0);
             }else
             {
-                GameStat.changeScore(10, 0);
+                GameStat.changeScore(0, 10);
             }
 
             //Gestion du Player
@@ -240,11 +241,11 @@ public class Player_Manager : MonoBehaviour
         {
             if (weapon == Armes.Pistolet)
             {
-                view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
                 GetComponent<PistoletScript>().HUD.SetActive(true); // Active le HUD du Policier
                 GetComponent<PistoletScript>().inHand =true;
                 anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
                 anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet
+                view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
             }
             else
             {

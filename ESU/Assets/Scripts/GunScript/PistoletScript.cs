@@ -39,6 +39,7 @@ public class PistoletScript : MonoBehaviour
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
         anim = GetComponent<Animator>(); //Cherche Animator
         ManagerScript = GameObject.Find("/GAME/GameManager").GetComponent<GameManagerScript>();
+        ammoCount.SetAmmo(ammo);
     }
     void Update()
     {
@@ -55,7 +56,7 @@ public class PistoletScript : MonoBehaviour
                 StartCoroutine(recoil(0.2f));
             }
 
-            if (!reloading && Input.GetKeyDown(KeyCode.R))
+            if (!reloading && ammo<20 && Input.GetKeyDown(KeyCode.R))
             {
                 ammoCount.ReloadAnim();
                 reloading = true;
@@ -117,7 +118,7 @@ public class PistoletScript : MonoBehaviour
     public void ChangeWeapon()
     {
         HUD.SetActive(false); // Desactive le HUD
-        anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
+        anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet
 
         inHand = false;
         mainCam.GetComponent<CameraCollision>().Scope(2.5f, 5f);
@@ -144,12 +145,16 @@ public class PistoletScript : MonoBehaviour
         {
 
             yield return new WaitForSeconds(recoiltime);
-            canShoot = true;
+            if (!reloading)
+            {
+                canShoot = true;
+            }
         }
 
-    [PunRPC]
-    public void SyncPistolet(bool in_hand)
+    //Function de sycn pistol
+    IEnumerator SyncPistolet_IE(bool in_hand)
     {
+        yield return new WaitForSeconds(0.4f);
         if (in_hand)
         {
             inHandGun.SetActive(true);
@@ -159,7 +164,16 @@ public class PistoletScript : MonoBehaviour
         {
             inHandGun.SetActive(false);
             stackGun.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            if (!inHand)
+                anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
         }
+    }
+
+    [PunRPC]
+    public void SyncPistolet(bool in_hand)
+    {
+        StartCoroutine(SyncPistolet_IE(in_hand));
     }
 
     [PunRPC]

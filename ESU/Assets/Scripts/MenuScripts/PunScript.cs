@@ -111,8 +111,16 @@ using TMPro;
             }
             public override void OnLeftRoom () //Si quitter la partie
             {
-                SceneManager.LoadScene(0); //Chargement du menu
-                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name); //Déchargement de la partie
+                if (SceneManager.GetActiveScene().buildIndex == 1)
+                {
+                    SceneManager.LoadScene(0); //Chargement du menu
+                    SceneManager.UnloadSceneAsync(1); //Déchargement de la partie
+                }
+                else
+                {
+                    SceneManager.LoadScene(0); //Chargement du menu
+                    SceneManager.UnloadSceneAsync(2); //Déchargement de la partie
+                }
             }
 
             public override void OnPlayerEnteredRoom (Player newPlayer) //Quand un joueur rentre dans la partie
@@ -123,7 +131,7 @@ using TMPro;
                     gameManager.GetComponent<GameStat>().SendToNewPlayer();
                     foreach (GameObject batiment in GameObject.FindGameObjectsWithTag("Batiment"))
                     {
-                        batiment.GetComponent<PhotonView>().RPC("SyncBat", RpcTarget.Others, batiment.GetComponent<BuildingScript>().health);
+                        batiment.GetComponent<PhotonView>().RPC("SyncBat", RpcTarget.Others, batiment.GetComponent<BuildingScript>().health, batiment.GetComponent<BuildingScript>().fire);
                     }
                 }
             }
