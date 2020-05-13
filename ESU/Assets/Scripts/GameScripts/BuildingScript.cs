@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.Animations;
 using Photon;
+using UnityEditor;
+using Object = UnityEngine.Object;
 
 public class BuildingScript : MonoBehaviour
 {
@@ -11,11 +14,39 @@ public class BuildingScript : MonoBehaviour
     public int fire = 0;
     private PhotonView view;
     private GameStat GameStat;
-
+    private GameObject fireParticule;
+    private GameObject smokeParticule;
+    
+    
     private void Start()
     {
+        fireParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/FireArea");
+        smokeParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/Smoke02_HighPerformance");
         view = GetComponent<PhotonView>(); //Cherche la vue
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
+    }
+
+    private bool smokeP = false;
+    private bool fireP = false;
+    
+
+
+    public void Update()
+    {
+        
+        if (fire > 5 && !smokeP)
+        {
+            fireParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/FireArea");
+            smokeParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/Smoke02_HighPerformance");
+            Instantiate(smokeParticule, transform.position, transform.rotation);
+            smokeP = true;
+        }
+            
+        if (fire > 20 && !fireP)
+        {
+            Instantiate(fireParticule, transform.position, transform.rotation);
+            fireP = true;
+        }
     }
 
     public void TakeDamage(int viewID, int damage, Photon.Realtime.Player Killer)
@@ -50,14 +81,31 @@ public class BuildingScript : MonoBehaviour
     {
         if (fire > 0)
         {
+            (bool smokeP, bool fireP) = (false, false);
             health -= fire;
 
 
             view.RPC("SyncBat", RpcTarget.Others, health, fire);
             yield return new WaitForSeconds(1f);
             StartCoroutine(Fire());
+
+            if (fire > 5 && !smokeP)
+            {
+                Instantiate(smokeParticule, transform.position, transform.rotation);
+                smokeP = true;
+            }
+            
+            if (fire > 20 && !fireP)
+            {
+                Instantiate(fireParticule, transform.position, transform.rotation);
+                fireP = true;
+            }
+            
+            
+            
         }
     }
+    
 
     IEnumerator Anims()
     {
