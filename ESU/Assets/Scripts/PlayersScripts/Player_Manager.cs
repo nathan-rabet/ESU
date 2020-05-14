@@ -45,6 +45,7 @@ public class Player_Manager : MonoBehaviour
     private GameObject gamemanager;
     private GameObject HealingPrefab;
     private GameStat GameStat;
+    private ragnollController _ragnollController;
 
     void Start()
     {
@@ -53,7 +54,8 @@ public class Player_Manager : MonoBehaviour
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
         HealingPrefab = transform.Find("HealingParticule").gameObject;
-        
+
+        _ragnollController = GetComponent<ragnollController>();
         anim = GetComponent<Animator>();
         anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
         anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 0f);
@@ -181,10 +183,11 @@ public class Player_Manager : MonoBehaviour
 
             //Gestion du Player
             transform.GetComponent<PlayerMouvement>().enabled = false; //Désactive les mouvement
-            transform.Find("Model").gameObject.SetActive(false); //Cache le model
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.isKinematic = false;
-            rb.detectCollisions = true; //désactive les collision
+            
+            // Active le ragnoll
+            _ragnollController.die();
 
             Hashtable hash = new Hashtable();
             hash.Add("Death", (int)PhotonNetwork.LocalPlayer.CustomProperties["Death"]+1);
