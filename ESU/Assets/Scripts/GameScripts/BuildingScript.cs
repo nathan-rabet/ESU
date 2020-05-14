@@ -20,8 +20,8 @@ public class BuildingScript : MonoBehaviour
     
     private void Start()
     {
-        fireParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/FireArea");
-        smokeParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/Smoke02_HighPerformance");
+        fireParticule = (GameObject)Resources.Load("FireArea", typeof(GameObject));
+        smokeParticule = (GameObject)Resources.Load("Smoke02_HighPerformance", typeof(GameObject));
         view = GetComponent<PhotonView>(); //Cherche la vue
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
     }
@@ -33,18 +33,15 @@ public class BuildingScript : MonoBehaviour
 
     public void Update()
     {
-        
-        if (fire > 5 && !smokeP)
+        if (fire > 5 && !smokeP) // Instancie les particules de fumée
         {
-            fireParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/FireArea");
-            smokeParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/Smoke02_HighPerformance");
-            Instantiate(smokeParticule, transform.position, transform.rotation);
+            Instantiate(smokeParticule, transform.position, transform.rotation * Quaternion.Euler (270f, 0, 0f));
             smokeP = true;
         }
             
-        if (fire > 20 && !fireP)
+        if (fire > 20 && !fireP) // Instancie les particules de feux
         {
-            Instantiate(fireParticule, transform.position, transform.rotation);
+            Instantiate(fireParticule, transform.position, transform.rotation * Quaternion.Euler (270f, 0, 0f));
             fireP = true;
         }
     }
