@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
-
+	public GameManagerScript ManagerScript;
 	public float CameraMoveSpeed = 120.0f;
 	public Transform CameraFollowObj;
-	public float clampAnglemax = 80.0f;
-	public float clampAnglemin = 60.0f;
+	private float clampAnglemax = 25.0f;
+	private float clampAnglemin = 45.0f;
 	public float inputSensitivity = 150.0f;
 	public float finalInputX;
 	public float finalInputZ;
@@ -15,6 +15,8 @@ public class CameraFollow : MonoBehaviour {
 	private float rotX = 0.0f;
 
 	private float currentRotation = 0.0f;
+	public Animator anim;
+
 
 
 
@@ -30,17 +32,20 @@ public class CameraFollow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// We setup the rotation of the sticks here
-		float mouseX = Input.GetAxis ("Mouse X");
-		float mouseY = Input.GetAxis ("Mouse Y");
+		if (ManagerScript.StadeGame == "INGAME" || ManagerScript.StadeGame == "MORT")
+		{
+			// We setup the rotation of the sticks here
+			float mouseX = Input.GetAxis ("Mouse X");
+			float mouseY = Input.GetAxis ("Mouse Y");
 
-		rotY += mouseX * inputSensitivity * Time.deltaTime;
-		rotX += mouseY * inputSensitivity * Time.deltaTime;
+			rotY += mouseX * inputSensitivity * Time.deltaTime;
+			rotX += mouseY * inputSensitivity * Time.deltaTime;
 
-		rotX = Mathf.Clamp (rotX, -clampAnglemin, clampAnglemax);
+			rotX = Mathf.Clamp (rotX, -clampAnglemin, clampAnglemax);
 
-		Quaternion localRotation = Quaternion.Euler (rotX, rotY, 0.0f);
-		transform.rotation = localRotation;
+			Quaternion localRotation = Quaternion.Euler (rotX, rotY, 0.0f);
+			transform.rotation = localRotation;
+		}
 
 
 	}
@@ -70,6 +75,9 @@ public class CameraFollow : MonoBehaviour {
 	void CameraUpdater() {
 		// set the target object to follow
 		Transform target = CameraFollowObj;
+		
+		// Set du blend Tree Aim
+		anim.SetFloat("Aim Angle", -rotX);
 
 		//move towards the game object that is the target
 		float step = CameraMoveSpeed * Time.deltaTime;

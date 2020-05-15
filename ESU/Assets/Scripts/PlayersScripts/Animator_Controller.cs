@@ -69,7 +69,7 @@ public class Animator_Controller : MonoBehaviour
                 anim.SetBool("right", false);
             }
 
-            if (Input.GetKey("space"))
+            if (Input.GetKeyDown("space"))
             {
                 anim.SetBool("jump", true);
             }

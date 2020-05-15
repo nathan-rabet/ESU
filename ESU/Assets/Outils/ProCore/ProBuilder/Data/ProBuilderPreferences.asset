@@ -9,23 +9,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 146836576, guid: 0472bdc8d6d15384d98f22ee34302f9c, type: 3}
+  m_Script: {fileID: 146836576, guid: 6657ebb644a2fbc45b25cb91884974fe, type: 3}
   m_Name: ProBuilderPreferences
   m_EditorClassIdentifier: 
-  m_Bool_keys: []
+  m_Bool_keys:
+  - pbIconGUI
+  - pbDefaultOpenInDockableWindow
   m_Int_keys:
   - pbHandleAlignment
+  - pbDefaultEditLevel
+  - pbDefaultSelectionMode
+  - pb_GIWorkflowMode
   m_Float_keys:
   - pbEditorScroll.x
   - pbEditorScroll.y
-  m_String_keys: []
+  m_String_keys:
+  - pbCurrentMaterialPalette
+  - pbVertexColorPrefs1
+  - pbVertexColorPrefs4
   m_Color_keys: []
   m_Material_keys: []
-  m_Bool_values: 
-  m_Int_values: 00000000
+  m_Bool_values: 0101
+  m_Int_values: 00000000000000000200000000000000
   m_Float_values:
   - 0
   - 0
-  m_String_values: []
+  m_String_values:
+  - Assets/Outils/ProCore/ProBuilder/Data/Default Material Palette.asset
+  - RGBA(0.726, 0.038, 0.038, 1.000)
+  - RGBA(1.000, 1.000, 1.000, 1.000)
   m_Color_values: []
   m_Material_values: []

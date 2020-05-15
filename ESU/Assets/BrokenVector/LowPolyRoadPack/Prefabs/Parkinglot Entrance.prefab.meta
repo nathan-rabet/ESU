@@ -7,9 +7,8 @@ labels:
 - low-poly
 - lowpoly
 - parkinglot
-timeCreated: 1468486758
-licenseType: Store
-NativeFormatImporter:
+PrefabImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -6,9 +6,8 @@ labels:
 - freeway
 - low-poly
 - lowpoly
-timeCreated: 1468486756
-licenseType: Store
-NativeFormatImporter:
+PrefabImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -4,9 +4,8 @@ labels:
 - lowpoly
 - low-poly
 - car
-timeCreated: 1468770455
-licenseType: Store
-NativeFormatImporter:
+PrefabImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

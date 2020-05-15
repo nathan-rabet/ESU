@@ -7,9 +7,8 @@ labels:
 - low-poly
 - lowpoly
 - tunnel
-timeCreated: 1468486756
-licenseType: Store
-NativeFormatImporter:
+PrefabImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -42,8 +42,10 @@ using TMPro;
             {
                     RoomOptions myRoomOption = new RoomOptions(); //Création de la var de room
                     myRoomOption.MaxPlayers = 20; //20 joueurs max
-                    
-                    PhotonNetwork.JoinOrCreateRoom ("OfficialRoom", myRoomOption, TypedLobby.Default); //Essai de rejoindre la partie en crée une sinon
+                    if (SceneManager.GetActiveScene().buildIndex == 1)
+                        PhotonNetwork.JoinOrCreateRoom ("OfficialRoomMap1", myRoomOption, TypedLobby.Default); //Essai de rejoindre la partie en crée une sinon
+                    else
+                        PhotonNetwork.JoinOrCreateRoom ("OfficialRoomMap2", myRoomOption, TypedLobby.Default); //Essai de rejoindre la partie en crée une sinon
                     ClientState.text = PhotonNetwork.NetworkClientState.ToString(); //Affichage
             }
 
@@ -98,6 +100,8 @@ using TMPro;
                     //Instanciation
                     GameObject MyPlayer = PhotonNetwork.Instantiate(classprefab.name,spawn.position,Quaternion.identity,0) as GameObject; //Instantier le prefab
                     MainCamera.GetComponent<CameraFollow>().CameraFollowObj = MyPlayer.transform.Find("posCam").transform; //Set de la var lookAt de la cam
+                    MainCamera.GetComponent<CameraFollow>().anim = MyPlayer.transform.GetComponent<Animator>();
+                    gameManager.GetComponent<GameManagerScript>().mainplayer = MyPlayer;
                 }
             }
 
@@ -107,8 +111,16 @@ using TMPro;
             }
             public override void OnLeftRoom () //Si quitter la partie
             {
-                SceneManager.LoadScene(0); //Chargement du menu
-                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name); //Déchargement de la partie
+                if (SceneManager.GetActiveScene().buildIndex == 1)
+                {
+                    SceneManager.LoadScene(0); //Chargement du menu
+                    SceneManager.UnloadSceneAsync(1); //Déchargement de la partie
+                }
+                else
+                {
+                    SceneManager.LoadScene(0); //Chargement du menu
+                    SceneManager.UnloadSceneAsync(2); //Déchargement de la partie
+                }
             }
 
             public override void OnPlayerEnteredRoom (Player newPlayer) //Quand un joueur rentre dans la partie
@@ -117,6 +129,10 @@ using TMPro;
                 {
                     gameManager.GetComponent<GameManagerScript>().SendToNewPlayer(); //Appel  de la fonction SendToNewPlayer de GameManagerScript
                     gameManager.GetComponent<GameStat>().SendToNewPlayer();
+                    foreach (GameObject batiment in GameObject.FindGameObjectsWithTag("Batiment"))
+                    {
+                        batiment.GetComponent<PhotonView>().RPC("SyncBat", RpcTarget.Others, batiment.GetComponent<BuildingScript>().health, batiment.GetComponent<BuildingScript>().fire);
+                    }
                 }
             }
     }

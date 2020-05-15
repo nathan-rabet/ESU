@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.Animations;
 using Photon;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using TMPro;
@@ -30,22 +31,34 @@ public class Player_Manager : MonoBehaviour
     public PhotonView view;
     public Classe myClass;
     public int health;
+    public int maxhealth;
+    
+    
     
     private List<Armes> weaponsInventory;
     private int weaponsInventoryLength;
     private int selectedWeapon = 0;
-
     
-
+    private Animator anim;
+    
     private healthbar healthBar;
-    public GameObject gamemanager;
+    private GameObject gamemanager;
+    private GameObject HealingPrefab;
+    private GameStat GameStat;
+    private ragnollController _ragnollController;
 
     void Start()
     {
         //Set des variables
         gamemanager = GameObject.Find("/GAME/GameManager");
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
-        
+        GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
+        HealingPrefab = transform.Find("HealingParticule").gameObject;
+
+        _ragnollController = GetComponent<ragnollController>();
+        anim = GetComponent<Animator>();
+        anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 0f);
+        anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 0f);
         
         weaponsInventory = new List<Armes>();
 
@@ -53,37 +66,38 @@ public class Player_Manager : MonoBehaviour
         switch(myClass)
         {
             case Classe.Policier:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Pistolet);
                 break;
             case Classe.Pompier:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Hache);
                 weaponsInventory.Add(Armes.Extincteur);
                 break;
             case Classe.Medecin:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Medpack);
                 break;
             case Classe.Mercenaire:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Pistolet);
                 break;
             case Classe.Pyroman:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.LanceFlamme);
                 break;
             case Classe.Drogueur:
-                health = 100;
+                maxhealth = 100;
                 weaponsInventory.Add(Armes.Hand);
                 weaponsInventory.Add(Armes.Medpack);
                 break;
         }
+        health = maxhealth;
         weaponsInventoryLength = weaponsInventory.Count;
         if (view.IsMine)
         {
@@ -92,7 +106,7 @@ public class Player_Manager : MonoBehaviour
     }
 
     //Fonction perdre de la vie
-    public void TakeDamage(int viewID, int damage, string Killer)
+    public void TakeDamage(int viewID, int damage, Photon.Realtime.Player Killer)
     {
         if (viewID==view.ViewID) //Test si on est la personne tuer
         {
@@ -103,6 +117,11 @@ public class Player_Manager : MonoBehaviour
             else
             {
                 health=0;
+
+                Hashtable hash = new Hashtable();
+                hash.Add("Kill", (int)Killer.CustomProperties["Kill"]+1);
+                Killer.SetCustomProperties(hash); //Add d'un kill
+                
                 Death(Killer, 5);
             }
             
@@ -110,40 +129,71 @@ public class Player_Manager : MonoBehaviour
         }
     }
 
+    //Fonction gagner de la vie
+    public void Healing(int viewID, int heal)
+    {
+        if (viewID==view.ViewID) //Test si on est la personne tuer
+        {
+            HealingPrefab.GetComponent<ParticleSystem>().Play();
+            if (health+heal<maxhealth) //Diminution de la vie
+            {
+                health+=heal;
+            }
+            else
+            {
+                health = maxhealth;
+            }
+            
+            healthBar.SetHealth(health);
+        }
+    }
 
     //Protocol de mort
-    public void Death(string Killer, int respTime)
+    public void Death(Photon.Realtime.Player Killer, int respTime)
     {
         if (view.IsMine)
         {
             //Affichage du HUD 
-            gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer, respTime); //Appel de la function HUDMort de GameManagerScript
+            gamemanager.GetComponent<GameManagerScript>().HUDMort(Killer.NickName, respTime); //Appel de la function HUDMort de GameManagerScript
+            if (myClass == Classe.Policier || myClass == Classe.Mercenaire)
+            {
+                GetComponent<PistoletScript>().HUD.SetActive(false);
+            }
+            
+            if (myClass == Classe.Pompier)
+            {
+                GetComponent<HacheScript>().HUD.SetActive(false);
+            }
+            
+            if (myClass == Classe.Medecin)
+            {
+                GetComponent<MedkitScript>().HUD.SetActive(false);
+            }
+            
 
             //APPEL RPC
-            view.RPC("rpcDeath", RpcTarget.Others, view.ViewID, Killer); //Envoi ma mort aux autres
+            view.RPC("rpcDeath", RpcTarget.Others); //Envoi ma mort aux autres
             if (myClass == Classe.Policier || myClass == Classe.Medecin || myClass == Classe.Pompier)
             {
-                view.RPC("changeScore", RpcTarget.All, 0, 10);
+                GameStat.changeScore(10, 0);
             }else
             {
-                view.RPC("changeScore", RpcTarget.All, 10, 0);
+                GameStat.changeScore(0, 10);
             }
 
             //Gestion du Player
             transform.GetComponent<PlayerMouvement>().enabled = false; //Désactive les mouvement
-            transform.Find("Model").gameObject.SetActive(false); //Cache le model
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.isKinematic = false;
-            rb.detectCollisions = true; //désactive les collision
-        }
-    }
+            
+            // Active le ragnoll
+            _ragnollController.die();
 
-    //Destruction
-    public void DestroyMe()
-    {
-        if (view.IsMine)
-        {
-            Destroy(gameObject); //Détruit le gameObject coté client
+            Hashtable hash = new Hashtable();
+            hash.Add("Death", (int)PhotonNetwork.LocalPlayer.CustomProperties["Death"]+1);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash); //Add d'une mort
+
+            Destroy(gameObject, respTime);
         }
     }
 
@@ -182,6 +232,7 @@ public class Player_Manager : MonoBehaviour
                 hash.Add("Weapon", selectedWeapon);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                 updateWeaponScript(weaponsInventory[selectedWeapon]);
+                
             }
         }
     }
@@ -189,13 +240,81 @@ public class Player_Manager : MonoBehaviour
     //Update weaponscript
     private void updateWeaponScript(Armes weapon)
     {
-        if (weapon == Armes.Pistolet)
+        if (myClass == Classe.Policier || myClass == Classe.Mercenaire)
         {
-            GetComponent<PistoletScript>().inHand =true;
+            if (weapon == Armes.Pistolet)
+            {
+                GetComponent<PistoletScript>().HUD.SetActive(true); // Active le HUD du Policier
+                GetComponent<PistoletScript>().inHand =true;
+                anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
+                anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet
+                view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
+            }
+            else
+            {
+                GetComponent<PistoletScript>().ChangeWeapon();
+            }
         }
-        else
+
+        if (myClass == Classe.Pompier)
         {
-         GetComponent<PistoletScript>().ChangeWeapon();
+            if (weapon == Armes.Hache)
+            {
+                view.RPC("SyncHache", RpcTarget.All, true); //Set display arme
+                GetComponent<HacheScript>().HUD.SetActive(true); // Active le HUD du pompier
+                GetComponent<HacheScript>().inHand = true;
+
+                // /!\ Set Layer Anim pompier
+                anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 1f);
+                anim.SetTrigger("grap");
+            }
+            else
+            {
+                GetComponent<HacheScript>().ChangeWeapon();
+            }
+            if (weapon == Armes.Extincteur)
+            {
+                view.RPC("SyncExtincteur", RpcTarget.All, true); //Set display arme
+                //GetComponent<ExtincteurScript>().HUD.SetActive(true); // Active le HUD du pompier
+                GetComponent<ExtincteurScript>().inHand = true;
+            }
+            else
+            {
+                GetComponent<ExtincteurScript>().ChangeWeapon();
+            }
         }
+
+        if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
+        {
+            if (weapon == Armes.Medpack)
+            {
+                GetComponent<MedkitScript>().HUD.SetActive(true); // Active le HUD du médecin
+                GetComponent<MedkitScript>().inHand = true;
+            }
+            else
+            {
+                GetComponent<MedkitScript>().ChangeWeapon();
+            }
+        }
+    }
+
+
+    //RPC
+    [PunRPC]
+    void rpcDeath () 
+    {
+        Destroy(gameObject); //Détruit le perso mort
+    }
+
+    [PunRPC]
+    public void dealDammage (int viewID, int damage, Photon.Realtime.Player Killer)
+    {
+        TakeDamage(viewID, damage, Killer); //Envoie les dégâts aux autres
+    }
+
+    [PunRPC]
+    public void healing (int viewID, int heal)
+    {
+        Healing(viewID, heal); //Heal
     }
 }
