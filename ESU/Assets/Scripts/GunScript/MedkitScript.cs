@@ -22,6 +22,7 @@ public class MedkitScript : MonoBehaviour
 
     void Start()
     {
+        anim = GetComponent<Animator>(); //Cherche Animator
         view = GetComponent<PhotonView> (); //Cherche la vue
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
         HUD = GameObject.Find("/GAME/Menu/InGameHUD/Medecin Info"); // Cherche Medecin HUD
@@ -35,6 +36,7 @@ public class MedkitScript : MonoBehaviour
             
             if (canShoot && ammo>0 && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
+                anim.SetBool("Distrib", true); // Joue l'anim
                 canShoot = false;
                 Shoot(); //Tir
                 ammo--;
@@ -44,6 +46,10 @@ public class MedkitScript : MonoBehaviour
                     StartCoroutine(reloadingIE(1));
                 }
                 StartCoroutine(recoil(0.1f));
+            }
+            else
+            {
+                anim.SetBool("Distrib", false);
             }
         }
         
@@ -58,6 +64,7 @@ public class MedkitScript : MonoBehaviour
     //Function de inHandfalse
     public void ChangeWeapon()
     {
+        anim.SetLayerWeight(anim.GetLayerIndex("Medikit"), 0f); // Desactive le layer medic
         HUD.SetActive(false); // Désactive le HUD
         inHand = false;
     }
