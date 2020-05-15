@@ -284,7 +284,22 @@ public class Player_Manager : MonoBehaviour
             }
         }
 
-        if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
+        if (myClass == Classe.Pyroman)
+        {
+            if (weapon == Armes.LanceFlamme)
+            {
+                view.RPC("SyncFT", RpcTarget.All, true); //Set display arme
+                GetComponent<FlameThrowerScript>().inHand = true;
+                anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f);
+                anim.SetTrigger("grap");
+            }
+            else
+            {
+                GetComponent<FlameThrowerScript>().ChangeWeapon();
+            }
+        }
+
+            if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
         {
             if (weapon == Armes.Medpack)
             {

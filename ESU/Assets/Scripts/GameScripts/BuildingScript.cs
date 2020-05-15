@@ -12,7 +12,7 @@ public class BuildingScript : MonoBehaviour
 {
     public float health = 1000f;
     public float fire = 0;
-    private float maxfire = 50f;
+    public static float maxfire = 50f;
     private PhotonView view;
     private GameStat GameStat;
     private GameObject fireParticule;
@@ -88,11 +88,20 @@ public class BuildingScript : MonoBehaviour
         {
             health -= fire;
 
+            if (health <= 0)
+            {
+                GameStat.changeScore(50, 0);
 
-            view.RPC("SyncBat", RpcTarget.Others, health, fire);
-            yield return new WaitForSeconds(1f);
+                health = 0;
+                view.RPC("SyncBat", RpcTarget.All, health, fire);
+            }
+            else
+            {
+                view.RPC("SyncBat", RpcTarget.Others, health, fire);
+                yield return new WaitForSeconds(1f);
 
-            StartCoroutine(Fire());
+                StartCoroutine(Fire());
+            }
         }
     }
     
@@ -121,6 +130,11 @@ public class BuildingScript : MonoBehaviour
             transform.Translate(Vector3.down * 0.1f);
             yield return new WaitForSeconds(0.05f);
         }
+        if (smokePar != null)
+            Destroy(smokePar);
+
+        if (firePar != null)
+            Destroy(firePar);
     }
 
     [PunRPC]
@@ -136,13 +150,18 @@ public class BuildingScript : MonoBehaviour
             fire = 0;
             return;
         }
-        if (fire == 0)
+        if (fire == 0 && PhotonNetwork.IsMasterClient)
+        {
+            fire += amount;
             StartCoroutine(Fire());
+            return;
+        }
         fire += amount;
+        view.RPC("SyncBat", RpcTarget.Others, health, fire);
     }
 
     [PunRPC]
-    public void SyncBat(int health, int fire)
+    public void SyncBat(float health, float fire)
     {
         this.health = health;
         this.fire = fire;
