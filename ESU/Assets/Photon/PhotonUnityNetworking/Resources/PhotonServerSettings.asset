@@ -48,7 +48,10 @@ MonoBehaviour:
   - changeScoreRCP
   - SyncBat
   - GameOver
+<<<<<<< HEAD
   - SyncExtincteur
   - SetFire
+=======
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
   DisableAutoOpenWizard: 1
   ShowSettings: 1

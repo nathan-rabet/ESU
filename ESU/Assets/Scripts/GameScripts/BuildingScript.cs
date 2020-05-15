@@ -10,18 +10,28 @@ using Object = UnityEngine.Object;
 
 public class BuildingScript : MonoBehaviour
 {
+<<<<<<< HEAD
     public float health = 1000f;
     public float fire = 0;
     private float maxfire = 50f;
+=======
+    public int health = 1000;
+    public int fire = 0;
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
     private PhotonView view;
     private GameStat GameStat;
     private GameObject fireParticule;
     private GameObject smokeParticule;
+<<<<<<< HEAD
 
     private GameObject firePar;
     private GameObject smokePar;
 
 
+=======
+    
+    
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
     private void Start()
     {
         fireParticule = (GameObject)Resources.Load("FireArea", typeof(GameObject));
@@ -37,6 +47,7 @@ public class BuildingScript : MonoBehaviour
 
     public void Update()
     {
+<<<<<<< HEAD
         if (!smokeP && fire > maxfire/2) // Instancie les particules de fumée
         {
             smokePar = Instantiate(smokeParticule, transform.position, transform.rotation * Quaternion.Euler (270f, 0, 0f));
@@ -60,6 +71,19 @@ public class BuildingScript : MonoBehaviour
             Destroy(firePar);
             fireP = false;
         }
+=======
+        if (fire > 5 && !smokeP) // Instancie les particules de fumée
+        {
+            Instantiate(smokeParticule, transform.position, transform.rotation * Quaternion.Euler (270f, 0, 0f));
+            smokeP = true;
+        }
+            
+        if (fire > 20 && !fireP) // Instancie les particules de feux
+        {
+            Instantiate(fireParticule, transform.position, transform.rotation * Quaternion.Euler (270f, 0, 0f));
+            fireP = true;
+        }
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
     }
 
     public void TakeDamage(int viewID, int damage, Photon.Realtime.Player Killer)
@@ -81,18 +105,52 @@ public class BuildingScript : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
+=======
+    public void SetFire(int amount)
+    {
+        if (fire + amount > 10)
+            fire = 10;
+        if (fire + amount < 0)
+            fire = 0;
+        fire += amount;
+    }
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
 
     IEnumerator Fire()
     {
         if (fire > 0)
         {
+<<<<<<< HEAD
+=======
+            (bool smokeP, bool fireP) = (false, false);
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
             health -= fire;
 
 
             view.RPC("SyncBat", RpcTarget.Others, health, fire);
             yield return new WaitForSeconds(1f);
+<<<<<<< HEAD
 
             StartCoroutine(Fire());
+=======
+            StartCoroutine(Fire());
+
+            if (fire > 5 && !smokeP)
+            {
+                Instantiate(smokeParticule, transform.position, transform.rotation);
+                smokeP = true;
+            }
+            
+            if (fire > 20 && !fireP)
+            {
+                Instantiate(fireParticule, transform.position, transform.rotation);
+                fireP = true;
+            }
+            
+            
+            
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
         }
     }
     
@@ -124,6 +182,7 @@ public class BuildingScript : MonoBehaviour
     }
 
     [PunRPC]
+<<<<<<< HEAD
     public void SetFire(float amount)
     {
         if (fire + amount > maxfire)
@@ -136,6 +195,8 @@ public class BuildingScript : MonoBehaviour
     }
 
     [PunRPC]
+=======
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
     public void SyncBat(int health, int fire)
     {
         this.health = health;

@@ -6,12 +6,16 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: mixamo.com
+<<<<<<< HEAD
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
     second: {fileID: 2100000, guid: 1df1bac39df0d124aad4d5d600cbbeb9, type: 2}
+=======
+  externalObjects: {}
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
   materials:
     importMaterials: 1
     materialName: 0
@@ -80,6 +84,7 @@ ModelImporter:
   copyAvatar: 0
   humanDescription:
     serializedVersion: 3
+<<<<<<< HEAD
     human:
     - boneName: mixamorig:Hips
       humanName: Hips
@@ -521,6 +526,10 @@ ModelImporter:
       position: {x: -1.7763568e-17, y: 0.07107302, z: -8.881784e-18}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+=======
+    human: []
+    skeleton: []
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

@@ -53,7 +53,11 @@ public class HacheScript : MonoBehaviour
     {
         foreach (GameObject player in HTS.playersHit)
         {
+<<<<<<< HEAD
             player.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.All, player.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.LocalPlayer); //Envoi des dégâts
+=======
+            player.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.Others, player.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.LocalPlayer); //Envoi des dégâts
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
         }
         
     }

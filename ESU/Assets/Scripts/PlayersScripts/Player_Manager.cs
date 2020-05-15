@@ -241,6 +241,7 @@ public class Player_Manager : MonoBehaviour
     private void updateWeaponScript(Armes weapon)
     {
         if (myClass == Classe.Policier || myClass == Classe.Mercenaire)
+<<<<<<< HEAD
         {
             if (weapon == Armes.Pistolet)
             {
@@ -294,8 +295,73 @@ public class Player_Manager : MonoBehaviour
             else
             {
                 GetComponent<MedkitScript>().ChangeWeapon();
+=======
+        {
+            if (weapon == Armes.Pistolet)
+            {
+                GetComponent<PistoletScript>().HUD.SetActive(true); // Active le HUD du Policier
+                GetComponent<PistoletScript>().inHand =true;
+                anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f); //Set du layer de visé a true
+                anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet
+                view.RPC("SyncPistolet", RpcTarget.All, true); //Set display arme
+            }
+            else
+            {
+                GetComponent<PistoletScript>().ChangeWeapon();
             }
         }
+
+        if (myClass == Classe.Pompier)
+        {
+            if (weapon == Armes.Hache)
+            {
+                view.RPC("SyncHache", RpcTarget.All, true); //Set display arme
+                GetComponent<HacheScript>().HUD.SetActive(true); // Active le HUD du pompier
+                GetComponent<HacheScript>().inHand = true;
+
+                // /!\ Set Layer Anim pompier
+                anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 1f);
+                anim.SetTrigger("grap");
+            }
+            else
+            {
+                GetComponent<HacheScript>().ChangeWeapon();
+>>>>>>> 78ccc66ba71b00794b33edde8730ec9692518fd4
+            }
+        }
+
+        if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
+        {
+            if (weapon == Armes.Medpack)
+            {
+                GetComponent<MedkitScript>().HUD.SetActive(true); // Active le HUD du médecin
+                GetComponent<MedkitScript>().inHand = true;
+            }
+            else
+            {
+                GetComponent<MedkitScript>().ChangeWeapon();
+            }
+        }
+    }
+
+
+    //RPC
+    [PunRPC]
+    void rpcDeath () 
+    {
+        Destroy(gameObject); //Détruit le perso mort
+    }
+
+    [PunRPC]
+    public void dealDammage (int viewID, int damage, Photon.Realtime.Player Killer)
+    {
+        TakeDamage(viewID, damage, Killer); //Envoie les dégâts aux autres
+    }
+
+    [PunRPC]
+    public void healing (int viewID, int heal)
+    {
+        Healing(viewID, heal); //Heal
     }
 
 
