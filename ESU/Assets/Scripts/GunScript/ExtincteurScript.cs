@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon;
+using UnityEngine.UI;
 
 public class ExtincteurScript : MonoBehaviour
 {
-    public float ammo = 100;
+    public float ammo;
+    private float MaxAmmo = 10;
     public bool inHand = false;
     private bool reloading = false;
     private bool canShoot = true;
@@ -19,9 +21,14 @@ public class ExtincteurScript : MonoBehaviour
     public GameObject HUD;
     PhotonView view;
     private GameManagerScript ManagerScript;
+    private Image bar;
+    
 
     void Start()
     {
+        ammo = MaxAmmo;
+        bar = GameObject.Find("/GAME/Menu/InGameHUD/Pompier Extinct/Standard/Background/Loading Bar").GetComponent<Image>();
+        HUD = GameObject.Find("/GAME/Menu/InGameHUD/Pompier Extinct");
         view = GetComponent<PhotonView>(); //Cherche la vue
         anim = GetComponent<Animator>(); //Cherche Animator
         ManagerScript = GameObject.Find("/GAME/GameManager").GetComponent<GameManagerScript>();
@@ -43,16 +50,18 @@ public class ExtincteurScript : MonoBehaviour
                 smoke.Play();
                 Shoot(Time.deltaTime); //Tir
                 ammo -= Time.deltaTime;
+                bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / MaxAmmo, 3 * Time.deltaTime);
             }
 
             if (Input.GetKeyUp("mouse 0"))
                smoke.Stop();
 
-            if (!reloading && ammo < 100f && Input.GetKeyDown(KeyCode.R))
+            if (!reloading && ammo < MaxAmmo && Input.GetKeyDown(KeyCode.R))
             {
                 reloading = true;
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
+                
             }
         }
     }
@@ -68,18 +77,20 @@ public class ExtincteurScript : MonoBehaviour
     IEnumerator reloadingIE(int reloadtime)
     {
         yield return new WaitForSeconds(reloadtime);
-        ammo = 100f;
+        ammo = MaxAmmo;
         reloading = false;
         canShoot = true;
+        bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / MaxAmmo, 3 * Time.deltaTime);
     }
 
     public void ChangeWeapon()
     {
-        //HUD.SetActive(false);
+        HUD.SetActive(false);
         inHand = false;
         view.RPC("SyncExtincteur", RpcTarget.All, false); //Set display arme
-
+        
         // /!\ Set Layer Anim pompier
+        anim.SetLayerWeight(anim.GetLayerIndex("Pompier Extincteur"), 0f);
     }
 
     [PunRPC]

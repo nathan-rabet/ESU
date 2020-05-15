@@ -163,6 +163,7 @@ public class Player_Manager : MonoBehaviour
             if (myClass == Classe.Pompier)
             {
                 GetComponent<HacheScript>().HUD.SetActive(false);
+                GetComponent<ExtincteurScript>().HUD.SetActive(false);
             }
             
             if (myClass == Classe.Medecin)
@@ -265,7 +266,7 @@ public class Player_Manager : MonoBehaviour
                 GetComponent<HacheScript>().inHand = true;
 
                 // /!\ Set Layer Anim pompier
-                anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 1f);
+                anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 1f); // Active layer Pompier
                 anim.SetTrigger("grap");
             }
             else
@@ -275,7 +276,8 @@ public class Player_Manager : MonoBehaviour
             if (weapon == Armes.Extincteur)
             {
                 view.RPC("SyncExtincteur", RpcTarget.All, true); //Set display arme
-                //GetComponent<ExtincteurScript>().HUD.SetActive(true); // Active le HUD du pompier
+                anim.SetLayerWeight(anim.GetLayerIndex("Pompier Extincteur"), 1f);
+                GetComponent<ExtincteurScript>().HUD.SetActive(true); // Active le HUD du pompier
                 GetComponent<ExtincteurScript>().inHand = true;
             }
             else
@@ -303,6 +305,7 @@ public class Player_Manager : MonoBehaviour
         {
             if (weapon == Armes.Medpack)
             {
+                anim.SetLayerWeight(anim.GetLayerIndex("Medikit"), 1f);
                 GetComponent<MedkitScript>().HUD.SetActive(true); // Active le HUD du médecin
                 GetComponent<MedkitScript>().inHand = true;
             }
