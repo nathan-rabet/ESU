@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ExtincteurScript : MonoBehaviour
 {
     public float ammo;
-    private float MaxAmmo = 10;
+    private float MaxAmmo = 10f;
     public bool inHand = false;
     private bool reloading = false;
     private bool canShoot = true;
@@ -47,7 +47,8 @@ public class ExtincteurScript : MonoBehaviour
 
             if (canShoot && ammo > 0f && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
-                smoke.Play();
+                if (!smoke.isPlaying)
+                    smoke.Play();
                 Shoot(Time.deltaTime); //Tir
                 ammo -= Time.deltaTime;
                 bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / MaxAmmo, 3 * Time.deltaTime);
@@ -58,6 +59,7 @@ public class ExtincteurScript : MonoBehaviour
 
             if (!reloading && ammo < MaxAmmo && Input.GetKeyDown(KeyCode.R))
             {
+                smoke.Stop();
                 reloading = true;
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
@@ -80,7 +82,8 @@ public class ExtincteurScript : MonoBehaviour
         ammo = MaxAmmo;
         reloading = false;
         canShoot = true;
-        bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / MaxAmmo, 3 * Time.deltaTime);
+        while (bar.fillAmount < 1)
+            bar.fillAmount += 3 * Time.deltaTime;
     }
 
     public void ChangeWeapon()

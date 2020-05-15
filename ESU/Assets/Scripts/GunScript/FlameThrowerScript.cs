@@ -7,7 +7,7 @@ using Photon;
 public class FlameThrowerScript : MonoBehaviour
 {
     private float ammo;
-    private float Maxammo = 100f;
+    private float Maxammo = 10f;
     public bool inHand = false;
     private bool reloading = false;
     private bool canShoot = true;
@@ -50,6 +50,7 @@ public class FlameThrowerScript : MonoBehaviour
 
             if (!reloading && ammo < Maxammo && Input.GetKeyDown(KeyCode.R))
             {
+                firetrail.Stop();
                 reloading = true;
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
