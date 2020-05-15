@@ -272,6 +272,16 @@ public class Player_Manager : MonoBehaviour
             {
                 GetComponent<HacheScript>().ChangeWeapon();
             }
+            if (weapon == Armes.Extincteur)
+            {
+                view.RPC("SyncExtincteur", RpcTarget.All, true); //Set display arme
+                //GetComponent<ExtincteurScript>().HUD.SetActive(true); // Active le HUD du pompier
+                GetComponent<ExtincteurScript>().inHand = true;
+            }
+            else
+            {
+                GetComponent<ExtincteurScript>().ChangeWeapon();
+            }
         }
 
         if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
