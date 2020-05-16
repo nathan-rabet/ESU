@@ -108,6 +108,9 @@ public class BuildingScript : MonoBehaviour
 
     IEnumerator Anims()
     {
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.Instantiate("BuildingHelpPNJ", transform.position - new Vector3(UnityEngine.Random.Range(-5.0f, 5.0f), 50, UnityEngine.Random.Range(-5.0f, 5.0f)), transform.rotation);
+
         int dir = 1;
         for (int i = 0; i < 50; i++)
         {
