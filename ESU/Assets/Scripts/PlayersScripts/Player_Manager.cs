@@ -292,6 +292,7 @@ public class Player_Manager : MonoBehaviour
             {
                 view.RPC("SyncFT", RpcTarget.All, true); //Set display arme
                 GetComponent<FlameThrowerScript>().inHand = true;
+                GetComponent<FlameThrowerScript>().HUD.SetActive(true); // Active le HUD du pyroman
                 anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f);
                 anim.SetTrigger("grap");
             }
