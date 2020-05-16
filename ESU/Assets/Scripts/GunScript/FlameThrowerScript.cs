@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon;
+using UnityEngine.UI;
 
 public class FlameThrowerScript : MonoBehaviour
 {
@@ -19,14 +20,17 @@ public class FlameThrowerScript : MonoBehaviour
     public GameObject HUD;
     PhotonView view;
     private GameManagerScript ManagerScript;
+    private Image bar;
 
     void Start()
     {
         view = GetComponent<PhotonView>(); //Cherche la vue
         anim = GetComponent<Animator>(); //Cherche Animator
         ManagerScript = GameObject.Find("/GAME/GameManager").GetComponent<GameManagerScript>();
+        HUD = GameObject.Find("/GAME/Menu/InGameHUD/Lance Flamme"); // Cherche le HUD
 
         ammo = Maxammo;
+        bar = GameObject.Find("/GAME/Menu/InGameHUD/Lance Flamme/Standard/Background/Loading Bar").GetComponent<Image>();
         inHandFT = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandFlamethrower").gameObject;
         stackFT = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/StackFlamethrower").gameObject;
         firetrail = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandFlamethrower/FireTrail").gameObject.GetComponent<ParticleSystem>();
@@ -43,6 +47,7 @@ public class FlameThrowerScript : MonoBehaviour
                 if (!firetrail.isPlaying)
                     firetrail.Play();
                 ammo -= Time.deltaTime;
+                bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / Maxammo, 3 * Time.deltaTime);
             }
             if (Input.GetKeyUp("mouse 0"))
                 firetrail.Stop();
@@ -64,11 +69,14 @@ public class FlameThrowerScript : MonoBehaviour
         ammo = Maxammo;
         reloading = false;
         canShoot = true;
+        while (bar.fillAmount < 1)
+            bar.fillAmount += 3 * Time.deltaTime;
     }
 
     public void ChangeWeapon()
     {
         anim.SetTrigger("grap"); //Jouer l'amin grap du pistolet
+        HUD.SetActive(false); // Désactive le HUD
 
         inHand = false;
 
