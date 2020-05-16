@@ -10,18 +10,22 @@ using Object = UnityEngine.Object;
 
 public class BuildingScript : MonoBehaviour
 {
-    public int health = 1000;
-    public int fire = 0;
+    public float health = 1000f;
+    public float fire = 0;
+    public static float maxfire = 50f;
     private PhotonView view;
     private GameStat GameStat;
     private GameObject fireParticule;
     private GameObject smokeParticule;
-    
-    
+
+    private GameObject firePar;
+    private GameObject smokePar;
+
+
     private void Start()
     {
-        fireParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/FireArea");
-        smokeParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/Smoke02_HighPerformance");
+        fireParticule = (GameObject)Resources.Load("FireArea", typeof(GameObject));
+        smokeParticule = (GameObject)Resources.Load("Smoke02_HighPerformance", typeof(GameObject));
         view = GetComponent<PhotonView>(); //Cherche la vue
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
     }
@@ -33,19 +37,28 @@ public class BuildingScript : MonoBehaviour
 
     public void Update()
     {
-        
-        if (fire > 5 && !smokeP)
+        if (!smokeP && fire > maxfire/2) // Instancie les particules de fumée
         {
-            fireParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/FireArea");
-            smokeParticule = Resources.Load<GameObject>("Assets/ParticuleSystem/Smoke02_HighPerformance");
-            Instantiate(smokeParticule, transform.position, transform.rotation);
+            smokePar = Instantiate(smokeParticule, transform.position, transform.rotation * Quaternion.Euler (270f, 0, 0f));
             smokeP = true;
         }
-            
-        if (fire > 20 && !fireP)
+
+        if (smokePar != null && smokeP && fire < maxfire / 2) // Instancie les particules de fumée
         {
-            Instantiate(fireParticule, transform.position, transform.rotation);
+            Destroy(smokePar);
+            smokeP = false;
+        }
+
+        if (!fireP && fire > maxfire/1.5f) // Instancie les particules de feux
+        {
+            firePar = Instantiate(fireParticule, transform.position, transform.rotation * Quaternion.Euler (270f, 0, 0f));
             fireP = true;
+        }
+
+        if (firePar != null && fireP && fire < maxfire / 1.5f) // Instancie les particules de fumée
+        {
+            Destroy(firePar);
+            fireP = false;
         }
     }
 
@@ -68,41 +81,27 @@ public class BuildingScript : MonoBehaviour
         }
     }
 
-    public void SetFire(int amount)
-    {
-        if (fire + amount > 10)
-            fire = 10;
-        if (fire + amount < 0)
-            fire = 0;
-        fire += amount;
-    }
 
     IEnumerator Fire()
     {
         if (fire > 0)
         {
-            (bool smokeP, bool fireP) = (false, false);
             health -= fire;
 
-
-            view.RPC("SyncBat", RpcTarget.Others, health, fire);
-            yield return new WaitForSeconds(1f);
-            StartCoroutine(Fire());
-
-            if (fire > 5 && !smokeP)
+            if (health <= 0)
             {
-                Instantiate(smokeParticule, transform.position, transform.rotation);
-                smokeP = true;
+                GameStat.changeScore(50, 0);
+
+                health = 0;
+                view.RPC("SyncBat", RpcTarget.All, health, fire);
             }
-            
-            if (fire > 20 && !fireP)
+            else
             {
-                Instantiate(fireParticule, transform.position, transform.rotation);
-                fireP = true;
+                view.RPC("SyncBat", RpcTarget.Others, health, fire);
+                yield return new WaitForSeconds(1f);
+
+                StartCoroutine(Fire());
             }
-            
-            
-            
         }
     }
     
@@ -131,10 +130,38 @@ public class BuildingScript : MonoBehaviour
             transform.Translate(Vector3.down * 0.1f);
             yield return new WaitForSeconds(0.05f);
         }
+        if (smokePar != null)
+            Destroy(smokePar);
+
+        if (firePar != null)
+            Destroy(firePar);
     }
 
     [PunRPC]
-    public void SyncBat(int health, int fire)
+    public void SetFire(float amount)
+    {
+        if (fire + amount > maxfire)
+        {
+            fire = maxfire;
+            return;
+        }
+        if (fire + amount < 0)
+        {
+            fire = 0;
+            return;
+        }
+        if (fire == 0 && PhotonNetwork.IsMasterClient)
+        {
+            fire += amount;
+            StartCoroutine(Fire());
+            return;
+        }
+        fire += amount;
+        view.RPC("SyncBat", RpcTarget.Others, health, fire);
+    }
+
+    [PunRPC]
+    public void SyncBat(float health, float fire)
     {
         this.health = health;
         this.fire = fire;

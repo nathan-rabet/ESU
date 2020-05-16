@@ -38,10 +38,10 @@ public class GameStat : MonoBehaviour
         scoreDEFHUD.text = "" + scoreDEF;
     }
     [PunRPC]
-    public void GameOver (Player[] playerlist)
+    public void GameOver()
     {
         GameObject game = Instantiate(GameStatPrafeb);
-        game.GetComponent<GamesStatGameOver>().players = playerlist;
+        game.GetComponent<GamesStatGameOver>().players = PhotonNetwork.PlayerList;
     }
 
     public void changeScore(int scoreA, int scoreD)
@@ -56,7 +56,7 @@ public class GameStat : MonoBehaviour
     
     IEnumerator UpdateSec(int min, int sec)
     {
-        timeMin = 1;
+        timeMin = min;
         timeSec = sec;
         while (timeMin>0 || timeSec>0)
         {
@@ -91,6 +91,6 @@ public class GameStat : MonoBehaviour
         }
 
         if (PhotonNetwork.IsMasterClient)
-            view.RPC("GameOver", RpcTarget.All, PhotonNetwork.PlayerList);
+            view.RPC("GameOver", RpcTarget.All);
     }
 }

@@ -163,6 +163,7 @@ public class Player_Manager : MonoBehaviour
             if (myClass == Classe.Pompier)
             {
                 GetComponent<HacheScript>().HUD.SetActive(false);
+                GetComponent<ExtincteurScript>().HUD.SetActive(false);
             }
             
             if (myClass == Classe.Medecin)
@@ -265,19 +266,47 @@ public class Player_Manager : MonoBehaviour
                 GetComponent<HacheScript>().inHand = true;
 
                 // /!\ Set Layer Anim pompier
-                anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 1f);
+                anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 1f); // Active layer Pompier
                 anim.SetTrigger("grap");
             }
             else
             {
                 GetComponent<HacheScript>().ChangeWeapon();
             }
+            if (weapon == Armes.Extincteur)
+            {
+                view.RPC("SyncExtincteur", RpcTarget.All, true); //Set display arme
+                anim.SetLayerWeight(anim.GetLayerIndex("Pompier Extincteur"), 1f);
+                GetComponent<ExtincteurScript>().HUD.SetActive(true); // Active le HUD du pompier
+                GetComponent<ExtincteurScript>().inHand = true;
+            }
+            else
+            {
+                GetComponent<ExtincteurScript>().ChangeWeapon();
+            }
         }
 
-        if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
+        if (myClass == Classe.Pyroman)
+        {
+            if (weapon == Armes.LanceFlamme)
+            {
+                view.RPC("SyncFT", RpcTarget.All, true); //Set display arme
+                GetComponent<FlameThrowerScript>().inHand = true;
+                GetComponent<FlameThrowerScript>().HUD.SetActive(true); // Active le HUD du pyroman
+                anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f);
+                anim.SetTrigger("grap");
+            }
+            else
+            {
+                GetComponent<FlameThrowerScript>().ChangeWeapon();
+            }
+        }
+
+            if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
         {
             if (weapon == Armes.Medpack)
             {
+                anim.SetLayerWeight(anim.GetLayerIndex("Medikit"), 1f);
                 GetComponent<MedkitScript>().HUD.SetActive(true); // Active le HUD du médecin
                 GetComponent<MedkitScript>().inHand = true;
             }
