@@ -1909,7 +1909,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Pompier Extincteur
     m_StateMachine: {fileID: -520014589503808856}
-    m_Mask: {fileID: 31900000, guid: cd92ee11dc86aad4cac9e1485d379ed6, type: 2}
+    m_Mask: {fileID: 31900000, guid: 6c4133c9727b2bb4c983d7f8b0868ffc, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -3284,7 +3284,7 @@ BlendTree:
     m_DirectBlendParameter: Aim Angle
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 1a4eefe0c6cfde94bbd097065ebc0b7a,
+    m_Motion: {fileID: -203655887218126122, guid: 096d867d7e696134c83a5d71f04266ec,
       type: 3}
     m_Threshold: 45
     m_Position: {x: 0, y: 0}
