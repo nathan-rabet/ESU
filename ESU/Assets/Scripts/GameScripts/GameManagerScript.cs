@@ -31,6 +31,11 @@ public class GameManagerScript : MonoBehaviour
         public TMP_Text DispAttPlayer; //Recup du text sur le nombre de att a afficher
 
         public PhotonView view;
+
+        private int DetailDistance;
+        private int TreeDistance;
+        private Terrain _terrain;
+        
         
     #endregion
     #region UI
@@ -56,6 +61,8 @@ public class GameManagerScript : MonoBehaviour
     {
         DispDefPlayer.text = "Joueurs: 0";
         DispAttPlayer.text = "Joueurs: 0";
+
+        _terrain = GameObject.Find("/Terrain").GetComponent<Terrain>();
         
         connectionMenuUI.SetActive(true);
         teamMenuUI.SetActive(false);
@@ -75,6 +82,40 @@ public class GameManagerScript : MonoBehaviour
         hash.Add("Death", 0);
         hash.Add("Weapon", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
+
+        int qualityLevel = QualitySettings.GetQualityLevel(); // Recupère l'indice de qualité graphique
+        switch (qualityLevel)
+        {
+            case 0:
+                DetailDistance = 20;
+                TreeDistance = 20;
+                break;
+            case 1:
+                DetailDistance = 40;
+                TreeDistance = 40;
+                break;
+            case 2:
+                DetailDistance = 60;
+                TreeDistance = 60;
+                break;
+            case 3:
+                DetailDistance = 80;
+                TreeDistance = 80;
+                break;
+            case 4:
+                DetailDistance = 140;
+                TreeDistance = 140;
+                break;
+            case 5:
+                DetailDistance = 250;
+                TreeDistance = 250;
+                break;
+        }
+
+        _terrain.detailObjectDistance = DetailDistance;
+        _terrain.treeDistance = TreeDistance;
+
     }
 
     public void IsConnected ()

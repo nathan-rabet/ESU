@@ -32,9 +32,10 @@ public class Player_Manager : MonoBehaviour
     public Classe myClass;
     public int health;
     public int maxhealth;
+<<<<<<< HEAD
     public bool isShieldActive;
-    
-    
+    private bool dead = false;
+
     private List<Armes> weaponsInventory;
     private int weaponsInventoryLength;
     private int selectedWeapon = 0;
@@ -204,6 +205,11 @@ public class Player_Manager : MonoBehaviour
     {
         if (view.IsMine)
         {
+            if (!dead && transform.position.y <= -2)
+            {
+                dead = true;
+                Death(PhotonNetwork.LocalPlayer, 3);
+            }
             if (Input.mouseScrollDelta.y < 0.0f && selectedWeapon>0)
             {
                 selectedWeapon--;

@@ -37,13 +37,13 @@ public class BuildingScript : MonoBehaviour
 
     public void Update()
     {
-        if (!smokeP && fire > maxfire/2) // Instancie les particules de fumée
+        if (!smokeP && fire > maxfire/4) // Instancie les particules de fumée
         {
             smokePar = Instantiate(smokeParticule, transform.position, transform.rotation * Quaternion.Euler (270f, 0, 0f));
             smokeP = true;
         }
 
-        if (smokePar != null && smokeP && fire < maxfire / 2) // Instancie les particules de fumée
+        if (smokePar != null && smokeP && fire < maxfire / 4) // Instancie les particules de fumée
         {
             Destroy(smokePar);
             smokeP = false;
@@ -108,6 +108,9 @@ public class BuildingScript : MonoBehaviour
 
     IEnumerator Anims()
     {
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.Instantiate("BuildingHelpPNJ", transform.position - new Vector3(UnityEngine.Random.Range(-5.0f, 5.0f), 50, UnityEngine.Random.Range(-5.0f, 5.0f)), transform.rotation);
+
         int dir = 1;
         for (int i = 0; i < 50; i++)
         {
