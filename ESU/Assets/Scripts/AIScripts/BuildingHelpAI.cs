@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Photon.Pun;
+using UnityEngine.AI;
 
 public class BuildingHelpAI : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class BuildingHelpAI : MonoBehaviour
     private GameObject mainCam;
     private GameStat GameStat;
 
+    private GameObject[] Dests;
+    private NavMeshAgent agent;
+
     void Start()
     {
+        Dests = GameObject.FindGameObjectsWithTag("AIDEST");
+
         Text = transform.Find("Model/HelpText").gameObject;
         Text.SetActive(false);
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
@@ -42,15 +48,22 @@ public class BuildingHelpAI : MonoBehaviour
             Text.transform.eulerAngles = new Vector3(Text.transform.eulerAngles.x, Text.transform.eulerAngles.y + 180, Text.transform.eulerAngles.z);
 
             RaycastHit hit;
-            if (Input.GetKeyDown(KeyCode.E) && Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                if (hit.collider.gameObject == gameObject)
-                {
+                //if (hit.collider.gameObject == gameObject)
+                //{
                     GameStat.changeScore(0, 20);
-                    PhotonNetwork.Destroy(gameObject);
-                }
+                    Destination();
+                //}
             }
         }
+    }
+
+    void Destination()
+    {
+        int rd = (int)Random.Range(0, Dests.Length);
+        Transform dest = Dests[0].transform;
+        agent.SetDestination(dest.position);
     }
 
     void OnTriggerEnter(Collider other)
