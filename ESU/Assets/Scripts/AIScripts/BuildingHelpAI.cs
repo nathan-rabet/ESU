@@ -18,6 +18,7 @@ public class BuildingHelpAI : MonoBehaviour
     void Start()
     {
         Dests = GameObject.FindGameObjectsWithTag("AIDEST");
+        agent = GetComponent<NavMeshAgent>();
 
         Text = transform.Find("Model/HelpText").gameObject;
         Text.SetActive(false);
