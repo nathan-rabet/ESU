@@ -10,18 +10,18 @@ public class PowerUp : MonoBehaviour {
     public float multiplierPlayerScale = 1f;
     public float multiplierSpeed = 1.4f;
     public float multiplierJump = 1.4f;
+    private ParticleSystem ps;
 
     void OnTriggerEnter (Collider other) 
     {
         // Get light
-        GameObject originalGameObject = this.gameObject;
-        GameObject light = this.transform.GetChild(0).gameObject;
+        ps = GetComponent<ParticleSystem>();
 
         if (other.CompareTag("Player"))
         {
-            light.GetComponent<MeshRenderer>().enabled = false;
+
             StartCoroutine( Pickup(other) );
-            StartCoroutine(ActivePower(light.GetComponent<MeshRenderer>()));
+            StartCoroutine(ActivePower());
         }
     }
 
@@ -52,7 +52,8 @@ public class PowerUp : MonoBehaviour {
             mouv.JumpHight *= multiplierJump;
             isJumpModif = true;
         }
-        GetComponent<MeshRenderer>().enabled = false;
+        var emission = ps.emission;
+        emission.enabled = false;
         GetComponent<Collider>().enabled = false;
         
 
@@ -66,13 +67,13 @@ public class PowerUp : MonoBehaviour {
             player.transform.localScale /= multiplierPlayerScale;
 
     }
-    IEnumerator ActivePower(MeshRenderer light) 
+    IEnumerator ActivePower() 
     {
         yield return new WaitForSeconds(respawn+duration);
-
-        GetComponent<MeshRenderer>().enabled = true;
+        var emission = ps.emission;
+        emission.enabled = true;
         GetComponent<Collider>().enabled = true;
-        light.enabled = true;
+       
 
     }
    
