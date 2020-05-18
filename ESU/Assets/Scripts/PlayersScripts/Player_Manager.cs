@@ -32,7 +32,6 @@ public class Player_Manager : MonoBehaviour
     public Classe myClass;
     public int health;
     public int maxhealth;
-<<<<<<< HEAD
     public bool isShieldActive;
     private bool dead = false;
 
