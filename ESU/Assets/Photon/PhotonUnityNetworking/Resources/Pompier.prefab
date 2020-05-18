@@ -7165,6 +7165,7 @@ GameObject:
   - component: {fileID: -87544246477033858}
   - component: {fileID: 2816692982019756362}
   - component: {fileID: 1636339398197119629}
+  - component: {fileID: 4174256703532550358}
   m_Layer: 0
   m_Name: Pompier
   m_TagString: Player
@@ -7412,6 +7413,7 @@ MonoBehaviour:
   myClass: 1
   health: 0
   maxhealth: 0
+  isShieldActive: 0
 --- !u!114 &-87544246477033858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7455,6 +7457,24 @@ MonoBehaviour:
   ammo: 100
   inHand: 0
   HUD: {fileID: 0}
+--- !u!114 &4174256703532550358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7036911524350451349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e25f9e604c054544bf24667993ff8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFull: 00000000
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7309515371517740783
 GameObject:
   m_ObjectHideFlags: 0

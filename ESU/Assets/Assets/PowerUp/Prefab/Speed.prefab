@@ -14411,8 +14411,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupEffect: {fileID: 1882810805046240, guid: 8f3c02ba3c9011548a07d00d0a95cfbb,
     type: 3}
+  myText: {fileID: 6138981996247105108, guid: 59e02c8ecb2164a44bdf8e6238799a38, type: 3}
+  slot0: {fileID: 0}
+  slot1: {fileID: 0}
+  slot2: {fileID: 0}
+  slot3: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7220f0b9f00e7e0448e55ab414251fb3, type: 3}
+  Heal: 0
+  Ammo: 0
+  Shield: 0
+  Speed: 1
+  Jump: 0
   duration: 20
   respawn: 60
-  multiplierPlayerScale: 1
-  multiplierSpeed: 2
+  multiplierSpeed: 2.5
   multiplierJump: 1
