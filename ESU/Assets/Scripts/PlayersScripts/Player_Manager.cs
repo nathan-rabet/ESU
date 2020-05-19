@@ -32,10 +32,8 @@ public class Player_Manager : MonoBehaviour
     public Classe myClass;
     public int health;
     public int maxhealth;
+    public bool isShieldActive;
     private bool dead = false;
-
-
-
 
     private List<Armes> weaponsInventory;
     private int weaponsInventoryLength;
@@ -48,6 +46,7 @@ public class Player_Manager : MonoBehaviour
     private GameObject HealingPrefab;
     private GameStat GameStat;
     private ragnollController _ragnollController;
+    
 
     void Start()
     {
@@ -56,6 +55,7 @@ public class Player_Manager : MonoBehaviour
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
         HealingPrefab = transform.Find("HealingParticule").gameObject;
+        isShieldActive = false;
 
         _ragnollController = GetComponent<ragnollController>();
         anim = GetComponent<Animator>();
@@ -110,7 +110,7 @@ public class Player_Manager : MonoBehaviour
     //Fonction perdre de la vie
     public void TakeDamage(int viewID, int damage, Photon.Realtime.Player Killer)
     {
-        if (viewID==view.ViewID) //Test si on est la personne tuer
+        if (viewID==view.ViewID && isShieldActive == false) //Test si on est la personne tuer
         {
             if (health>damage) //Diminution de la vie
             {

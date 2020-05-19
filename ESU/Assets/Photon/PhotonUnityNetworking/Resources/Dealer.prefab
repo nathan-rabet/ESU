@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 891117382497208007}
   - component: {fileID: 4630068578472031506}
   - component: {fileID: 8592433619000499959}
+  - component: {fileID: 7496559176477176145}
   m_Layer: 0
   m_Name: Dealer
   m_TagString: Player
@@ -420,6 +421,7 @@ MonoBehaviour:
   myClass: 5
   health: 0
   maxhealth: 0
+  isShieldActive: 0
 --- !u!114 &891117382497208007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,6 +473,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: Reload
+  - Type: 4
+    SynchronizeType: 0
+    Name: Distrib
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -480,6 +485,10 @@ MonoBehaviour:
     LayerIndex: 2
   - SynchronizeType: 0
     LayerIndex: 3
+  - SynchronizeType: 0
+    LayerIndex: 4
+  - SynchronizeType: 0
+    LayerIndex: 5
 --- !u!114 &4630068578472031506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,6 +520,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc974ed339879f841abf8fb08207e554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7496559176477176145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377630093545302229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e25f9e604c054544bf24667993ff8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFull: 00000000
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &470401449606007727
 GameObject:
   m_ObjectHideFlags: 0

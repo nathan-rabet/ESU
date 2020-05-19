@@ -11547,6 +11547,7 @@ GameObject:
   - component: {fileID: -4710055901464190697}
   - component: {fileID: 8528524686499434204}
   - component: {fileID: -7990758591001894860}
+  - component: {fileID: 4594136440415955411}
   m_Layer: 0
   m_Name: Mercenaire
   m_TagString: Player
@@ -11726,6 +11727,7 @@ MonoBehaviour:
   myClass: 3
   health: 0
   maxhealth: 0
+  isShieldActive: 0
 --- !u!114 &-4710055901464190697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11829,6 +11831,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc974ed339879f841abf8fb08207e554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4594136440415955411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8284029296181690911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e25f9e604c054544bf24667993ff8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFull: 00000000
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &8580650321130426162
 GameObject:
   m_ObjectHideFlags: 0

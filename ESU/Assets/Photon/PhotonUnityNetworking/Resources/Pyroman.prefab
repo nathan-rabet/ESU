@@ -10662,6 +10662,7 @@ GameObject:
   - component: {fileID: 8186486046305053898}
   - component: {fileID: 2445187437231210211}
   - component: {fileID: 2183328155448050266}
+  - component: {fileID: 4142357515411867061}
   m_Layer: 0
   m_Name: Pyroman
   m_TagString: Player
@@ -10908,6 +10909,7 @@ MonoBehaviour:
   myClass: 4
   health: 100
   maxhealth: 100
+  isShieldActive: 0
 --- !u!114 &2445187437231210211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10934,6 +10936,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc974ed339879f841abf8fb08207e554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4142357515411867061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4924887040151400288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e25f9e604c054544bf24667993ff8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFull: 00000000
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &4971511676911421266
 GameObject:
   m_ObjectHideFlags: 0
