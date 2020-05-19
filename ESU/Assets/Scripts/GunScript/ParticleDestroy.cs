@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,13 +9,19 @@ public class ParticleDestroy : MonoBehaviour
     public int minDuration;
     public int maxDuration;
     private float duration;
-    // Start is called before the first frame update
+
     void Start()
     {
         duration = Random.Range(minDuration, maxDuration);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10f);
+        foreach (Collider hit in hitColliders)
+        {
+            if (hit.gameObject.tag == "AI")
+                hit.GetComponent<PhotonView>().RPC("headingShot", RpcTarget.All);
+        }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (duration > 0)

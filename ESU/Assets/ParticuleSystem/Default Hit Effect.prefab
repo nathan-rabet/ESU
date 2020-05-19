@@ -4825,7 +4825,7 @@ GameObject:
   - component: {fileID: 4836562636296764742}
   m_Layer: 0
   m_Name: Default Hit Effect
-  m_TagString: Untagged
+  m_TagString: Shot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
