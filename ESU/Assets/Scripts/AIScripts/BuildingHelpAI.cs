@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class BuildingHelpAI : MonoBehaviour
 {
     private bool look;
+    private bool isHelp = false;
     private GameObject Text;
     private GameObject mainCam;
     private GameStat GameStat;
@@ -17,33 +18,24 @@ public class BuildingHelpAI : MonoBehaviour
 
     void Start()
     {
-        Dests = GameObject.FindGameObjectsWithTag("AIDEST");
+        Dests = GameObject.FindGameObjectsWithTag("AISRT");
         agent = GetComponent<NavMeshAgent>();
 
         Text = transform.Find("Model/HelpText").gameObject;
         Text.SetActive(false);
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
-
-        //RaycastHit[] f = Physics.RaycastAll(transform.position + new Vector3(0, 2, 0), Vector3.up, 100.0f);
-        //int i = 0;
-        //Debug.Log(f.Length);
-        //while (i < f.Length)
-        //{
-        //    if (f[i].transform.tag == "Batiment")
-        //        i++;
-        //    else
-        //    {
-        //        transform.position = new Vector3(transform.position.x, f[i].transform.position.y, transform.position.z);
-        //        i = f.Length + 1;
-        //    }
-        //}
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        agent.Warp(new Vector3(transform.position.x + Random.Range(-2f, 2f), 0, transform.position.z + Random.Range(-2f, 2f)));
     }
 
     void Update()
     {
-        if (look)
+        if (isHelp && agent.remainingDistance <= 1)
+        {
+            GameStat.changeScore(0, 20);
+            Destroy(gameObject);
+        }
+        if (!isHelp && look)
         {
             Text.transform.LookAt(mainCam.transform);
             Text.transform.eulerAngles = new Vector3(Text.transform.eulerAngles.x, Text.transform.eulerAngles.y + 180, Text.transform.eulerAngles.z);
@@ -54,6 +46,7 @@ public class BuildingHelpAI : MonoBehaviour
                 //if (hit.collider.gameObject == gameObject)
                 //{
                     GameStat.changeScore(0, 20);
+                    isHelp = true;
                     Destination();
                 //}
             }
@@ -62,14 +55,16 @@ public class BuildingHelpAI : MonoBehaviour
 
     void Destination()
     {
-        int rd = (int)Random.Range(0, Dests.Length);
-        Transform dest = Dests[0].transform;
+        int rd = Mathf.FloorToInt(Random.Range(0, Dests.Length - 1));
+        Transform dest = Dests[rd].transform;
+        agent.avoidancePriority = 99;
+        agent.speed = 6;
         agent.SetDestination(dest.position);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && other.GetComponent<PhotonView>().IsMine && (other.GetComponent<Player_Manager>().myClass == Player_Manager.Classe.Pompier || other.GetComponent<Player_Manager>().myClass == Player_Manager.Classe.Medecin))
+        if (!isHelp && other.tag == "Player" && other.GetComponent<PhotonView>().IsMine && (other.GetComponent<Player_Manager>().myClass == Player_Manager.Classe.Pompier || other.GetComponent<Player_Manager>().myClass == Player_Manager.Classe.Medecin))
         {
             look = true;
             Text.SetActive(true);
