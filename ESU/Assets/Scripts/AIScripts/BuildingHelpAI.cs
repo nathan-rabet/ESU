@@ -25,12 +25,14 @@ public class BuildingHelpAI : MonoBehaviour
         Text.SetActive(false);
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
-        agent.Warp(new Vector3(transform.position.x + Random.Range(-2f, 2f), 0, transform.position.z + Random.Range(-2f, 2f)));
+
+        if (PhotonNetwork.IsMasterClient)
+            agent.Warp(new Vector3(transform.position.x + Random.Range(-2f, 2f), 0, transform.position.z + Random.Range(-2f, 2f)));
     }
 
     void Update()
     {
-        if (isHelp && agent.remainingDistance <= 1)
+        if (isHelp && PhotonNetwork.IsMasterClient && agent.remainingDistance <= 1)
         {
             GameStat.changeScore(0, 20);
             Destroy(gameObject);

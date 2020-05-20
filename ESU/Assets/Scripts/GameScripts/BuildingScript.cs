@@ -64,7 +64,7 @@ public class BuildingScript : MonoBehaviour
 
     public void TakeDamage(int viewID, int damage, Photon.Realtime.Player Killer)
     {
-        if (viewID == view.ViewID && health > 0) //Test si on est le bâtiment
+        if ((string)Killer.CustomProperties["Team"] == "ATT" && viewID == view.ViewID && health > 0) //Test si on est le bâtiment
         {
             if (health>damage) //Diminution de la vie
             {
