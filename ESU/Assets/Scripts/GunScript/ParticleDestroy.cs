@@ -17,7 +17,7 @@ public class ParticleDestroy : MonoBehaviour
         foreach (Collider hit in hitColliders)
         {
             if (hit.gameObject.tag == "AI")
-                hit.GetComponent<PhotonView>().RPC("headingShot", RpcTarget.All);
+                hit.GetComponent<PhotonView>().RPC("headingShot", RpcTarget.MasterClient);
         }
     }
 

@@ -124,6 +124,10 @@ public class GameManagerScript : MonoBehaviour
         teamMenuUI.SetActive(true);
         GameHUD.SetActive(true);
         StadeGame = "EQUIPE";
+
+        if (PhotonNetwork.IsMasterClient)
+            for (int i = 0; i < 5; i++)
+                PhotonNetwork.Instantiate("BasicPNJ", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
     }
     
     #endregion

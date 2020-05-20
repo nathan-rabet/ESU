@@ -27,42 +27,48 @@ public class BasicAIScripts : MonoBehaviour
         behevbehaviour = 0;
         nbEardShot = 0;
 
-        Transform dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
-        agent.Warp(dest.position);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Transform dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
+            agent.Warp(dest.position);
 
-        agent.speed = 3;
-        agent.avoidancePriority = 99;
-        dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
-        agent.SetDestination(dest.position);
+            agent.speed = 3;
+            agent.avoidancePriority = 99;
+            dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
+            agent.SetDestination(dest.position);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (behevbehaviour == 0 && agent.remainingDistance <= 1)
+        if (PhotonNetwork.IsMasterClient)
         {
-            Transform dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
-            agent.SetDestination(dest.position);
-        }
-        if (behevbehaviour == 1 && agent.remainingDistance <= 1)
-        {
-            GameStat.changeScore(0, 20);
-            PhotonNetwork.Instantiate("BasicPNJ", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
-            Destroy(gameObject);
-        }
-        if (behevbehaviour == 2)
-        {
-            wait -= Time.deltaTime;
-            if (wait <= 0)
+            if (behevbehaviour == 0 && agent.remainingDistance <= 1)
             {
-                nbEardShot = 1;
-                headingShots();
-                agent.isStopped = false;
+                Transform dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
+                agent.SetDestination(dest.position);
+            }
+            if (behevbehaviour == 1 && agent.remainingDistance <= 1)
+            {
+                GameStat.changeScore(0, 20);
+                PhotonNetwork.Instantiate("BasicPNJ", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+                PhotonNetwork.Destroy(gameObject);
+            }
+            if (behevbehaviour == 2)
+            {
+                wait -= Time.deltaTime;
+                if (wait <= 0)
+                {
+                    nbEardShot = 0;
+                    headingShots();
+                    agent.isStopped = false;
+                }
             }
         }
     }
 
-    private void headingShots()
+    public void headingShots()
     {
         if (nbEardShot == 1)
         {
