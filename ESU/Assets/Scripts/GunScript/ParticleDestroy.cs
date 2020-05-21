@@ -13,11 +13,14 @@ public class ParticleDestroy : MonoBehaviour
     void Start()
     {
         duration = Random.Range(minDuration, maxDuration);
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10f);
-        foreach (Collider hit in hitColliders)
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (hit.gameObject.tag == "AI")
-                hit.GetComponent<PhotonView>().RPC("headingShot", RpcTarget.MasterClient);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10f);
+            foreach (Collider hit in hitColliders)
+            {
+                if (hit.gameObject.tag == "AI")
+                    hit.GetComponent<BasicAIScripts>().headingShots();
+            }
         }
     }
 

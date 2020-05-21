@@ -9,6 +9,7 @@ public class BasicAIScripts : MonoBehaviour
 {
     private int behevbehaviour;
     private int nbEardShot;
+    private int hide;
     private float wait;
 
     private GameObject[] Dests;
@@ -31,6 +32,8 @@ public class BasicAIScripts : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient)
         {
+            hide = Mathf.FloorToInt(UnityEngine.Random.Range(5, 30));
+
             Transform dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
             agent.Warp(dest.position);
 
@@ -42,16 +45,16 @@ public class BasicAIScripts : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && !agent.pathPending)
         {
-            if (behevbehaviour == 0 && agent.remainingDistance <= 1)
+            if (behevbehaviour == 0 && agent.remainingDistance <= 2)
             {
                 Transform dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
                 agent.SetDestination(dest.position);
             }
-            if (behevbehaviour == 1 && agent.remainingDistance <= 1)
+            if (behevbehaviour == 1 && agent.remainingDistance <= 2)
             {
                 GameStat.changeScore(0, 20);
                 PhotonNetwork.Instantiate("BasicPNJ", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
@@ -74,6 +77,7 @@ public class BasicAIScripts : MonoBehaviour
 
     public void headingShots()
     {
+        nbEardShot++;
         if (nbEardShot == 1)
         {
             _animator.SetBool("cours", true);
@@ -90,14 +94,11 @@ public class BasicAIScripts : MonoBehaviour
             }
             agent.speed = 8;
             agent.avoidancePriority = 0;
-            while (!agent.SetDestination(closeOut.position))
-            {
-                Debug.Log("test");
-            }
+            agent.SetDestination(closeOut.position);
             behevbehaviour = 1;
         }
 
-        if (nbEardShot == 5)
+        if (nbEardShot == hide)
         {
             _animator.SetBool("peur", true);
             agent.isStopped = true;
@@ -106,14 +107,5 @@ public class BasicAIScripts : MonoBehaviour
             wait = UnityEngine.Random.Range(3f, 10f);
             behevbehaviour = 2;
         }
- 
-        
-    }
-
-    [PunRPC]
-    public void headingShot()
-    {
-        nbEardShot++;
-        headingShots();
     }
 }
