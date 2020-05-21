@@ -15,9 +15,11 @@ public class BuildingHelpAI : MonoBehaviour
 
     private GameObject[] Dests;
     private NavMeshAgent agent;
+    private Animator _animator;
 
     void Start()
     {
+        _animator = GetComponent<Animator>();
         Dests = GameObject.FindGameObjectsWithTag("AISRT");
         agent = GetComponent<NavMeshAgent>();
 
@@ -50,6 +52,7 @@ public class BuildingHelpAI : MonoBehaviour
                     GameStat.changeScore(0, 20);
                     isHelp = true;
                     Destination();
+                    _animator.SetBool("soin", true);
                 //}
             }
         }
