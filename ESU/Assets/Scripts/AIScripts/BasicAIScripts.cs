@@ -15,10 +15,12 @@ public class BasicAIScripts : MonoBehaviour
     private GameObject[] Outs;
     private NavMeshAgent agent;
     private GameStat GameStat;
+    private Animator _animator;
 
 
     void Start()
     {
+        _animator = GetComponent<Animator>();
         Outs = GameObject.FindGameObjectsWithTag("AISRT");
         Dests = GameObject.FindGameObjectsWithTag("AIDEST");
         agent = GetComponent<NavMeshAgent>();
@@ -60,6 +62,8 @@ public class BasicAIScripts : MonoBehaviour
                 wait -= Time.deltaTime;
                 if (wait <= 0)
                 {
+                    _animator.SetBool("peur", false);
+                    _animator.SetBool("cours", true);
                     nbEardShot = 0;
                     headingShots();
                     agent.isStopped = false;
@@ -72,6 +76,7 @@ public class BasicAIScripts : MonoBehaviour
     {
         if (nbEardShot == 1)
         {
+            _animator.SetBool("cours", true);
             float minDist = float.MaxValue;
             Transform closeOut = null;
             foreach (GameObject Out in Outs)
@@ -85,19 +90,24 @@ public class BasicAIScripts : MonoBehaviour
             }
             agent.speed = 8;
             agent.avoidancePriority = 0;
-            agent.SetDestination(closeOut.position);
-
+            while (!agent.SetDestination(closeOut.position))
+            {
+                Debug.Log("test");
+            }
             behevbehaviour = 1;
         }
 
         if (nbEardShot == 5)
         {
+            _animator.SetBool("peur", true);
             agent.isStopped = true;
 
 
             wait = UnityEngine.Random.Range(3f, 10f);
             behevbehaviour = 2;
         }
+ 
+        
     }
 
     [PunRPC]
