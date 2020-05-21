@@ -126,8 +126,9 @@ public class Player_Manager : MonoBehaviour
                 
                 Death(Killer, 5);
             }
-            
-            healthBar.SetHealth(health);
+
+            if (view.IsMine)
+                healthBar.SetHealth(health);
         }
     }
 
@@ -146,7 +147,8 @@ public class Player_Manager : MonoBehaviour
                 health = maxhealth;
             }
             
-            healthBar.SetHealth(health);
+            if (view.IsMine)
+                healthBar.SetHealth(health);
         }
     }
 
