@@ -9,7 +9,8 @@ public class CameraFollow : MonoBehaviour {
 	public Transform CameraFollowObj;
 	private float clampAnglemax = 25.0f;
 	private float clampAnglemin = 45.0f;
-	public float inputSensitivity = 150.0f;
+	public float inputXSensitivity = 150.0f;
+	public float inputYSensitivity = 150.0f;
 	public float finalInputX;
 	public float finalInputZ;
 	private float rotY = 0.0f;
@@ -39,8 +40,8 @@ public class CameraFollow : MonoBehaviour {
 			float mouseX = Input.GetAxis ("Mouse X");
 			float mouseY = Input.GetAxis ("Mouse Y");
 
-			rotY += mouseX * inputSensitivity * Time.deltaTime;
-			rotX += mouseY * inputSensitivity * Time.deltaTime;
+			rotY += mouseX * inputXSensitivity * Time.deltaTime;
+			rotX += mouseY * inputYSensitivity * Time.deltaTime;
 
 			rotX = Mathf.Clamp (rotX, -clampAnglemin, clampAnglemax);
 

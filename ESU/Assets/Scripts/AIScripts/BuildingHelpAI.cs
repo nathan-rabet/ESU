@@ -17,8 +17,11 @@ public class BuildingHelpAI : MonoBehaviour
     private NavMeshAgent agent;
     private Animator _animator;
 
+    private AudioSource run;
+
     void Start()
     {
+        run = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         Dests = GameObject.FindGameObjectsWithTag("AISRT");
         agent = GetComponent<NavMeshAgent>();
@@ -65,6 +68,7 @@ public class BuildingHelpAI : MonoBehaviour
         agent.avoidancePriority = 99;
         agent.speed = 6;
         agent.SetDestination(dest.position);
+        run.Play();
     }
 
     void OnTriggerEnter(Collider other)

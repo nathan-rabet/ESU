@@ -18,6 +18,9 @@ public class BasicAIScripts : MonoBehaviour
     private GameStat GameStat;
     private Animator _animator;
 
+    private AudioSource walk;
+    private AudioSource run;
+
 
     void Start()
     {
@@ -26,6 +29,10 @@ public class BasicAIScripts : MonoBehaviour
         Dests = GameObject.FindGameObjectsWithTag("AIDEST");
         agent = GetComponent<NavMeshAgent>();
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
+
+        AudioSource[] sources = GetComponents<AudioSource>();
+        walk = sources[0];
+        run = sources[1];
 
         behevbehaviour = 0;
         nbEardShot = 0;
@@ -42,6 +49,7 @@ public class BasicAIScripts : MonoBehaviour
             dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
             agent.SetDestination(dest.position);
         }
+        walk.Play();
     }
 
     // Update is called once per frame
@@ -95,6 +103,8 @@ public class BasicAIScripts : MonoBehaviour
             agent.speed = 8;
             agent.avoidancePriority = 0;
             agent.SetDestination(closeOut.position);
+            walk.Stop();
+            run.Play();
             behevbehaviour = 1;
         }
 
@@ -102,6 +112,10 @@ public class BasicAIScripts : MonoBehaviour
         {
             _animator.SetBool("peur", true);
             agent.isStopped = true;
+
+
+            walk.Stop();
+            run.Stop();
 
 
             wait = UnityEngine.Random.Range(3f, 10f);

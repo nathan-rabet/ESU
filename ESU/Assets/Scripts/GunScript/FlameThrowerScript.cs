@@ -14,6 +14,7 @@ public class FlameThrowerScript : MonoBehaviour
     private bool canShoot = true;
 
     private ParticleSystem firetrail;
+    private AudioSource audiofire;
     private GameObject inHandFT;
     private GameObject stackFT;
     private Animator anim;
@@ -34,6 +35,8 @@ public class FlameThrowerScript : MonoBehaviour
         inHandFT = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandFlamethrower").gameObject;
         stackFT = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/StackFlamethrower").gameObject;
         firetrail = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandFlamethrower/FireTrail").gameObject.GetComponent<ParticleSystem>();
+        audiofire = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandFlamethrower/FireTrail").gameObject.GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -45,17 +48,24 @@ public class FlameThrowerScript : MonoBehaviour
             if (canShoot && ammo > 0f && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
                 if (!firetrail.isPlaying)
+                {
                     firetrail.Play();
+                    audiofire.Play();
+                }
                 ammo -= Time.deltaTime;
                 bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / Maxammo, 3 * Time.deltaTime);
             }
-            if (Input.GetKeyUp("mouse 0"))
+            else
+            {
                 firetrail.Stop();
+                audiofire.Stop();
+            }
 
 
             if (!reloading && ammo < Maxammo && Input.GetKeyDown(KeyCode.R))
             {
                 firetrail.Stop();
+                audiofire.Stop();
                 reloading = true;
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
