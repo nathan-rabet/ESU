@@ -124,7 +124,8 @@ public class GameManagerScript : MonoBehaviour
         teamMenuUI.SetActive(true);
         GameHUD.SetActive(true);
         StadeGame = "EQUIPE";
-
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         if (PhotonNetwork.IsMasterClient)
             for (int i = 0; i < 5; i++)
                 PhotonNetwork.Instantiate("BasicPNJ", new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
@@ -248,7 +249,7 @@ public class GameManagerScript : MonoBehaviour
         Hashtable hash = new Hashtable();
         hash.Add("Class", newClass);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-        if (ClassDefMenu.active || ClassAttMenu.active)
+        if (ClassDefMenu.activeSelf || ClassAttMenu.activeSelf)
         {
             ClassDefMenu.SetActive(false);
             ClassAttMenu.SetActive(false);
