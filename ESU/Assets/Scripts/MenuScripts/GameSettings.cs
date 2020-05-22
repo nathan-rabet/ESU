@@ -24,4 +24,9 @@ public class GameSettings : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
