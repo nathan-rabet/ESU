@@ -14422,7 +14422,7 @@ MonoBehaviour:
   Shield: 0
   Speed: 1
   Jump: 0
-  duration: 20
+  duration: 5
   respawn: 60
   multiplierSpeed: 2.5
   multiplierJump: 1
