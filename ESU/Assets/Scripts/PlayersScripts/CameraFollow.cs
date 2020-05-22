@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
 	public GameManagerScript ManagerScript;
+	public Transform centre;
 	public float CameraMoveSpeed = 120.0f;
 	public Transform CameraFollowObj;
 	private float clampAnglemax = 25.0f;
@@ -57,11 +58,10 @@ public class CameraFollow : MonoBehaviour {
 		}
 		else //Mouvement de camera pour le menu
         {
-            Vector3 poscentre = new Vector3(325,0,250); //Position du centre
             Vector3 dir = new Vector3(0,0,-50); //Distance du centre
             Quaternion rotation = Quaternion.Euler(50, currentRotation,0); //Rotation
-            transform.position = poscentre + rotation * dir; //Set la pos de la cam
-            transform.LookAt(poscentre); //regarde le centre
+            transform.position = centre.position + rotation * dir; //Set la pos de la cam
+            transform.LookAt(centre.position); //regarde le centre
             if (currentRotation<360) 
             {
                 currentRotation += 10 * Time.deltaTime; //Tourne la cam
