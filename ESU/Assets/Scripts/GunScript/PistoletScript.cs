@@ -27,12 +27,16 @@ public class PistoletScript : MonoBehaviour
     public GameObject HUD;
     PhotonView view;
     private GameManagerScript ManagerScript;
+    private AudioSource _audioSource;
+    private AudioClip _audioClip;
 
     private AmmoCount ammoCount;
 
 
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
+        _audioClip = Resources.Load<AudioClip>("Tir");
         ammoCount = GameObject.Find("/GAME/Menu/InGameHUD/Weapon Info").GetComponent<AmmoCount>();
         HUD = GameObject.Find("/GAME/Menu/InGameHUD/Weapon Info");
         view = GetComponent<PhotonView> (); //Cherche la vue
@@ -50,6 +54,7 @@ public class PistoletScript : MonoBehaviour
             {
                 canShoot = false;
                 muzzleFlash.Play();
+                _audioSource.PlayOneShot(_audioClip);
                 Shoot(); //Tir
                 ammo--;
                 ammoCount.SetAmmo(ammo);

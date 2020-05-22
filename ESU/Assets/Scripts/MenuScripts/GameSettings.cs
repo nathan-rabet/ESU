@@ -9,7 +9,7 @@ public class GameSettings : MonoBehaviour
     public AudioMixer GameAM;
     public void SetMusicVolume (float volume)
     {
-        MusicAM.SetFloat("MusicVolume", volume);
+        MusicAM.SetFloat("volume", volume);
     }
     public void SetGameVolume (float volume)
     {
