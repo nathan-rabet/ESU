@@ -133,6 +133,7 @@ public class BuildingScript : MonoBehaviour
             transform.Translate(Vector3.down * 0.1f);
             yield return new WaitForSeconds(0.05f);
         }
+        GetComponent<Collider>().enabled = false;
         if (smokePar != null)
             Destroy(smokePar);
 

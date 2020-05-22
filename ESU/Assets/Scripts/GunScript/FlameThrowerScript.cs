@@ -51,6 +51,7 @@ public class FlameThrowerScript : MonoBehaviour
                 {
                     firetrail.Play();
                     audiofire.Play();
+                    view.RPC("SyncFTPar", RpcTarget.Others, true);
                 }
                 ammo -= Time.deltaTime;
                 bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / Maxammo, 3 * Time.deltaTime);
@@ -59,6 +60,7 @@ public class FlameThrowerScript : MonoBehaviour
             {
                 firetrail.Stop();
                 audiofire.Stop();
+                view.RPC("SyncFTPar", RpcTarget.Others, false);
             }
 
 
@@ -66,6 +68,7 @@ public class FlameThrowerScript : MonoBehaviour
             {
                 firetrail.Stop();
                 audiofire.Stop();
+                view.RPC("SyncFTPar", RpcTarget.Others, false);
                 reloading = true;
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
@@ -97,6 +100,21 @@ public class FlameThrowerScript : MonoBehaviour
     public void SyncFT(bool in_hand)
     {
         StartCoroutine(SyncFT_IE(in_hand));
+    }
+
+    [PunRPC]
+    public void SyncFTPar(bool active)
+    {
+        if (active)
+        {
+            firetrail.Play();
+            audiofire.Play();
+        }
+        else
+        {
+            firetrail.Stop();
+            audiofire.Stop();
+        }
     }
 
     IEnumerator SyncFT_IE(bool in_hand)

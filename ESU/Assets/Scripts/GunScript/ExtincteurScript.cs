@@ -48,18 +48,25 @@ public class ExtincteurScript : MonoBehaviour
             if (canShoot && ammo > 0f && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
                 if (!smoke.isPlaying)
+                {
                     smoke.Play();
+                    view.RPC("SyncExtincteurPar", RpcTarget.Others, true);
+                }
                 Shoot(Time.deltaTime); //Tir
                 ammo -= Time.deltaTime;
                 bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / MaxAmmo, 3 * Time.deltaTime);
             }
 
             if (Input.GetKeyUp("mouse 0"))
-               smoke.Stop();
+            {
+                smoke.Stop();
+                view.RPC("SyncExtincteurPar", RpcTarget.Others, false);
+            }
 
             if (!reloading && ammo < MaxAmmo && Input.GetKeyDown(KeyCode.R))
             {
                 smoke.Stop();
+                view.RPC("SyncExtincteurPar", RpcTarget.Others, false);
                 reloading = true;
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
@@ -108,6 +115,19 @@ public class ExtincteurScript : MonoBehaviour
         {
             inHandExt.SetActive(false);
             stackExt.SetActive(true);
+        }
+    }
+
+    [PunRPC]
+    public void SyncExtincteurPar(bool active)
+    {
+        if (active)
+        {
+            smoke.Play();
+        }
+        else
+        {
+            smoke.Stop();
         }
     }
 }
