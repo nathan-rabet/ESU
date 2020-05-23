@@ -101,6 +101,7 @@ public class GamesStatGameOver : MonoBehaviour
                     break;
             }
             GameObject p = Instantiate(prefab, spawns[i].transform.position, spawns[i].transform.rotation);
+            Debug.Log("Set name: " + winners[i].NickName);
             p.GetComponent<Animator>().SetBool("victory", true);
             p.GetComponentInChildren<TextMesh>().text = winners[i].NickName;
         }
