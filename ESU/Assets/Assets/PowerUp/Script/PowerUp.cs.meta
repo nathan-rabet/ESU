@@ -1,12 +1,9 @@
 fileFormatVersion: 2
-guid: 8d39cbcb5ff61e94c943f816dae20419
+guid: 51fc39b56e4b4f14aaca1b17d4ce9e0c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - pickupEffect: {instanceID: 0}
-  - myText: {fileID: 2525660824587009900, guid: ebc6fdd630860544d9952a7ecade6c1f,
-      type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
