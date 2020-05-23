@@ -157,11 +157,13 @@ public class PowerUp : MonoBehaviour {
         }
 
         //Speed
+        float stockSpeed = mouv.MaxSpeed;
         if (Speed)
             mouv.MaxSpeed *= multiplierSpeed;
-        
+
 
         //Jump
+        float stockJump = mouv.JumpHight;
         if (Jump)
             mouv.JumpHight *= multiplierJump;
 
@@ -169,10 +171,10 @@ public class PowerUp : MonoBehaviour {
         yield return new WaitForSeconds(duration);
 
         if (Jump)
-            mouv.JumpHight /= multiplierJump;
+            mouv.JumpHight = stockJump;
 
         if (Speed)
-            mouv.MaxSpeed /= multiplierSpeed;
+            mouv.MaxSpeed = stockSpeed;
 
        
 
@@ -189,7 +191,7 @@ public class PowerUp : MonoBehaviour {
 
     IEnumerator displayText()
     {
-        myText.text = "You picked a "+icon.name+"!!";
+        myText.text = "Vous avez prit un "+icon.name+"!!";
         yield return new WaitForSeconds(5);
         myText.text = "";
     }
