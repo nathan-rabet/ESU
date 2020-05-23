@@ -24,6 +24,8 @@ public class BasicAIScripts : MonoBehaviour
 
     void Start()
     {
+        SetColorScript.SetColor(transform.Find("Model/Character").gameObject);
+
         _animator = GetComponent<Animator>();
         Outs = GameObject.FindGameObjectsWithTag("AISRT");
         Dests = GameObject.FindGameObjectsWithTag("AIDEST");
