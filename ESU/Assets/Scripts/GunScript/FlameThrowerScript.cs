@@ -54,9 +54,15 @@ public class FlameThrowerScript : MonoBehaviour
                     view.RPC("SyncFTPar", RpcTarget.Others, true);
                 }
                 ammo -= Time.deltaTime;
+                if (ammo < 0f)
+                {
+                    firetrail.Stop();
+                    audiofire.Stop();
+                    view.RPC("SyncFTPar", RpcTarget.Others, false);
+                }
                 bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / Maxammo, 3 * Time.deltaTime);
             }
-            else
+            if(Input.GetKeyUp("mouse 0"))
             {
                 firetrail.Stop();
                 audiofire.Stop();

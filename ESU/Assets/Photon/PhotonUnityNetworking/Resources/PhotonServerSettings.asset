@@ -54,5 +54,6 @@ MonoBehaviour:
   - headingShot
   - SyncExtincteurPar
   - SyncFTPar
+  - Help
   DisableAutoOpenWizard: 1
   ShowSettings: 1
