@@ -113,6 +113,7 @@ public class GameManagerScript : MonoBehaviour
                 break;
         }
 
+        Debug.Log("debug sitance" + qualityLevel);
         _terrain.detailObjectDistance = DetailDistance;
         _terrain.treeDistance = TreeDistance;
 
