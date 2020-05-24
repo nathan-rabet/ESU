@@ -13,6 +13,7 @@ public class ExtincteurScript : MonoBehaviour
     private bool reloading = false;
     private bool canShoot = true;
 
+    private AudioSource audio;
     private ExtTriggerScript ETS;
     private ParticleSystem smoke;
     private GameObject inHandExt;
@@ -37,6 +38,7 @@ public class ExtincteurScript : MonoBehaviour
         inHandExt = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandExtincteur").gameObject;
         stackExt = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/StackExtincteur").gameObject;
         ETS = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandExtincteur/SmokeHitTrigger").GetComponent<ExtTriggerScript>();
+        audio = inHandExt.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -50,6 +52,7 @@ public class ExtincteurScript : MonoBehaviour
                 if (!smoke.isPlaying)
                 {
                     smoke.Play();
+                    audio.Play();
                     view.RPC("SyncExtincteurPar", RpcTarget.Others, true);
                 }
                 Shoot(Time.deltaTime); //Tir
@@ -59,12 +62,14 @@ public class ExtincteurScript : MonoBehaviour
 
             if (Input.GetKeyUp("mouse 0"))
             {
+                audio.Stop();
                 smoke.Stop();
                 view.RPC("SyncExtincteurPar", RpcTarget.Others, false);
             }
 
             if (!reloading && ammo < MaxAmmo && Input.GetKeyDown(KeyCode.R))
             {
+                audio.Stop();
                 smoke.Stop();
                 view.RPC("SyncExtincteurPar", RpcTarget.Others, false);
                 reloading = true;
@@ -115,6 +120,7 @@ public class ExtincteurScript : MonoBehaviour
         {
             inHandExt.SetActive(false);
             stackExt.SetActive(true);
+            audio.Stop();
         }
     }
 
@@ -124,10 +130,12 @@ public class ExtincteurScript : MonoBehaviour
         if (active)
         {
             smoke.Play();
+            audio.Play();
         }
         else
         {
             smoke.Stop();
+            audio.Stop();
         }
     }
 }
