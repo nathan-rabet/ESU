@@ -100,7 +100,11 @@ public class GamesStatGameOver : MonoBehaviour
                     prefab = PlayersPrefab[5];
                     break;
             }
-            GameObject p = Instantiate(prefab, spawns[i].transform.position, spawns[i].transform.rotation);
+            Transform spawn = transform;
+            foreach (GameObject sp in spawns)
+                if (Convert.ToInt32(sp.name) == i)
+                    spawn = sp.transform;
+            GameObject p = Instantiate(prefab, spawn.position, spawn.rotation);
             Debug.Log("Set name: " + winners[i].NickName);
             p.GetComponent<Animator>().SetBool("victory", true);
             p.GetComponentInChildren<TextMesh>().text = winners[i].NickName;
@@ -130,7 +134,11 @@ public class GamesStatGameOver : MonoBehaviour
                     prefab = PlayersPrefab[5];
                     break;
             }
-            GameObject p = Instantiate(prefab, spawns[i].transform.position, spawns[i].transform.rotation);
+            Transform spawn = transform;
+            foreach (GameObject sp in spawns)
+                if (Convert.ToInt32(sp.name) == i)
+                    spawn = sp.transform;
+            GameObject p = Instantiate(prefab, spawn.position, spawn.rotation);
             p.GetComponentInChildren<TextMesh>().text = loosers[i - 5].NickName;
         }
     }
