@@ -21,6 +21,8 @@ public class BuildingHelpAI : MonoBehaviour
 
     void Start()
     {
+        SetColorScript.SetColor(transform.Find("Model/Character").gameObject);
+
         run = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         Dests = GameObject.FindGameObjectsWithTag("AISRT");

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class PowerUp : MonoBehaviour {
 
@@ -39,7 +40,7 @@ public class PowerUp : MonoBehaviour {
         // Get light
         ps = GetComponent<ParticleSystem>();
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine)
         {
             inventory = other.GetComponent<Inventory>();
             PlayerMouvement mouv = other.GetComponent<PlayerMouvement>();
