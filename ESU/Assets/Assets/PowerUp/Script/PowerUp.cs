@@ -12,12 +12,14 @@ public class PowerUp : MonoBehaviour {
     public Image slot2;
     public Image slot3;
     public Sprite icon;
+
     //Choose effect
     public bool Heal;
     public bool Ammo;
     public bool Shield;
     public bool Speed;
     public bool Jump;
+
 
     public float duration = 4f;
     public float respawn = 10f;
@@ -175,6 +177,13 @@ public class PowerUp : MonoBehaviour {
 
         if (Speed)
             mouv.MaxSpeed = stockSpeed;
+
+        if (Shield)
+        {
+            Player_Manager manager = player.GetComponent<Player_Manager>();
+            manager.isShieldActive = false;
+        }
+
 
        
 
