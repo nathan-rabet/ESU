@@ -223,8 +223,8 @@ MonoBehaviour:
   - {fileID: 5852291038536503539, guid: 3c926a6e79b9c854a8f4610037afa605, type: 3}
   - {fileID: 6128574677290936690, guid: 58b3d3f8f24e0934bac72f383d1d7d1d, type: 3}
   - {fileID: 7526914079057309179, guid: 57a35448c414f344e8eb7e9e0e7cdde8, type: 3}
-  - {fileID: 7526914079057309179, guid: 57a35448c414f344e8eb7e9e0e7cdde8, type: 3}
-  - {fileID: 7526914079057309179, guid: 57a35448c414f344e8eb7e9e0e7cdde8, type: 3}
+  - {fileID: 7686538890422537035, guid: 7de273712913d4b4d8e9bdb60718faaf, type: 3}
+  - {fileID: 2644998176081825269, guid: ed81cc35fb9feeb49aac450e3c0b9cb6, type: 3}
   anim: {fileID: 4446570708043044986}
 --- !u!114 &4700067388181981870
 MonoBehaviour:
