@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MouveCloud : MonoBehaviour
 {
+    public int maxPosition = 930;
+    public int respawnPosition = -624;
     public float speed = 0.2f;
     float time = 0;
     // Start is called before the first frame update
@@ -23,13 +25,13 @@ public class MouveCloud : MonoBehaviour
 
         else
         {
-            transform.SetPositionAndRotation(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -624), new Quaternion());
+            transform.SetPositionAndRotation(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, respawnPosition), new Quaternion());
         }
         
     }
-    public static float MoveBack(float speed, GameObject gameObject)
+    public float MoveBack(float speed, GameObject gameObject)
     {
-        if (gameObject.transform.position.z >= 930 )
+        if (gameObject.transform.position.z >= maxPosition)
         {
                 speed = 0;
         }

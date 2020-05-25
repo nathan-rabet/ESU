@@ -10,8 +10,11 @@ public class PlayerMouvement : MonoBehaviour
     
     private Animator anim;
     private float speed = 0.08f;
+    //WARNING: Change normal variable and control variable in the same time !
     private float maxspeed = 0.16f;
+    private float maxspeedControl = 0.16f;
     private float jumpHight = 10.0f;
+    private float jumpHightControl = 10.0f;
     private bool canJump = true;
     private AudioSource walk;
     private AudioSource run;
@@ -23,11 +26,19 @@ public class PlayerMouvement : MonoBehaviour
         get => maxspeed;
         set => maxspeed = value;
     }
+    public float MaxSpeedControl
+    {
+        get => maxspeedControl;
+    }
 
     public float JumpHight
     {
         get => jumpHight;
         set => jumpHight = value;
+    }
+    public float JumpHightControl
+    {
+        get => jumpHightControl;
     }
 
     void Start()

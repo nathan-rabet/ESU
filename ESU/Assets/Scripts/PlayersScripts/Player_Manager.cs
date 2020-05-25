@@ -33,6 +33,7 @@ public class Player_Manager : MonoBehaviour
     public int health;
     public int maxhealth;
     public bool isShieldActive;
+    public bool isDeathZone;
     private bool dead = false;
 
     private List<Armes> weaponsInventory;
@@ -54,7 +55,7 @@ public class Player_Manager : MonoBehaviour
         gamemanager = GameObject.Find("/GAME/GameManager");
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
-        HealingPrefab = transform.Find("HealingParticule").gameObject;
+        HealingPrefab = transform.Find("BeamupCylinderGreen").gameObject;
         isShieldActive = false;
 
         _ragnollController = GetComponent<ragnollController>();
@@ -206,7 +207,7 @@ public class Player_Manager : MonoBehaviour
     {
         if (view.IsMine)
         {
-            if (!dead && transform.position.y <= -2)
+            if (!dead && transform.position.y <= -2 || !dead && isDeathZone)
             {
                 dead = true;
                 Death(PhotonNetwork.LocalPlayer, 3);

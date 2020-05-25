@@ -1,0 +1,37 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SpawnShield : MonoBehaviour
+{
+    public bool forDefender;
+    public bool forAttacker;
+    void OnTriggerEnter (Collider other)
+    {
+        if (other.CompareTag("Player") && isDefender(other) == forDefender)
+        {
+            Player_Manager manager = other.GetComponent<Player_Manager>();
+            manager.isShieldActive = true;
+            Debug.Log("ShieldActivé!");
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") && isDefender(other) == forDefender)
+        {
+            Player_Manager manager = other.GetComponent<Player_Manager>();
+            manager.isShieldActive = false;
+            Debug.Log("ShieldDesactivé!");
+        }
+    }
+
+
+    bool isDefender(Collider player)
+    {
+        if (player.gameObject.name == "Pompier(Clone)" || player.gameObject.name == "Policier(Clone)" || player.gameObject.name == "Medecin(Clone)")
+            return true;
+        return false;
+    }
+
+    
+}
