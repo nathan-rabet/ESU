@@ -176,6 +176,11 @@ public class Player_Manager : MonoBehaviour
                 GetComponent<MedkitScript>().HUD.SetActive(false);
             }
             
+            if (myClass == Classe.Pyroman)
+            {
+                GetComponent<FlameThrowerScript>().HUD.SetActive(false);
+            }
+            
 
             //APPEL RPC
             view.RPC("rpcDeath", RpcTarget.Others); //Envoi ma mort aux autres

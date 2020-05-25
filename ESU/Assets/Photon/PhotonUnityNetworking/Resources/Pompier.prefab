@@ -2749,6 +2749,7 @@ MonoBehaviour:
   health: 0
   maxhealth: 0
   isShieldActive: 0
+  isDeathZone: 0
 --- !u!114 &-87544246477033858
 MonoBehaviour:
   m_ObjectHideFlags: 0
