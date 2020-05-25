@@ -28,7 +28,7 @@ public class SpawnShield : MonoBehaviour
 
     bool isDefender(Collider player)
     {
-        if (player.gameObject.name == "Pompier(Clone)" || player.gameObject.name == "Policier(Clone)" || player.gameObject.name == "Medecin(Clone)")
+        if (player.gameObject.name.Contains("Pompier") || player.gameObject.name.Contains("Policier") || player.gameObject.name.Contains("Medecin"))
             return true;
         return false;
     }
