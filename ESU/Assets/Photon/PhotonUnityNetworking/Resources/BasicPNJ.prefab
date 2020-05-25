@@ -1132,6 +1132,7 @@ GameObject:
   - component: {fileID: -8967583269944861481}
   - component: {fileID: 1906059434227096299}
   - component: {fileID: 339683099668366227}
+  - component: {fileID: 6351253903790032320}
   m_Layer: 0
   m_Name: BasicPNJ
   m_TagString: AI
@@ -1214,6 +1215,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: -8967583269944861481}
+  - {fileID: 6351253903790032320}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1506,6 +1508,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6351253903790032320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7411165749377741424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters: []
+  m_SynchronizeLayers: []
 --- !u!1 &7508464874882236554
 GameObject:
   m_ObjectHideFlags: 0
