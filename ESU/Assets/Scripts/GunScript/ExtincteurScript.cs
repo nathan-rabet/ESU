@@ -57,6 +57,12 @@ public class ExtincteurScript : MonoBehaviour
                 }
                 Shoot(Time.deltaTime); //Tir
                 ammo -= Time.deltaTime;
+                if (ammo < 0f)
+                {
+                    smoke.Stop();
+                    audio.Stop();
+                    view.RPC("SyncExtincteurPar", RpcTarget.Others, false);
+                }
                 bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / MaxAmmo, 3 * Time.deltaTime);
             }
 

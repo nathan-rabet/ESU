@@ -16,6 +16,7 @@ public class BuildingHelpAI : MonoBehaviour
     private GameObject[] Dests;
     private NavMeshAgent agent;
     private Animator _animator;
+    private PhotonView view;
 
     private AudioSource run;
 
@@ -23,6 +24,7 @@ public class BuildingHelpAI : MonoBehaviour
     {
         SetColorScript.SetColor(transform.Find("Model/Character").gameObject);
 
+        view = GetComponent<PhotonView>();
         run = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         Dests = GameObject.FindGameObjectsWithTag("AISRT");
@@ -42,7 +44,7 @@ public class BuildingHelpAI : MonoBehaviour
         if (isHelp && PhotonNetwork.IsMasterClient && agent.remainingDistance <= 1)
         {
             GameStat.changeScore(0, 20);
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
         if (!isHelp && look)
         {
@@ -54,13 +56,26 @@ public class BuildingHelpAI : MonoBehaviour
             {
                 //if (hit.collider.gameObject == gameObject)
                 //{
-                    GameStat.changeScore(0, 20);
-                    isHelp = true;
-                    Destination();
-                    _animator.SetBool("soin", true);
+                GameStat.changeScore(0, 20);
+                _animator.SetBool("soin", true);
+                StartCoroutine(Dest());
                 //}
             }
         }
+    }
+    [PunRPC]
+    public void Help()
+    {
+        isHelp = true;
+        run.Play();
+    }
+
+    IEnumerator Dest()
+    {
+        yield return new WaitForSeconds(1.4f);
+
+        Destination();
+        view.RPC("Help", RpcTarget.All);
     }
 
     void Destination()
@@ -70,7 +85,6 @@ public class BuildingHelpAI : MonoBehaviour
         agent.avoidancePriority = 99;
         agent.speed = 6;
         agent.SetDestination(dest.position);
-        run.Play();
     }
 
     void OnTriggerEnter(Collider other)
