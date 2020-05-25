@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
@@ -13,12 +12,13 @@ public class PowerUp : MonoBehaviour {
     public Image slot2;
     public Image slot3;
     public Sprite icon;
+
     //Choose effect
     public bool Heal;
-    public bool Ammo;
     public bool Shield;
     public bool Speed;
     public bool Jump;
+
 
     public float duration = 4f;
     public float respawn = 10f;
@@ -29,9 +29,13 @@ public class PowerUp : MonoBehaviour {
     private Collider playerPick = null;
     private Inventory inventory;
     private ParticleSystem ps;
+    private GameObject shieldParticules;
+    private GameObject speedParticules;
+    private GameObject jumpParticules;
+    //private ParticleSystem jumpParticules;
     private int slot;
     
-
+    
 
     void OnTriggerEnter (Collider other) 
     {
@@ -86,9 +90,14 @@ public class PowerUp : MonoBehaviour {
 
         //Spawn a cool effect
         Instantiate(pickupEffect, transform.position, transform.rotation);
-        
-        var emission = ps.emission;
-        emission.enabled = false;
+        if (Jump == false)
+        {
+            var emission = ps.emission;
+            emission.enabled = false;
+        }
+        else
+            particulesDisable(this.gameObject, "AuraChargePurple");
+
         GetComponent<Collider>().enabled = false;
         switch (i)
         {
@@ -117,7 +126,9 @@ public class PowerUp : MonoBehaviour {
     public IEnumerator ActivePower(Collider player, PlayerMouvement mouv, int i) 
     {
 
-
+        shieldParticules = player.transform.Find("ShieldBlue").gameObject;
+        jumpParticules = player.transform.Find("SwirlAuraPurple").gameObject;
+        speedParticules = player.transform.Find("SwirlAuraRed").gameObject;
         //Consumme PowerUP
         inventory.isFull[i] = false;
         switch (i)
@@ -143,39 +154,50 @@ public class PowerUp : MonoBehaviour {
             Player_Manager manager = player.GetComponent<Player_Manager>();
             manager.healing(manager.view.ViewID, 100);
         }
-        //Ammo
-        if (Ammo) 
-        {
-            AmmoCount ammoCount;
-            ammoCount = GameObject.Find("/GAME/Menu/InGameHUD/Weapon Info").GetComponent<AmmoCount>();
-            ammoCount.SetAmmo(20);
-        }
         //Shield
         if (Shield)
         {
+            particulesActive(shieldParticules);
             Player_Manager manager = player.GetComponent<Player_Manager>();
             manager.isShieldActive = true;
         }
 
         //Speed
-        float stockSpeed = mouv.MaxSpeed;
+        float stockSpeed = mouv.MaxSpeedControl;
         if (Speed)
-            mouv.MaxSpeed *= multiplierSpeed;
-
+        {
+            particulesActive(speedParticules);
+            mouv.MaxSpeed = mouv.MaxSpeedControl * multiplierSpeed;
+        }
 
         //Jump
-        float stockJump = mouv.JumpHight;
+        float stockJump = mouv.JumpHightControl;
         if (Jump)
-            mouv.JumpHight *= multiplierJump;
-
+        {
+            particulesActive(jumpParticules);
+            mouv.JumpHight = mouv.JumpHightControl * multiplierJump;
+        }
 
         yield return new WaitForSeconds(duration);
 
         if (Jump)
+        {
+            particulesDisable(jumpParticules);
             mouv.JumpHight = stockJump;
+        }
 
         if (Speed)
+        {
+            particulesDisable(speedParticules);
             mouv.MaxSpeed = stockSpeed;
+        }
+        if (Shield)
+        {
+            particulesDisable(shieldParticules);
+            Player_Manager manager = player.GetComponent<Player_Manager>();
+            manager.isShieldActive = false;
+        }
+
 
        
 
@@ -183,8 +205,13 @@ public class PowerUp : MonoBehaviour {
     IEnumerator RespawnPower() 
     {
         yield return new WaitForSeconds(respawn);
-        var emission = ps.emission;
-        emission.enabled = true;
+        if (Jump == false)
+        {
+            var emission = ps.emission;
+            emission.enabled = true;
+        }
+        else
+            particulesActive(this.gameObject, "AuraChargePurple");
         GetComponent<Collider>().enabled = true;
        
 
@@ -192,7 +219,7 @@ public class PowerUp : MonoBehaviour {
 
     IEnumerator displayText()
     {
-        myText.text = "Vous avez prit un "+icon.name+"!!";
+        myText.text = "+1 "+icon.name;
         yield return new WaitForSeconds(5);
         myText.text = "";
     }
@@ -203,6 +230,56 @@ public class PowerUp : MonoBehaviour {
             PlayerMouvement mouv = playerPick.GetComponent<PlayerMouvement>();
             StartCoroutine(ActivePower(playerPick, mouv, slot));
             toActivate = false;
+        }
+    }
+
+    void particulesActive(GameObject anObject)
+    {
+        var shelf = anObject.GetComponent<ParticleSystem>().emission;
+        shelf.enabled = true;
+        foreach (Transform child in anObject.transform)
+        {
+            var emission = child.GetComponent<ParticleSystem>().emission;
+            emission.enabled = true;
+        }
+    }
+
+    void particulesActive(GameObject anObject,string exception)
+    {
+        var shelf = anObject.GetComponent<ParticleSystem>().emission;
+        shelf.enabled = true;
+        foreach (Transform child in anObject.transform)
+        {
+            if (child.gameObject.name != exception)
+            {
+                var emission = child.GetComponent<ParticleSystem>().emission;
+                emission.enabled = true;
+            }
+        }
+    }
+
+    void particulesDisable(GameObject anObject)
+    {
+        var shelf = anObject.GetComponent<ParticleSystem>().emission;
+        shelf.enabled = false;
+        foreach (Transform child in anObject.transform)
+        {
+            var emission = child.GetComponent<ParticleSystem>().emission;
+            emission.enabled = false;
+        }
+    }
+
+    void particulesDisable(GameObject anObject, string exception)
+    {
+        var shelf = anObject.GetComponent<ParticleSystem>().emission;
+        shelf.enabled = false;
+        foreach (Transform child in anObject.transform)
+        {
+            if (child.gameObject.name != exception)
+            {
+                var emission = child.GetComponent<ParticleSystem>().emission;
+                emission.enabled = false;
+            }
         }
     }
 
