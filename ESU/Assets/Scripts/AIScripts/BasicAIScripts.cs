@@ -17,6 +17,7 @@ public class BasicAIScripts : MonoBehaviour
     private NavMeshAgent agent;
     private GameStat GameStat;
     private Animator _animator;
+    private PhotonView view;
 
     private AudioSource walk;
     private AudioSource run;
@@ -31,6 +32,7 @@ public class BasicAIScripts : MonoBehaviour
         Dests = GameObject.FindGameObjectsWithTag("AIDEST");
         agent = GetComponent<NavMeshAgent>();
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
+        view = GetComponent<PhotonView>();
 
         AudioSource[] sources = GetComponents<AudioSource>();
         walk = sources[0];
@@ -51,7 +53,7 @@ public class BasicAIScripts : MonoBehaviour
             dest = Dests[Mathf.FloorToInt(UnityEngine.Random.Range(0, Dests.Length - 1))].transform;
             agent.SetDestination(dest.position);
         }
-        walk.Play();
+        view.RPC("SyncAnim", RpcTarget.All, true, false);
     }
 
     // Update is called once per frame
@@ -105,8 +107,8 @@ public class BasicAIScripts : MonoBehaviour
             agent.speed = 8;
             agent.avoidancePriority = 0;
             agent.SetDestination(closeOut.position);
-            walk.Stop();
-            run.Play();
+
+            view.RPC("SyncAnim", RpcTarget.All, false, true);
             behevbehaviour = 1;
         }
 
@@ -116,12 +118,26 @@ public class BasicAIScripts : MonoBehaviour
             agent.isStopped = true;
 
 
-            walk.Stop();
-            run.Stop();
+            view.RPC("SyncAnim", RpcTarget.All, false, false);
 
 
             wait = UnityEngine.Random.Range(3f, 10f);
             behevbehaviour = 2;
         }
+    }
+
+    [PunRPC]
+    public void SyncAnim(bool walk, bool run)
+    {
+        if (walk)
+            this.walk.Play();
+        else
+            this.walk.Stop();
+
+
+        if (run)
+            this.run.Play();
+        else
+            this.run.Stop();
     }
 }

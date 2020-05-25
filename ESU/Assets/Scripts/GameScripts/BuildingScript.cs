@@ -10,6 +10,7 @@ using Object = UnityEngine.Object;
 
 public class BuildingScript : MonoBehaviour
 {
+    private bool alive = true;
     public float health = 1000f;
     public float fire = 0;
     public static float maxfire = 50f;
@@ -69,14 +70,14 @@ public class BuildingScript : MonoBehaviour
             if (health>damage) //Diminution de la vie
             {
                 health-=damage;
-                view.RPC("SyncBat", RpcTarget.Others, health, fire);
+                view.RPC("SyncBat", RpcTarget.Others, health, fire, alive);
             }
             else
             {
                 GameStat.changeScore(50, 0);
                 
                 health = 0;
-                view.RPC("SyncBat", RpcTarget.All, health, fire);
+                view.RPC("SyncBat", RpcTarget.All, health, fire, alive);
             }
         }
     }
@@ -84,7 +85,7 @@ public class BuildingScript : MonoBehaviour
 
     IEnumerator Fire()
     {
-        if (fire > 0)
+        if (alive && fire > 0)
         {
             health -= fire;
 
@@ -93,11 +94,11 @@ public class BuildingScript : MonoBehaviour
                 GameStat.changeScore(50, 0);
 
                 health = 0;
-                view.RPC("SyncBat", RpcTarget.All, health, fire);
+                view.RPC("SyncBat", RpcTarget.All, health, fire, alive);
             }
             else
             {
-                view.RPC("SyncBat", RpcTarget.Others, health, fire);
+                view.RPC("SyncBat", RpcTarget.Others, health, fire, alive);
                 yield return new WaitForSeconds(1f);
 
                 StartCoroutine(Fire());
@@ -108,9 +109,10 @@ public class BuildingScript : MonoBehaviour
 
     IEnumerator Anims()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (alive && PhotonNetwork.IsMasterClient)
             PhotonNetwork.Instantiate("BuildingHelpPNJ", transform.position - new Vector3(UnityEngine.Random.Range(-5.0f, 5.0f), 50, UnityEngine.Random.Range(-5.0f, 5.0f)), transform.rotation);
 
+        alive = false;
         int dir = 1;
         for (int i = 0; i < 50; i++)
         {
@@ -161,17 +163,23 @@ public class BuildingScript : MonoBehaviour
             return;
         }
         fire += amount;
-        view.RPC("SyncBat", RpcTarget.Others, health, fire);
+        view.RPC("SyncBat", RpcTarget.Others, health, fire, alive);
     }
 
     [PunRPC]
-    public void SyncBat(float health, float fire)
+    public void SyncBat(float health, float fire, bool alive)
     {
         this.health = health;
         this.fire = fire;
         if (this.health == 0)
         {
-            StartCoroutine(Anims());
+            if (alive)
+                StartCoroutine(Anims());
+            else
+            {
+                alive = false;
+                transform.position -= new Vector3(0, 200, 0);
+            }
         }
     }
 }
