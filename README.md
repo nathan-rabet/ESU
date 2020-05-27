@@ -11,6 +11,8 @@ citoyens.
 ## Téléchargez le jeu
 Pour télécharger l'installateur, cliquez [ici](https://github.com/nathan-rabet/ESU/raw/master/docs/assets/download/ESU_setup.exe)
 
+![Cover Github](https://user-images.githubusercontent.com/13369175/83056323-7b542d80-a055-11ea-91e9-f732e4b99cc7.png)
+
 ## Docummentation
 Un [guide d'installation et d'utilisation](https://github.com/nathan-rabet/ESU/wiki/Manuel-d%E2%80%99utilisation-et-d%E2%80%99installation) est à votre disposition.
 
