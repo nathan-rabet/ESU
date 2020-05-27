@@ -32,9 +32,10 @@ public class Player_Manager : MonoBehaviour
     public Classe myClass;
     public int health;
     public int maxhealth;
-    
-    
-    
+    public bool isShieldActive;
+    public bool isDeathZone;
+    private bool dead = false;
+
     private List<Armes> weaponsInventory;
     private int weaponsInventoryLength;
     private int selectedWeapon = 0;
@@ -46,6 +47,7 @@ public class Player_Manager : MonoBehaviour
     private GameObject HealingPrefab;
     private GameStat GameStat;
     private ragnollController _ragnollController;
+    
 
     void Start()
     {
@@ -53,7 +55,8 @@ public class Player_Manager : MonoBehaviour
         gamemanager = GameObject.Find("/GAME/GameManager");
         healthBar = GameObject.Find("/GAME/Menu/InGameHUD/Health Bar").GetComponent<healthbar>();
         GameStat = GameObject.Find("/GAME/GameManager").GetComponent<GameStat>();
-        HealingPrefab = transform.Find("HealingParticule").gameObject;
+        HealingPrefab = transform.Find("BeamupCylinderGreen").gameObject;
+        isShieldActive = false;
 
         _ragnollController = GetComponent<ragnollController>();
         anim = GetComponent<Animator>();
@@ -108,7 +111,7 @@ public class Player_Manager : MonoBehaviour
     //Fonction perdre de la vie
     public void TakeDamage(int viewID, int damage, Photon.Realtime.Player Killer)
     {
-        if (viewID==view.ViewID) //Test si on est la personne tuer
+        if (viewID==view.ViewID && isShieldActive == false) //Test si on est la personne tuer
         {
             if (health>damage) //Diminution de la vie
             {
@@ -124,8 +127,9 @@ public class Player_Manager : MonoBehaviour
                 
                 Death(Killer, 5);
             }
-            
-            healthBar.SetHealth(health);
+
+            if (view.IsMine)
+                healthBar.SetHealth(health);
         }
     }
 
@@ -144,7 +148,8 @@ public class Player_Manager : MonoBehaviour
                 health = maxhealth;
             }
             
-            healthBar.SetHealth(health);
+            if (view.IsMine)
+                healthBar.SetHealth(health);
         }
     }
 
@@ -163,11 +168,17 @@ public class Player_Manager : MonoBehaviour
             if (myClass == Classe.Pompier)
             {
                 GetComponent<HacheScript>().HUD.SetActive(false);
+                GetComponent<ExtincteurScript>().HUD.SetActive(false);
             }
             
             if (myClass == Classe.Medecin)
             {
                 GetComponent<MedkitScript>().HUD.SetActive(false);
+            }
+            
+            if (myClass == Classe.Pyroman)
+            {
+                GetComponent<FlameThrowerScript>().HUD.SetActive(false);
             }
             
 
@@ -201,6 +212,11 @@ public class Player_Manager : MonoBehaviour
     {
         if (view.IsMine)
         {
+            if (!dead && transform.position.y <= -2 || !dead && isDeathZone)
+            {
+                dead = true;
+                Death(PhotonNetwork.LocalPlayer, 3);
+            }
             if (Input.mouseScrollDelta.y < 0.0f && selectedWeapon>0)
             {
                 selectedWeapon--;
@@ -265,7 +281,7 @@ public class Player_Manager : MonoBehaviour
                 GetComponent<HacheScript>().inHand = true;
 
                 // /!\ Set Layer Anim pompier
-                anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 1f);
+                anim.SetLayerWeight(anim.GetLayerIndex("Pompier"), 1f); // Active layer Pompier
                 anim.SetTrigger("grap");
             }
             else
@@ -275,7 +291,8 @@ public class Player_Manager : MonoBehaviour
             if (weapon == Armes.Extincteur)
             {
                 view.RPC("SyncExtincteur", RpcTarget.All, true); //Set display arme
-                //GetComponent<ExtincteurScript>().HUD.SetActive(true); // Active le HUD du pompier
+                anim.SetLayerWeight(anim.GetLayerIndex("Pompier Extincteur"), 1f);
+                GetComponent<ExtincteurScript>().HUD.SetActive(true); // Active le HUD du pompier
                 GetComponent<ExtincteurScript>().inHand = true;
             }
             else
@@ -284,10 +301,27 @@ public class Player_Manager : MonoBehaviour
             }
         }
 
-        if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
+        if (myClass == Classe.Pyroman)
+        {
+            if (weapon == Armes.LanceFlamme)
+            {
+                view.RPC("SyncFT", RpcTarget.All, true); //Set display arme
+                GetComponent<FlameThrowerScript>().inHand = true;
+                GetComponent<FlameThrowerScript>().HUD.SetActive(true); // Active le HUD du pyroman
+                anim.SetLayerWeight(anim.GetLayerIndex("Gun Pose"), 1f);
+                anim.SetTrigger("grap");
+            }
+            else
+            {
+                GetComponent<FlameThrowerScript>().ChangeWeapon();
+            }
+        }
+
+            if (myClass == Classe.Medecin || myClass == Classe.Drogueur)
         {
             if (weapon == Armes.Medpack)
             {
+                anim.SetLayerWeight(anim.GetLayerIndex("Medikit"), 1f);
                 GetComponent<MedkitScript>().HUD.SetActive(true); // Active le HUD du médecin
                 GetComponent<MedkitScript>().inHand = true;
             }

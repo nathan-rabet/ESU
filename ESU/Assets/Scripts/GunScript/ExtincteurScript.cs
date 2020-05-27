@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon;
+using UnityEngine.UI;
 
 public class ExtincteurScript : MonoBehaviour
 {
-    public float ammo = 100;
+    public float ammo;
+    private float MaxAmmo = 10f;
     public bool inHand = false;
     private bool reloading = false;
     private bool canShoot = true;
 
+    private AudioSource audio;
     private ExtTriggerScript ETS;
     private ParticleSystem smoke;
     private GameObject inHandExt;
@@ -19,9 +22,14 @@ public class ExtincteurScript : MonoBehaviour
     public GameObject HUD;
     PhotonView view;
     private GameManagerScript ManagerScript;
+    private Image bar;
+    
 
     void Start()
     {
+        ammo = MaxAmmo;
+        bar = GameObject.Find("/GAME/Menu/InGameHUD/Pompier Extinct/Standard/Background/Loading Bar").GetComponent<Image>();
+        HUD = GameObject.Find("/GAME/Menu/InGameHUD/Pompier Extinct");
         view = GetComponent<PhotonView>(); //Cherche la vue
         anim = GetComponent<Animator>(); //Cherche Animator
         ManagerScript = GameObject.Find("/GAME/GameManager").GetComponent<GameManagerScript>();
@@ -30,6 +38,7 @@ public class ExtincteurScript : MonoBehaviour
         inHandExt = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandExtincteur").gameObject;
         stackExt = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/StackExtincteur").gameObject;
         ETS = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandExtincteur/SmokeHitTrigger").GetComponent<ExtTriggerScript>();
+        audio = inHandExt.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -40,19 +49,39 @@ public class ExtincteurScript : MonoBehaviour
 
             if (canShoot && ammo > 0f && Input.GetKey("mouse 0")) //Si clic gauche (ajout: du recul, temps entre les tirs et munition)
             {
-                smoke.Play();
+                if (!smoke.isPlaying)
+                {
+                    smoke.Play();
+                    audio.Play();
+                    view.RPC("SyncExtincteurPar", RpcTarget.Others, true);
+                }
                 Shoot(Time.deltaTime); //Tir
                 ammo -= Time.deltaTime;
+                if (ammo < 0f)
+                {
+                    smoke.Stop();
+                    audio.Stop();
+                    view.RPC("SyncExtincteurPar", RpcTarget.Others, false);
+                }
+                bar.fillAmount = Mathf.Lerp(bar.fillAmount, ammo / MaxAmmo, 3 * Time.deltaTime);
             }
 
             if (Input.GetKeyUp("mouse 0"))
-               smoke.Stop();
-
-            if (!reloading && ammo < 100f && Input.GetKeyDown(KeyCode.R))
             {
+                audio.Stop();
+                smoke.Stop();
+                view.RPC("SyncExtincteurPar", RpcTarget.Others, false);
+            }
+
+            if (!reloading && ammo < MaxAmmo && Input.GetKeyDown(KeyCode.R))
+            {
+                audio.Stop();
+                smoke.Stop();
+                view.RPC("SyncExtincteurPar", RpcTarget.Others, false);
                 reloading = true;
                 canShoot = false;
                 StartCoroutine(reloadingIE(3));
+                
             }
         }
     }
@@ -68,18 +97,21 @@ public class ExtincteurScript : MonoBehaviour
     IEnumerator reloadingIE(int reloadtime)
     {
         yield return new WaitForSeconds(reloadtime);
-        ammo = 100f;
+        ammo = MaxAmmo;
         reloading = false;
         canShoot = true;
+        while (bar.fillAmount < 1)
+            bar.fillAmount += 3 * Time.deltaTime;
     }
 
     public void ChangeWeapon()
     {
-        //HUD.SetActive(false);
+        HUD.SetActive(false);
         inHand = false;
         view.RPC("SyncExtincteur", RpcTarget.All, false); //Set display arme
-
+        
         // /!\ Set Layer Anim pompier
+        anim.SetLayerWeight(anim.GetLayerIndex("Pompier Extincteur"), 0f);
     }
 
     [PunRPC]
@@ -94,6 +126,22 @@ public class ExtincteurScript : MonoBehaviour
         {
             inHandExt.SetActive(false);
             stackExt.SetActive(true);
+            audio.Stop();
+        }
+    }
+
+    [PunRPC]
+    public void SyncExtincteurPar(bool active)
+    {
+        if (active)
+        {
+            smoke.Play();
+            audio.Play();
+        }
+        else
+        {
+            smoke.Stop();
+            audio.Stop();
         }
     }
 }

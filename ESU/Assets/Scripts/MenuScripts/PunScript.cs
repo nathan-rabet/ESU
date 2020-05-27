@@ -26,7 +26,7 @@ using TMPro;
                 }
                 else
                 {
-                    PhotonNetwork.ConnectUsingSettings(); //Connection aux serveurs Photon
+                    PhotonNetwork.ConnectUsingSettings();
                 }
                 ClientState.text = PhotonNetwork.NetworkClientState.ToString(); //Affichage
             }

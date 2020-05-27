@@ -27,6 +27,7 @@ public class PistoletScript : MonoBehaviour
     public GameObject HUD;
     PhotonView view;
     private GameManagerScript ManagerScript;
+    private AudioSource _audioSource;
 
     private AmmoCount ammoCount;
 
@@ -39,6 +40,7 @@ public class PistoletScript : MonoBehaviour
         mainCam = GameObject.FindWithTag("MainCamera"); //Cherche camera
         anim = GetComponent<Animator>(); //Cherche Animator
         ManagerScript = GameObject.Find("/GAME/GameManager").GetComponent<GameManagerScript>();
+        _audioSource = inHandGun.GetComponent<AudioSource>();
         ammoCount.SetAmmo(ammo);
     }
     void Update()
@@ -50,6 +52,7 @@ public class PistoletScript : MonoBehaviour
             {
                 canShoot = false;
                 muzzleFlash.Play();
+                _audioSource.Play();
                 Shoot(); //Tir
                 ammo--;
                 ammoCount.SetAmmo(ammo);
@@ -179,6 +182,7 @@ public class PistoletScript : MonoBehaviour
     [PunRPC]
     public void SyncParticules(int type, Vector3 hitpoint)
     {
+        _audioSource.Play();
         switch (type)
         {
             case 0:

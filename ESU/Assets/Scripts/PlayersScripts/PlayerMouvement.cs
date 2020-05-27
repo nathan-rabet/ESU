@@ -10,9 +10,14 @@ public class PlayerMouvement : MonoBehaviour
     
     private Animator anim;
     private float speed = 0.08f;
+    //WARNING: Change normal variable and control variable in the same time !
     private float maxspeed = 0.16f;
+    private float maxspeedControl = 0.16f;
     private float jumpHight = 10.0f;
+    private float jumpHightControl = 10.0f;
     private bool canJump = true;
+    private AudioSource walk;
+    private AudioSource run;
     public GameObject mainCamera;
     PhotonView view;
 
@@ -21,11 +26,19 @@ public class PlayerMouvement : MonoBehaviour
         get => maxspeed;
         set => maxspeed = value;
     }
+    public float MaxSpeedControl
+    {
+        get => maxspeedControl;
+    }
 
     public float JumpHight
     {
         get => jumpHight;
         set => jumpHight = value;
+    }
+    public float JumpHightControl
+    {
+        get => jumpHightControl;
     }
 
     void Start()
@@ -36,6 +49,10 @@ public class PlayerMouvement : MonoBehaviour
 
         mainCamera = GameObject.FindWithTag("MainCamera"); //Cherche de la camera
         distToGround = GetComponent<Collider>().bounds.extents.y;
+
+        AudioSource[] sources = GetComponents<AudioSource>();
+        walk = sources[0];
+        run = sources[1];
     }
 
     public bool IsGrounded()
@@ -66,11 +83,30 @@ public class PlayerMouvement : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift)) //Si Maj enfoncé
             {
                 speed = maxspeed; //vitesse
+                if (canJump && !Input.GetKey("space") && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+                {
+                    if (!run.isPlaying)
+                        run.Play();
+                    walk.Stop();
+                }
             }
             else
             {
                 speed = maxspeed/2; //vitesse
+                if (canJump && !Input.GetKey("space") && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+                {
+                    if (!walk.isPlaying)
+                        walk.Play();
+                    run.Stop();
+                }
             }
+
+            if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+            {
+                walk.Stop();
+                run.Stop();
+            }
+
             //Création du vecteur direction du mouvement
             Vector3 dirVector = (Input.GetAxis("Horizontal") * MyRigidBody.transform.right + Input.GetAxis("Vertical") * MyRigidBody.transform.forward).normalized;
             
@@ -92,6 +128,8 @@ public class PlayerMouvement : MonoBehaviour
             {
                 MyRigidBody.AddForce (transform.up * (int)Mathf.Sqrt(3.0f*jumpHight), ForceMode.VelocityChange); //Ajout d'une force vertical
                 canJump = false; //peut pas sauter
+                walk.Stop();
+                run.Stop();
             }
         }
     }

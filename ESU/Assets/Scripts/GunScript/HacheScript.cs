@@ -10,6 +10,7 @@ public class HacheScript : MonoBehaviour
     public int damage = 40;
     public bool inHand = false;
     public bool canHit = true;
+    private AudioSource audio;
     private HacheTriggerScript HTS;
     private GameObject inHandAxe;
     private GameObject stackAxe;
@@ -27,6 +28,7 @@ public class HacheScript : MonoBehaviour
 
         inHandAxe = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/InHandAxe").gameObject;
         stackAxe = transform.Find("Model/mixamorig:Hips/mixamorig:Spine/StackAxe").gameObject;
+        audio = inHandAxe.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -51,11 +53,17 @@ public class HacheScript : MonoBehaviour
 
     private void Shoot()
     {
-        foreach (GameObject player in HTS.playersHit)
+        if (HTS.playersHit.Count == 0)
         {
-            player.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.All, player.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.LocalPlayer); //Envoi des dégâts
+            audio.Play();
         }
-        
+        else
+        {
+            foreach (GameObject player in HTS.playersHit)
+            {
+                player.GetComponent<PhotonView>().RPC("dealDammage", RpcTarget.All, player.GetComponent<PhotonView>().ViewID, damage, PhotonNetwork.LocalPlayer); //Envoi des dégâts
+            }
+        }
     }
 
     public void ChangeWeapon()

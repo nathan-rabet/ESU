@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ESU - À propos</title>
+	<link rel="stylesheet" href="./assets/css/style2.css">
+</head>
+<body>
+	<section>
+		<div class="content">
+			<div>
+				<h2>À propos</h2>
+				<p>Chaque partie oppose les sauveteurs et les agresseurs. Leur but est de récolter le maximum de points dans le temps imparti. Les deux équipes peuvent se tuer afin de prendre l’avantage sur l’autre. De ce fait chaque équipe possède des classes de personnages avec des habilités différentes. Chaque joueur doit choisir une classe dont il peut changer en cours de partie avec une pénalité.</p>
+				<a href="#lireplus">Lire Plus</a>
+			</div>
+		</div>
+		<div class="imgBx" id="perso">
+			<img src="assets/img/pompier.png">
+		</div>
+			<ul class="nav">
+				<li><a  href="index.html">Accueil</a></li>
+				<li><a class="active" href="about.html">À propos</a></li>
+				<li><a href="download.html">Télécharger</a></li>
+				<li><a href="Sources.html">Sources</a></li>
+			</ul>
+	</section>
+	<div class="origin">
+		<h2>Les Classes</h2>
+		<div class="container">
+		<div class="card">
+			<div class="face face1">
+				<div class="content">
+					<img src="assets/img/pompier.png">
+					<h3>Secouristes</h3>
+				</div>
+			</div>
+			<div class="face face2">
+				<div class="content">
+					<p><b>Policier :</b> Possède une arme afin de pouvoir protéger ses coéquipiers des agresseurs.
+					<br><b>Pompiers :</b>: Possède un extincteur pour faire face aux flammes.
+					<br><b>Médecin :</b> Possède des compétences en médecine.</p>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="face face1">
+				<div class="content">
+					<img id="spe" src="assets/img/mercenairee.png">
+					<h3>Agresseurs</h3>
+				</div>
+			</div>
+			<div class="face face2">
+				<div class="content">
+					<p><b>Mercenaire :</b> Possède une arme afin de pouvoir protéger ses coéquipiers.
+					<br><b>Pyroman :</b> Possède un lance-flamme pour brûler les bâtiments.
+					<br><b>Drogueur :</b> Possède des compétences en médecine.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<section>
+		<div class="content">
+			<div>
+				<h3>Déroulement d’une partie</h3>
+				<p>À chaque lancement de partie, un minuteur de 10 minutes s'enclenchera. À la fin de celui-ci, la partie s’arrêtera. L’équipe qui aura récolté le plus de points aura gagné la partie. Les points se récoltent en fonction du nombre de personnes et de bâtiments sauvés pour les sauveteurs, et du nombre de personnes tuées et de bâtiments détruits pour les agresseurs. Quand l’équipe sauveteurs ramène un PNJ à un point de contrôle où empêche la destruction d’un bâtiment, elle gagne des points. Quand l’équipe agresseurs tue un PNJ ou casse un bâtiment, elle gagne aussi des points. De plus, si un membre d’une équipe tue un joueur de l’équipe adverse : l’équipe adverse perd des points. Les joueurs doivent combiner stratégie et coopération afin de récolter suffisamment de points pour gagner une partie.</p>
+			</div>
+		</div>
+		<div class="imgBx">
+			<img src="assets/img/ville_2.png">
+		</div>
+			
+	</section>
+	<section>
+		<div class="content">
+			<div>
+				<h2 style="text-align: center; margin-bottom: 8%;">Membres Du Projet</h2>
+				<div class="presentMember">
+					<img src="assets/img/louis 1.png" alt="">
+					<img src="assets/img/vincent 1.png" alt="">
+					<img src="assets/img/maxence 1.png" alt="">
+					<img src="assets/img/nathan 1.png" alt="">
+				</div>
+		</div>
+		
+	</section>
+	<section id="v3">
+		<div class="content">
+			<div>
+				<h2>Version 3.0</h2>
+				<h3>Finalisation des cartes</h3>
+				<p>La première carte compte maintenant de nombreux nouveaux ajouts.
+				La zone urbaine est un regroupement de bâtiments, de voitures, de civiles, d’activités commerciales. Elle est une des zones les plus importantes du jeu puisque les principaux objectifs à atteindre s’y trouvent.
+				<br>On peut y retrouver : des déchets par terre, des sacs-poubelles, des lampadaires avec de la lumière, des cartons de livraison, des boîtes aux lettres, des bancs, des panneaux publicitaires, des armoires électriques etc.
+				</p>
+				<p>De la même façon la seconde carte a été embellie avec de petits détails comme les déchets qui sont éparpillés sur le sol à certains endroits ou encore un parking et des parcs qui accueillent de nombreuses espèces de papillons et quelques lucioles.<br>
+					Enfin des branchages et quelques gros rochers permettent de finir d’ajouter une importante quantité de détails.
+
+				</p>
+			</div>
+		</div>
+		
+	</section>
+
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h2>Les Grandes Nouveautés</h2>
+				<h3>Destruction des batiments</h3>
+				<p> Si un bâtiment a plus de vie, il s’écroule, donne des points à l’équipe des attaquants et fait apparaître des rescapés. Seuls les tirs de l’équipe des attaquants font perdre de la vie aux bâtiments.<br> L’autre moyen de faire baisser la vie d’un bâtiment est d'augmenter son niveau de feu.
+
+
+				</p>
+				<h3>Les Ragdoll</h3>
+				<p> 
+					Un ragdoll est une technique d’animation procédurale qui assimile un corps à un ensemble d'éléments solide pouvant s’articuler. Concrètement, le système Ragdoll d’Unity créé pour chaque partie du corps un collider (un élément permettant de créer des collisions). Par exemple, il a deux colliders par bras et par jambes, un pour la tête etc.
+
+				</p>
+			</div>
+		</div>
+		<div class="imgBx">
+			<img src="assets/img/fumme.PNG">
+			<img id="perso2" src="assets/img/ragdoll.png" alt="ragdoll">
+		</div>
+		
+	</section>
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h3>Ajout des Musiques</h3>
+				<p> 
+					Dans ce projet, nous avons décidé de créer de toutes pièces les musiques et les bruits. Cette contrainte nous a certes pris du temps en ce qui concerne la création des compositions sonores mais elle nous a aussi permis de véritablement choisir quels effets et émotions nous voulions faire ressentir au joueur.	
+					<br>Les sons ont été développés en même temps que le jeu, cela implique qu’ils ont été créés en rapport à un besoin particulier. Ainsi, à la fin de notre jeu, nous avons composé des sons pour 3 problématiques différentes: pendant la partie, les bruits et le menu principal.
+
+				</p>
+				<h3>Fin de Partie</h3>
+				<p> 
+					Cette scène a pour but de célébrer la fin d’une partie. Tous les joueurs sont déplacés dans cette carte et jouent différentes animations en fonction d’une victoire ou d’une défaite de leur équipe. Un tableau des scores et également disponible.<br>
+					Quand le compte à rebours arrive à 0, un fondu noir apparaît sur l’écran. Pendant cette transition un script va récupérer la liste des joueurs, leur score et le score global de la partie. Puis une fois ces donnés récupérer, le script va préparer la scène de fin de partie. Il va définir laquelle des deux équipes à gagné.
+				</p>
+			</div>
+		</div>
+		<div class="imgBx">
+			<img src="assets/img/musiques.png">
+			<img src="assets/img/fin_partie.png" alt="">
+		</div>
+		
+	</section>
+
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h3>Polygon Nature est là !</h3>
+				<p> 
+					Polygon Nature offre de nombreux objets et détails en tous genres concernant le milieu naturel. Il a d’abord été largement utilisé dans la carte deux notamment pour la richesse en végétaux qu’il propose. En effet cet asset offre plusieurs types de plantes qui ajoute une nouvelle palette de couleurs aux cartes.
+					Finalement cet asset offre aussi de nouveaux arbres qui sont venus remplacer les anciens, c’est le cas des sapins qui sont maintenant beaucoup plus détaillé et esthétique. On note également que l’ensemble des végétaux simule un effet de vent en frémissant dans une direction. Un fond de carte a fini de compléter le réalisme et l’esthétique des cartes.
+				</p>
+				<h3>FancyClouds</h3>
+				<p> 
+					FancyClouds est un asset simple et pourtant ayant un grand impact dans le rendu des cartes, il s’agit d’un asset qui nous a permis l’ajout de nuages de style Lowpoly. Celui-ci a été couplé avec un script permettant aux nuages de se déplacer à l'infini offrant au joueur la possibilité d’apprécier la beauté du ciel.
+
+				</p>
+			</div>
+		</div>
+		<div class="imgBx">
+			<img style="width: 40%;" src="assets/img/plants2.PNG">
+			<img style="width: 35%;" src="assets/img/plants4.PNG">
+			<img style="width: 98%;" src="assets/img/plants1.PNG">
+			<img style="width: 98%;" src="assets/img/fondCarte.PNG" alt="">
+		</div>
+		
+	</section>
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h2>Les Ajouts Graphiques</h2>
+				<h3>Carte 1</h3>
+				<p> 
+					On retrouve deux parties coupées par la rivière : une petite et une grande contenant le lac. Nous avons ajouté deux types d’arbres ainsi que de l’herbe.
+					En effet, ces nouveaux éléments sont plus adaptés avec le reste de la carte. Nous avons utilisé, comme pour la carte 2, le système “paint tree” d’unity qui permet de placer les arbres facilement. Des finitions ont également été apporté : il y a maintenant des papillons, des plantes grasses, différents types de fleurs ainsi que des clôtures délimitant le parc.
+
+				</p>
+				<h3>Carte 2</h3>
+				<p> 
+					La cascade a été ajouté et est composée de plusieurs pierres et de quelques effets de particules qui ajoutent à son réalisme. La cascade se situe au strict opposé du volcan et représente là encore un élément esthétique essentiel qui rend la zone du bord du lac tout à fait appréciable.
+                    Le volcan a subi quelques changements, il s'agit d'un lieux qui laisse s’échapper une épaisse fumée noire et dont l’accès n’est pas facile pour le joueur. Mais son ascension en vaut la peine car cela permettra au joueur de trouver un pouvoir spécial.
+
+				</p>
+			</div>
+		</div>
+		<div class="imgBx">
+			<img style="width: 110%;" src="assets/img/verdure_3.png">
+            <img style="width: 110%;" src="assets/img/volcan1.PNG" alt="">
+            <img style="width: 110%;" src="assets/img/ville_3.png" alt="">
+		</div>
+		
+	</section>
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h3>Pouvoirs Spéciaux V2</h3>
+				<p> 
+					Les pouvoirs spéciaux ont grandement évolué depuis la dernière soutenance avec l’arrivée d’un système d’inventaire. Jusqu’à maintenant il n’y avait qu’un seul type de pouvoir spécial et qui se déclenchait immédiatement, dès qu’on marchait dessus. En effet chaque joueur dispose maintenant de 4 espaces dans son inventaire pour amasser des pouvoirs spéciaux durant la partie. Ils peuvent les déclencher à tout moment de la partie, à la pression d’une simple touche.
+					<br>Les pouvoirs spéciaux sont de quatre natures : <i>Le Speed</i>, <i>Le Jump</i>, <i>Le Heal</i> et <i>Le Shield</i>.
+				</p>
+				<h3>Impact sur le Gameplay</h3>
+				<p> 
+					Tous les pouvoirs spéciaux sont répartis sur les deux cartes mais certains demeures plus rares que d’autres. Les joueurs auront ainsi un intérêt à se battre pour être le premier à prendre tous les pouvoirs les plus forts afin de prendre l’avantage. Les parties de ESU demandent maintenant un peu de stratégie grâce à ce système. Il faut réussir à utiliser ses pouvoirs spéciaux correctement et dans la bonne situation, ce qui peut demander de la technique. De plus cela oblige les joueurs à se déplacer et à explorer la carte.
+					<br>Pour finir chaque pouvoir spécial provoque un effet graphique au joueur qui l’utilise.
+
+				</p>
+			</div>
+		</div>
+		<div id="perso3">
+			<img src="assets/img/SpeedEffect.PNG" alt="">
+			<img src="assets/img/JumpEffect.PNG" alt="">
+			<img src="assets/img/HealEffect.PNG" alt="">
+			<img src="assets/img/ShieldEffect.PNG" alt="">
+		</div>
+		<div id="perso3">
+			<img src="assets/img/speed.PNG" alt="">
+			<img src="assets/img/Jump.PNG" alt="">
+			<img src="assets/img/Heal.PNG" alt="">
+			<img src="assets/img/Shield.PNG" alt="">
+		</div>
+		
+	</section>
+
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h2>Intelligence Artificielle</h2>
+				<h3>Basic</h3>
+				<p> 
+					Cette IA est présente dans des Personnages Non Joueur (PNJ) qui peuple la ville. À chaque début de partie, nous en faisons apparaître à plusieurs localisations de la ville avec pour état “marche”. Lorsqu’un PNJ Basic est à l’état de marche, il trouve une destination puis s’y rend en marchant. Une fois arrivé, il en choisit une autre et ainsi de suite… De ce fait les PNJ Basic se baladent dans la ville sans but précis. Pour faciliter la création du chemin entre le PNJ et sa destination, nous avons utilisé les NavMeshAgent d’Unity. Ils permettent de générer des chemins avec différents paramètres. Pour les utiliser nous avons besoin de cuisiner une carte de Navigation.
+				</p>
+				<h3>Rescapé & Modèle</h3>
+				<p> 
+					Lors de la destruction d’un bâtiment un PNJ Rescapé apparaît demandant de l’aide. Seuls les joueurs de classe Pompier ou Médecin peuvent les soigner. Quand ils se font soigner, ils donnent des points aux défenseurs. Après être soigné ils prennent le même état de “peur” des Basic, c’est-à-dire de rejoindre la sortie la plus proche.
+
+				</p>
+			</div>
+		</div>
+		<div class="imgBx" >
+			<img style="width: 120%;max-width: 120%;" src="assets/img/ModelPNJ.PNG">
+			<img style="width: 120%;max-width: 120%;" src="assets/img/ia 1.png" alt="">
+		</div>
+		
+	</section>
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h3>Problèmes Rencontrés</h3>
+				<p> 
+					Nous avons eu quelques difficultés durant ce projet avec le GitHub. Il s'agissait de l'outil utilisé pour modifier et améliorer le jeu. Cependant cet outil s'est révélé compliqué à utiliser et peu intuitif au début.
+					Nous avons trouvé une alternative avec Gitkraken, qui nous a permis d'obtenir une interface graphique de git, ce qui fut très utile.<br>
+					Malgrès cela nous avons perdu beaucoup de temps avec le git et notamment pour la carte 2 qui a été supprimé 2 fois de suite par erreur.
+					D'autres problème concerne simplement les bugs du jeu qui ont parfois été compliqué à résoudre et c'est notamment le cas avec des bugs qui n'apparaissaient que dans le build du jeu et non dans l'éditeur ou inversement.
+					En conséquence beaucoup de temps a été consacré à la résolution de ces bugs. 
+				</p>
+				
+			</div>
+		</div>
+		<div class="imgBx">
+			<img style="width: 48%;" src="assets/img/git.png">
+			<img style="width: 48%;" src="assets/img/insect.png" alt="">
+		
+	</section>
+
+	<section id="v2">
+		<div class="content">
+			<div>
+				<h2>Version 2.0</h2>
+				<h3>Amélioration des cartes actuelles</h3>
+				<p>La carte numéro 1 continue son développement.<br>
+				La partie urbaine de la carte à évoluer : de nouveaux bâtiments ont été implémentés, la route a été agrandie et complétée et des voitures ont été ajoutées. Il y a maintenant un véritable centre-ville avec des commerces. De nouveaux détails ont été ajoutés comme des bouches d’égout avec des particules de fumée, des feux de signalisation, des plots indiquant des travaux, des bornes d’incendie (qui pourront être utilisées par les pompiers).
+				Les bâtiments et voitures joueront un rôle important dans le déroulement d’une partie. Ils pourront être détruits et donc faire évoluer la partie.<br>
+				</p>
+				<p>La carte numéro 2, a subi de nombreux changements et adaptations au gameplay.<br>
+				Ainsi la carte initiale comportant différentes îles a été abandonné au profit d’une nouvelle carte plus propre et qui correspond maintenant mieux au gameplay que nous souhaitons réaliser. En effet dans cette nouvelle carte on retrouve: une forêt en zone montagneuse, une ville qui comporte plusieurs nouveaux bâtiments, un volcan et un lac situé en zone montagneuse.
+
+				</p>
+			</div>
+		</div>
+		
+	</section>
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h2>Les Grandes Nouveautés</h2>
+				<h3>Pouvoirs Spéciaux</h3>
+				<p> Les premiers consommables ont pu faire leurs apparitions dans le jeu. Ces derniers sont les pouvoirs spéciaux évoqués à la dernière soutenance. Ils permettent de modifier les caractéristiques du joueur pour les améliorer ou bien les dégrader.
+					Les caractéristiques modifiables sont donc : la taille du joueur, la vitesse de déplacement, la vie du joueur, la hauteur des sauts.<br>
+					Toutes ses possibilités nous permettent d’ajouter une nouvelle mécanique de gameplay basée sur la recherche de pouvoirs spéciaux, permettant de faire chavirer le court de la partie.
+
+				</p>
+				<h3>Mécanisme de combat</h3>
+				<p> 
+					Les classes: “Policier” et “Mercenaire” ont maintenant une mitraillette. Un nouvel effet de particule a fait son apparition, un quand un joueur est touché et un autre quand un objet quelconque est touché.
+					La hache a été ajouté à la classe des Pompiers et le pack de soin est également apparu dans le jeu.
+				</p>
+			</div>
+		</div>
+		<div class="imgBx">
+			<img src="assets/img/powerup.PNG">
+			<img id="perso2" src="assets/img/policier.png" alt="policier">
+			<img id="perso2" src="assets/img/policierUp.png" alt="">
+		</div>
+		
+	</section>
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h3>Modifications de Carte 1</h3>
+				<p> 
+					La zone montagneuse en bas de la carte en entièrement fini.
+					Cette montagne est visible de pratiquement toute la carte et permet de créer à la fois un élément d’ambiance important ainsi qu’un repère visuel pour les joueurs.  Au sommet de celle-ci, on retrouve de la neige.
+					Une nouvelle zone a été créée : celle du désert.
+					On y retrouve des cactus, des arbres morts, des roches ainsi du relief. Cela permet aux joueurs de se cacher derrière et de se protéger des potentiels ennemis. Cette zone est donc importante dans le déroulement d’une partie.
+
+				</p>
+				<h3>Modifications de Carte 2</h3>
+				<p> 
+					Sur cette carte tout a donc été refaite de A à Z.
+					On y retrouve un ville située dans une zone montagneuse qui pourra offrir un gameplay différent de la première carte. Plusieurs lieux sont ainsi dédiés à l'apparition de pouvoirs spéciaux.
+					Les reliefs de la carte offrent de parfait endroit pour effectuer des offensives tout en incitant les joueurs à se déplacer à decouvert pour atteindre les pouvoirs spéciaux.
+				</p>
+			</div>
+		</div>
+		<div class="imgBx">
+			<img src="assets/img/ville.png">
+			<img src="assets/img/Map2Ville.png" alt="">
+		</div>
+		
+	</section>
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h3>Musiques et Son</h3>
+				<p> 
+					Afin de rendre le jeu un peu plus stimulant et de lui donner une ambiance en adéquation avec l’avancement de la partie, différents sons et musiques ont été créer.
+					Afin d’illustrer le niveau d’intensité de chacune de ces phases, nous avons créé 3 musiques possédant la même base rythmique… Mais ayant un niveau de détail différent.
+
+					Ainsi, lors de la première phase, la musique n’est presque constituée que d’une nappe et d’un petit accompagnement de guitare, alors que lors de la dernière phase, la musique devient aussi détaillée qu’une musique de trap.
+					De nombreux bruitages liés au nouveau gameplay du jeu ont également été ajoutés.
+				</p>
+				<h3>Système d’Animation et de Layers</h3>
+				<p> 
+					Le système d’animation a subi de nombreuses modifications entre la première et la seconde version du jeu. Tout d’abord, l’implémentation des personnages a entraîné une réadaptation des animations. En effet, le jeu possède maintenant différents  types de personnages. Ces personnages sont basés, en partie, sur les mêmes animations.
+					On y retrouve l’animation de marche avant, arrière, droite, gauche, course avant, course arrière, diagonale avant droite, diagonale avant gauche, idem pour l’arrière ainsi que l’animation de saut et de réception. Ce système de déplacement est le coeur du système d’animation des personnages : il permet aux joueurs de se déplacer sur les cartes.
+					Un système de superposition d'animations a été adoptée, avec les layers. Les animations spécifiques de visées ont été ajoutées.
+				</p>
+				
+			</div>
+		</div>
+		<div class="imgBx">
+			<img src="assets/img/sound.png">
+			<img src="assets/img/policierDown.png" alt="">
+		</div>
+	</section>
+	<section>
+		<div class="content" id="lireplus">
+			<div>
+				<h2>Version 1.0</h2>
+				<h3>Ajout de Nouvelles Cartes</h3>
+				<p>La présence d’une rivière, coupant la première carte en deux, est un aspect important du gameplay : elle oblige les joueurs à utiliser des passages stratégiques comme les deux ponts situés aux entrés nord et est de la ville. Le lac, en plus de l’aspect esthétique, pourra devenir un élément important de la partie : c’est un lieu potentiel où les pompiers pourront venir se réapprovisionner en eau. De plus, il oblige les joueurs à faire un détour pour pouvoir accéder à l’autre partie de la carte.</p>
+				<p> La seconde carte concentrera plusieurs zones stratégiques pour les deux équipes qui s'affrontent. Celles-ci seront localisées en majorité sur l'île principale mais également sur les îles adjacentes où se trouveront des pouvoirs spéciaux qui pourraient permettre de renverser le cours de la partie. On notera également que lorsqu'un joueur voudra passer d'une île à une autre il devra traverser l'océan et sera ainsi à découvert.  
+				À terme seul deux ponts seront présents sur la carte, ils relieront l'île principale à l'île des secouristes et à l'île des criminels et représenteront là encore des points de contrôle stratégiques.
+				</p>
+			</div>
+		</div>
+		<div class="imgBx">
+			<img src="assets/img/Carte2.png">
+		</div>
+		
+	</section>
+	<section>
+
+		<div class="content">
+			
+			<div>
+				<h3>Ajout de Nouveaux Personnages</h3>
+				<p>Découvre le pompier et le policier deux nouveaux personnage du jeu. Souhaitant avoir une physique de la lumière au rendez-vous, nous avons aussi mis des moyens sur la réflexion du casque et sur la réactivité des textures des personnages aux lumières.</p>
+			</div>
+		</div>
+		<div class="imgBx">
+			<img src="assets/img/pompierR2.png">
+		</div>
+	</section>
+
+</body>
+</html>
