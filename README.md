@@ -9,7 +9,7 @@ la carte. **Les Sauveteurs**, doivent défendre les bâtiments et secourir les
 citoyens.
 
 ## Téléchargez le jeu
-Pour télécharger l'installateur, cliquez [ici](docs/assets/download/ESU_setup.exe)
+Pour télécharger l'installateur, cliquez [ici](https://github.com/nathan-rabet/ESU/raw/master/docs/assets/download/ESU_setup.exe)
 
 ## Docummentation
 Un [guide d'installation et d'utilisation](https://github.com/nathan-rabet/ESU/wiki/Manuel-d%E2%80%99utilisation-et-d%E2%80%99installation) est à votre disposition.
