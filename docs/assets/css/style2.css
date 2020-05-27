@@ -164,12 +164,12 @@ section .imgBx img
 }
 .presentMember
 {
-	width: 80%;
+	width: 30%;
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin: auto;
+
 }
 .presentMember img
 {
@@ -285,7 +285,7 @@ section .imgBx img
 
 .container
 {
-	width: 58%;
+	width: 90%;
 	position: relative;
 	display: flex;
 	justify-content: space-between;
