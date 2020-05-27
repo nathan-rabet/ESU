@@ -1,6 +1,6 @@
 ![Logo ESU](https://user-images.githubusercontent.com/13369175/83048551-0a5b4880-a04a-11ea-8cc0-4a71fa69a32b.gif)
 
-# Emergency Service Unit Game - Projet de S2 de l'EPITA
+# Emergency Service Unit - Projet de S2 de l'EPITA
 ## Qu'est-ce que E.S.U. ?
 E.S.U. est un jeu multijoueur axé sur l’action et le PVP (joueur contre joueur). Le but de ce
 jeu est simple : deux équipes s’affrontent sur une carte au cours d’une partie
